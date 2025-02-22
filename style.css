@@ -104,7 +104,6 @@ header {
   height: auto;
   display: block;
   /* 建議加入 lazy-loading */
-  loading: lazy;
 }
 
 /* ---------- SYWANJ Logo / 標題 ---------- */
