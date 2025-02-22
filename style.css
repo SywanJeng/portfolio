@@ -38,31 +38,51 @@ header {
   text-align: right;
 }
 
-/* 連結的預設狀態：灰字、正常粗度、"有透明邊框" */
+/* 預設連結樣式 */
 .header-center a,
 .header-right a {
+  position: relative; /* 為偽元素定位 */
   color: gray;
   font-weight: 400;
-  text-decoration: none; 
-  border-bottom: 1px solid transparent; /* 預先佔好邊框空間，避免 hover 時跳動 */
+  text-decoration: none;
+  /* 固定 line-height 與 padding，確保 hover 前後不變 */
+  line-height: 1.5;
+  padding-bottom: 4px; /* 根據需要調整 */
 }
 
-/* hover: 黑字、粗體、底線(改為黑色) */
-.header-center a:hover,
-.header-right a:hover {
-  color: black;
-  font-weight: 700;
-  border-bottom-color: black; 
+/* 偽元素作為底線，預設隱藏 */
+.header-center a::after,
+.header-right a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
 }
 
-/* 點擊/已點擊: 黑字、粗體、底線(黑色) */
+/* hover 狀態下改變偽元素的背景色，顯示底線 */
+.header-center a:hover::after,
+.header-right a:hover::after {
+  background-color: black;
+}
+
+/* 點擊或已點擊後：改變文字與底線效果 */
 .header-center a:active,
 .header-right a:active,
 .header-center a:visited,
 .header-right a:visited {
   color: black;
   font-weight: 700;
-  border-bottom-color: black;
+}
+
+.header-center a:active::after,
+.header-right a:active::after,
+.header-center a:visited::after,
+.header-right a:visited::after {
+  background-color: black;
 }
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
