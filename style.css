@@ -115,13 +115,13 @@ header {
 }
 
 .work-category {
-  font-weight: 100; /* 根據需求設定字重 */
+  font-weight: 300; /* 根據需求設定字重 */
   font-size: 0.9rem;
   color: #444;
 }
 
 .work-title {
-  font-weight: 100; /* 根據需求設定字重 */
+  font-weight: 300; /* 根據需求設定字重 */
   font-size: 0.8rem;
   color: #666;
 }
