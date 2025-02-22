@@ -39,54 +39,23 @@ header {
   text-align: right;
 }
 
-/* 預設連結樣式 */
-.header-center a,
-.header-right a {
-  display: inline-block;
-  position: relative;
+/* 中間區域 4 個按鈕預設狀態 */
+.header-center a {
   color: gray;
-  font-weight: 400;
   text-decoration: none;
-  line-height: 1.5;
-  padding-bottom: 4px;
 }
 
-/* 明確覆寫 :visited 狀態，強制為灰色 */
-.header-center a:visited,
-.header-right a:visited {
-  color: gray;
-}
-
-/* 偽元素作為底線 */
-.header-center a::after,
-.header-right a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
-}
-
-/* hover 時，底線變成黑色 */
-.header-center a:hover::after,
-.header-right a:hover::after {
-  background-color: black;
-}
-
-/* 當點擊後加上 .active 類別，則改為黑色粗體與底線 */
-.header-center a.active,
-.header-right a.active {
+/* hover 狀態：變黑並加底線 */
+.header-center a:hover {
   color: black;
-  font-weight: 700;
+  text-decoration: underline;
 }
 
-.header-center a.active::after,
-.header-right a.active::after {
-  background-color: black;
+/* 按下（active）狀態：保持黑色 */
+.header-center a:active {
+  color: black;
 }
+
 
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
