@@ -46,7 +46,7 @@ header {
   text-decoration: none;
 }
 
-/* hover 狀態：變黑並加底線 */
+/* hover 狀態：變黑並加瀏覽器預設底線 */
 .header-center a:hover,
 .header-right a:hover {
   color: black;
@@ -81,12 +81,15 @@ header {
 .work-info {
   margin-bottom: 8px;
 }
+
 .work-category {
-  font-weight: bold;
+  font-weight: 100;  /* 作品區文字字重設定為 100 */
   font-size: 0.9rem;
   color: #444;
 }
+
 .work-title {
+  font-weight: 100;  /* 作品區文字字重設定為 100 */
   font-size: 0.8rem;
   color: #666;
 }
