@@ -39,24 +39,27 @@ header {
   text-align: right;
 }
 
-/* 中間區域 4 個按鈕預設狀態 */
-.header-center a {
+/* 中間及右側連結預設狀態 */
+.header-center a,
+.header-right a {
   color: gray;
   text-decoration: none;
 }
 
 /* hover 狀態：變黑並加底線 */
-.header-center a:hover {
+.header-center a:hover,
+.header-right a:hover {
   color: black;
   text-decoration: underline;
 }
 
 /* 按下（active）狀態：保持黑色 */
-.header-center a:active {
+.header-center a:active,
+.header-right a:active {
   color: black;
 }
 
-/* 作品展示區（水平滑動） */
+/* ---------- 作品展示區（水平滑動） ---------- */
 .slider-container {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -100,7 +103,6 @@ header {
 .logo {
   text-align: center;
   margin: 60px 0;
-  /* clamp 讓字體能自適應大小，您可依喜好調整 */
   font-size: clamp(2rem, 6vw, 6rem);
   font-weight: bold;
 }
@@ -121,7 +123,7 @@ header {
     justify-content: center;
   }
   /* 小螢幕時，每次只顯示 3 張作品 */
-  .carousel-item {
+  .slide {
     width: calc(100% / 3);
   }
 }
