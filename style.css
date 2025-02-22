@@ -1,3 +1,4 @@
+/* 基本重置 */
 * {
   margin: 0;
   padding: 0;
@@ -5,62 +6,128 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
+  color: #000;
 }
 
+/* ---------- Header 區域 ---------- */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* 左中右分佈 */
   align-items: center;
-  padding: 20px 10%;
+  max-width: 1200px; /* 可依需求調整 */
+  margin: 0 auto;    /* 置中 */
+  padding: 20px;
 }
 
-.left {
-  font-size: 16px;
+/* 左、右區塊 */
+.header-left,
+.header-right {
+  flex: 1;
+  font-weight: 500;
 }
 
-.center {
+/* 中間導航 */
+.header-center {
   display: flex;
-  gap: 30px;
+  justify-content: center;
+  gap: 30px; /* 連結間距 */
+  flex: 2;   /* 中間區域可大一些 */
+}
+.header-center a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
 }
 
-.center span {
-  cursor: pointer;
-  font-size: 16px;
+/* 右邊連結 */
+.header-right a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  float: right;
 }
 
-.right {
-  font-size: 16px;
-  cursor: pointer;
-}
-
-main {
-  padding: 50px 10%;
-}
-
-.gallery {
-  overflow: hidden;
-}
-
+/* ---------- 跑馬燈 Carousel 區域 ---------- */
 .carousel {
+  width: 100%;
+  overflow: hidden;   /* 超出隱藏，產生跑馬燈感 */
+  position: relative; /* 若需定位可用 */
+  margin: 40px auto;  /* 與上下保持距離 */
+  max-width: 1600px;  /* 可依需求設定最大寬度 */
+}
+
+/* track: 內部容器負責橫向排列所有作品 */
+.carousel-track {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  /* 透過 animation 實現自動水平移動的跑馬燈 */
+  animation: marquee 20s linear infinite;
 }
 
-.image {
-  width: 200px;
-  height: 300px;
-  margin-right: 30px;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
+/* 單個作品項目 */
+.carousel-item {
+  flex: 0 0 auto;         /* 不隨容器擴張 */
+  width: calc(100% / 7);  /* 以 7 張為例，依螢幕寬度自動計算每張寬度 */
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s;
+}
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.image:hover {
-  transform: scale(1.1);
-}
-
-.image:focus {
+/* 讓中間的第 4 張圖片(靜態)放大 */
+.carousel-item:nth-child(4) img {
   transform: scale(1.2);
-  z-index: 10;
+  transition: transform 0.3s;
+}
+
+/* 滑鼠 hover 在作品上時，放大效果 */
+.carousel-item:hover {
+  transform: scale(1.1);
+  z-index: 2; /* 避免放大被其他元素擋住 */
+}
+
+/* keyframes：負責橫向移動整個 track */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* 根據實際需求微調位移距離 
+       這裡示範往左移動 50% 寬度，並重複循環 */
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- SYWANJ Logo / 標題 ---------- */
+.logo {
+  text-align: center;
+  margin: 60px 0;
+  /* clamp 讓字體能自適應大小，您可依喜好調整 */
+  font-size: clamp(2rem, 6vw, 6rem);
+  font-weight: bold;
+}
+
+/* ---------- RWD 響應式示範 (可依需求調整) ---------- */
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .header-left,
+  .header-right {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+  .header-center {
+    order: 3;
+    justify-content: center;
+  }
+  /* 小螢幕時，每次只顯示 3 張作品 */
+  .carousel-item {
+    width: calc(100% / 3);
+  }
 }

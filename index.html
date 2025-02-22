@@ -1,33 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>SYWANJ Homepage</title>
+  <!-- 匯入外部 CSS -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- Header 區域 -->
   <header>
-    <div class="left">Visual, Graphic Designer</div>
-    <div class="center">
-      <span>Layout</span>
-      <span>Exhibition</span>
-      <span>Commercial</span>
-      <span>About</span>
+    <div class="header-left">Visual, Graphic Designer</div>
+    <nav class="header-center">
+      <a href="#layout">Layout</a>
+      <a href="#exhibition">Exhibition</a>
+      <a href="#commercial">Commercial</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="header-right">
+      <a href="#message">Message Me</a>
     </div>
-    <div class="right">Message Me</div>
   </header>
 
-  <main>
-    <section class="gallery">
-      <div class="carousel">
-        <div class="image" style="background-image: url('images/image1.jpg');"></div>
-        <div class="image" style="background-image: url('images/image1.jpg');"></div>
-        <div class="image" style="background-image: url('images/image1.jpg');"></div>
-        <div class="image" style="background-image: url('images/image1.jpg');"></div>
-
+  <!-- 跑馬燈作品區域 -->
+  <div class="carousel">
+    <div class="carousel-track">
+      <!-- 以下示範 7 個作品，您可自行替換圖片路徑與 alt -->
+      <div class="carousel-item">
+        <img src="image1.jpg" alt="Project 1">
       </div>
-    </section>
-  </main>
+      <div class="carousel-item">
+        <img src="image2.jpg" alt="Project 2">
+      </div>
+      <div class="carousel-item">
+        <img src="image3.jpg" alt="Project 3">
+      </div>
+      <div class="carousel-item">
+        <img src="image4.jpg" alt="Project 4">
+      </div>
+      <div class="carousel-item">
+        <img src="image5.jpg" alt="Project 5">
+      </div>
+      <div class="carousel-item">
+        <img src="image6.jpg" alt="Project 6">
+      </div>
+      <div class="carousel-item">
+        <img src="image7.jpg" alt="Project 7">
+      </div>
+    </div>
+  </div>
+
+  <!-- 下方標題 -->
+  <div class="logo">SYWANJ</div>
+
+  <!-- 無 footer 區域 -->
+
+  <!-- 預留的 JS 檔案 (若需要) -->
+  <!-- <script src="script.js"></script> -->
 </body>
 </html>
