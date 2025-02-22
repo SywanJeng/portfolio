@@ -1,0 +1,12 @@
+{
+  "Layout": [
+    { "src": "layout1.jpg", "category": "Layout", "title": "2024 XX參考手冊" },
+    { "src": "layout2.jpg", "category": "Layout", "title": "2024 YY參考手冊" }
+  ],
+  "Exhibition": [
+    { "src": "exhibition1.jpg", "category": "Exhibition", "title": "2024 展覽參考手冊" }
+  ],
+  "Commercial": [
+    { "src": "commercial1.jpg", "category": "Commercial", "title": "2024 商業參考手冊" }
+  ]
+}
