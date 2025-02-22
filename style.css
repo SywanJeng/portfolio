@@ -41,13 +41,13 @@ header {
 /* 預設連結樣式 */
 .header-center a,
 .header-right a {
-  position: relative; /* 為偽元素定位 */
+  display: inline-block;         /* 固定元素框架，避免因重排而跳動 */
+  position: relative;            /* 為偽元素定位 */
   color: gray;
   font-weight: 400;
   text-decoration: none;
-  /* 固定 line-height 與 padding，確保 hover 前後不變 */
   line-height: 1.5;
-  padding-bottom: 4px; /* 根據需要調整 */
+  padding-bottom: 4px;           /* 保留空間給底線 */
 }
 
 /* 偽元素作為底線，預設隱藏 */
@@ -63,13 +63,14 @@ header {
   transition: background-color 0.3s ease;
 }
 
-/* hover 狀態下改變偽元素的背景色，顯示底線 */
+/* hover 狀態下改變偽元素背景色 */
 .header-center a:hover::after,
 .header-right a:hover::after {
   background-color: black;
 }
 
 /* 點擊或已點擊後：改變文字與底線效果 */
+/* 若發現 font-weight 變化造成重排問題，可考慮將這裡移除或調整 */
 .header-center a:active,
 .header-right a:active,
 .header-center a:visited,
@@ -84,6 +85,7 @@ header {
 .header-right a:visited::after {
   background-color: black;
 }
+
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
 .carousel {
