@@ -150,19 +150,31 @@ header {
    6. RWD 響應式示範
 -------------------- */
 @media (max-width: 768px) {
-  header {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .header-left,
-  .header-right {
-    flex: 1 0 100%;
-    text-align: center;
-  }
-  .header-center {
-    order: 3;
-    justify-content: center;
-  }
+ /* 調整 header 為縱向排列 */
+ header {
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 左側區塊放在最上面 */
+.header-left {
+  order: 1;
+  width: 100%;
+  text-align: center;
+}
+
+/* 中間區塊放在下方 */
+.header-center {
+  order: 2;
+  width: 100%;
+  justify-content: center;
+}
+
+/* 隱藏右側區塊 */
+.header-right {
+  display: none;
+}
   /* 小螢幕時，每次只顯示 3 張作品 */
   .slide {
     width: calc(100% / 3);
