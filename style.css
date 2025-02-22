@@ -56,37 +56,27 @@ header {
   color: black;
 }
 
-
-
-/* ---------- 跑馬燈 Carousel 區域 ---------- */
-.carousel {
-  width: 100%;
-  overflow: hidden;   /* 超出隱藏，產生跑馬燈感 */
-  position: relative; /* 若需定位可用 */
-  margin: 40px auto;  /* 與上下保持距離 */
-  max-width: 1600px;  /* 可依需求設定最大寬度 */
+/* 作品展示區（水平滑動） */
+.slider-container {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 0;
 }
 
-/* track: 內部容器負責橫向排列所有作品 */
-.carousel-track {
+.slider {
   display: flex;
-  animation: marquee 20s linear infinite; /* 自動水平移動 */
 }
 
-/* 單個作品項目 */
-.carousel-item {
-  flex: 0 0 auto;         /* 不隨容器寬度擴張 */
-  width: calc(100% / 7);  /* 以 7 張為例，依螢幕寬度自動計算每張寬度 */
-  text-align: left;
-  padding: 10px;
-  transition: transform 0.3s;
-  box-sizing: border-box;
-  position: relative;
+.slide {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 300px;  /* 可依需求調整寬度 */
+  margin-right: 20px;
 }
 
-/* 作品文字敘述 */
 .work-info {
-  margin-bottom: 8px; /* 與圖片保持距離 */
+  margin-bottom: 8px;
 }
 .work-category {
   font-weight: bold;
@@ -96,38 +86,14 @@ header {
 .work-title {
   font-size: 0.8rem;
   color: #666;
-  margin-top: 2px;
 }
 
-/* 圖片 */
-.carousel-item img {
+.slide img {
   width: 100%;
   height: auto;
   display: block;
-}
-
-/* 可保留「中間第 4 張放大」示範 */
-.carousel-item:nth-child(4) img {
-  transform: scale(1.15);
-  transition: transform 0.3s;
-}
-
-/* 滑鼠 hover 在作品上時，放大效果 */
-.carousel-item:hover {
-  transform: scale(1.05);
-  z-index: 2; /* 避免放大被其他元素擋住 */
-}
-
-/* keyframes：負責橫向移動整個 track */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    /* 根據實際需求微調位移距離 
-       這裡示範往左移動 50% 寬度，並重複循環 */
-    transform: translateX(-50%);
-  }
+  /* 建議加入 lazy-loading */
+  loading: lazy;
 }
 
 /* ---------- SYWANJ Logo / 標題 ---------- */
