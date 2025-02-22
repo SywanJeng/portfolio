@@ -13,44 +13,45 @@ body {
 /* ---------- Header 區域 ---------- */
 header {
   display: flex;
-  justify-content: space-between; /* 左中右分佈 */
+  justify-content: space-between;
   align-items: center;
-  max-width: 1200px; 
-  margin: 0 auto;    
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
 }
 
 /* 左側欄位：預設粗體 */
 .header-left {
   flex: 1;
-  font-weight: bold; /* or 700 */
+  font-weight: bold;
 }
 
-/* 中間欄位、右側欄位本身的容器 */
+/* 中間與右側容器 */
 .header-center {
   display: flex;
   justify-content: center;
-  gap: 30px; 
-  flex: 2;   
+  gap: 30px;
+  flex: 2;
 }
+
 .header-right {
   flex: 1;
   text-align: right;
 }
 
-/* 預設連結樣式 */
+/* 預設連結樣式（中間及右側） */
 .header-center a,
 .header-right a {
   display: inline-block;
   position: relative;
-  color: gray;
+  color: gray;               /* 預設灰色 */
   font-weight: 400;
   text-decoration: none;
   line-height: 1.5;
   padding-bottom: 4px;
 }
 
-/* 偽元素作為底線 */
+/* 使用偽元素建立底線 */
 .header-center a::after,
 .header-right a::after {
   content: "";
@@ -63,13 +64,13 @@ header {
   transition: background-color 0.3s ease;
 }
 
-/* hover 狀態 */
+/* hover 時底線變成黑色 */
 .header-center a:hover::after,
 .header-right a:hover::after {
   background-color: black;
 }
 
-/* 定義 active 狀態，透過類別控制 */
+/* 定義 active 狀態，點擊後變成黑色、粗體及底線 */
 .header-center a.active,
 .header-right a.active {
   color: black;
