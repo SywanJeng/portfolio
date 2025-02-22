@@ -15,37 +15,54 @@ header {
   display: flex;
   justify-content: space-between; /* 左中右分佈 */
   align-items: center;
-  max-width: 1200px; /* 可依需求調整 */
-  margin: 0 auto;    /* 置中 */
+  max-width: 1200px; 
+  margin: 0 auto;    
   padding: 20px;
 }
 
-/* 左、右區塊 */
-.header-left,
-.header-right {
+/* 左側欄位：預設粗體 */
+.header-left {
   flex: 1;
-  font-weight: 500;
+  font-weight: bold; /* or 700 */
 }
 
-/* 中間導航 */
+/* 中間欄位、右側欄位本身的容器 */
 .header-center {
   display: flex;
   justify-content: center;
-  gap: 30px; /* 連結間距 */
-  flex: 2;   /* 中間區域可大一些 */
+  gap: 30px; 
+  flex: 2;   
 }
-.header-center a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
+.header-right {
+  flex: 1;
+  text-align: right;
 }
 
-/* 右邊連結 */
+/* 連結的預設狀態：灰字、正常粗度、無底線 */
+.header-center a,
 .header-right a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-  float: right;
+  color: gray;
+  font-weight: 400;      /* 正常粗度 */
+  text-decoration: none; /* 移除預設底線 */
+  border-bottom: none;   /* 我們要自定義底線，故先移除 */
+}
+
+/* 滑鼠 hover：黑字、粗體、加上「非文字裝飾」的底線 */
+.header-center a:hover,
+.header-right a:hover {
+  color: black;
+  font-weight: 700;              /* 粗體 */
+  border-bottom: 1px solid black;/* 利用 border-bottom 產生底線效果 */
+}
+
+/* 點擊(按下)或已點擊(visited)後：黑字、粗體、底線 */
+.header-center a:active,
+.header-right a:active,
+.header-center a:visited,
+.header-right a:visited {
+  color: black;
+  font-weight: 700;
+  border-bottom: 1px solid black;
 }
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
