@@ -39,19 +39,25 @@ header {
   text-align: right;
 }
 
-/* 預設連結樣式（中間及右側） */
+/* 預設連結樣式 */
 .header-center a,
 .header-right a {
   display: inline-block;
   position: relative;
-  color: gray;               /* 預設灰色 */
+  color: gray;
   font-weight: 400;
   text-decoration: none;
   line-height: 1.5;
   padding-bottom: 4px;
 }
 
-/* 使用偽元素建立底線 */
+/* 明確覆寫 :visited 狀態，強制為灰色 */
+.header-center a:visited,
+.header-right a:visited {
+  color: gray;
+}
+
+/* 偽元素作為底線 */
 .header-center a::after,
 .header-right a::after {
   content: "";
@@ -64,13 +70,13 @@ header {
   transition: background-color 0.3s ease;
 }
 
-/* hover 時底線變成黑色 */
+/* hover 時，底線變成黑色 */
 .header-center a:hover::after,
 .header-right a:hover::after {
   background-color: black;
 }
 
-/* 定義 active 狀態，點擊後變成黑色、粗體及底線 */
+/* 當點擊後加上 .active 類別，則改為黑色粗體與底線 */
 .header-center a.active,
 .header-right a.active {
   color: black;
@@ -81,6 +87,7 @@ header {
 .header-right a.active::after {
   background-color: black;
 }
+
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
 .carousel {
