@@ -138,9 +138,10 @@ header {
 -------------------- */
 .logo {
   text-align: center;
-  margin: 60px 0;
-  font-size: clamp(2rem, 6vw, 6rem);
-  font-weight: bold;
+  font-size: 15vw;
+  line-height: 1;
+  white-space: nowrap;
+  margin: 60px auto;
 }
 
 /* --------------------
