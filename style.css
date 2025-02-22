@@ -60,33 +60,51 @@ header {
 /* track: 內部容器負責橫向排列所有作品 */
 .carousel-track {
   display: flex;
-  /* 透過 animation 實現自動水平移動的跑馬燈 */
-  animation: marquee 20s linear infinite;
+  animation: marquee 20s linear infinite; /* 自動水平移動 */
 }
 
 /* 單個作品項目 */
 .carousel-item {
-  flex: 0 0 auto;         /* 不隨容器擴張 */
+  flex: 0 0 auto;         /* 不隨容器寬度擴張 */
   width: calc(100% / 7);  /* 以 7 張為例，依螢幕寬度自動計算每張寬度 */
-  text-align: center;
+  text-align: left;
   padding: 10px;
   transition: transform 0.3s;
+  box-sizing: border-box;
+  position: relative;
 }
+
+/* 作品文字敘述 */
+.work-info {
+  margin-bottom: 8px; /* 與圖片保持距離 */
+}
+.work-category {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #444;
+}
+.work-title {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* 圖片 */
 .carousel-item img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* 讓中間的第 4 張圖片(靜態)放大 */
+/* 可保留「中間第 4 張放大」示範 */
 .carousel-item:nth-child(4) img {
-  transform: scale(1.2);
+  transform: scale(1.15);
   transition: transform 0.3s;
 }
 
 /* 滑鼠 hover 在作品上時，放大效果 */
 .carousel-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   z-index: 2; /* 避免放大被其他元素擋住 */
 }
 
