@@ -41,16 +41,16 @@ header {
 /* 預設連結樣式 */
 .header-center a,
 .header-right a {
-  display: inline-block;         /* 固定元素框架，避免因重排而跳動 */
-  position: relative;            /* 為偽元素定位 */
+  display: inline-block;
+  position: relative;
   color: gray;
   font-weight: 400;
   text-decoration: none;
   line-height: 1.5;
-  padding-bottom: 4px;           /* 保留空間給底線 */
+  padding-bottom: 4px;
 }
 
-/* 偽元素作為底線，預設隱藏 */
+/* 偽元素作為底線 */
 .header-center a::after,
 .header-right a::after {
   content: "";
@@ -63,29 +63,23 @@ header {
   transition: background-color 0.3s ease;
 }
 
-/* hover 狀態下改變偽元素背景色 */
+/* hover 狀態 */
 .header-center a:hover::after,
 .header-right a:hover::after {
   background-color: black;
 }
 
-/* 點擊或已點擊後：改變文字與底線效果 */
-/* 若發現 font-weight 變化造成重排問題，可考慮將這裡移除或調整 */
-.header-center a:active,
-.header-right a:active,
-.header-center a:visited,
-.header-right a:visited {
+/* 定義 active 狀態，透過類別控制 */
+.header-center a.active,
+.header-right a.active {
   color: black;
   font-weight: 700;
 }
 
-.header-center a:active::after,
-.header-right a:active::after,
-.header-center a:visited::after,
-.header-right a:visited::after {
+.header-center a.active::after,
+.header-right a.active::after {
   background-color: black;
 }
-
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
 .carousel {
