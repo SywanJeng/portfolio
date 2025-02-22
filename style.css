@@ -38,31 +38,31 @@ header {
   text-align: right;
 }
 
-/* 連結的預設狀態：灰字、正常粗度、無底線 */
+/* 連結的預設狀態：灰字、正常粗度、"有透明邊框" */
 .header-center a,
 .header-right a {
   color: gray;
-  font-weight: 400;      /* 正常粗度 */
-  text-decoration: none; /* 移除預設底線 */
-  border-bottom: none;   /* 我們要自定義底線，故先移除 */
+  font-weight: 400;
+  text-decoration: none; 
+  border-bottom: 1px solid transparent; /* 預先佔好邊框空間，避免 hover 時跳動 */
 }
 
-/* 滑鼠 hover：黑字、粗體、加上「非文字裝飾」的底線 */
+/* hover: 黑字、粗體、底線(改為黑色) */
 .header-center a:hover,
 .header-right a:hover {
   color: black;
-  font-weight: 700;              /* 粗體 */
-  border-bottom: 1px solid black;/* 利用 border-bottom 產生底線效果 */
+  font-weight: 700;
+  border-bottom-color: black; 
 }
 
-/* 點擊(按下)或已點擊(visited)後：黑字、粗體、底線 */
+/* 點擊/已點擊: 黑字、粗體、底線(黑色) */
 .header-center a:active,
 .header-right a:active,
 .header-center a:visited,
 .header-right a:visited {
   color: black;
   font-weight: 700;
-  border-bottom: 1px solid black;
+  border-bottom-color: black;
 }
 
 /* ---------- 跑馬燈 Carousel 區域 ---------- */
