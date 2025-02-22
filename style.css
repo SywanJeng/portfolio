@@ -26,38 +26,43 @@ header {
   font-weight: bold;
 }
 
-/* 中間與右側容器 */
-.header-center {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex: 2;
-}
-
-.header-right {
-  flex: 1;
-  text-align: right;
-}
-
-/* 中間及右側連結預設狀態 */
+/* 預設連結樣式 */
 .header-center a,
 .header-right a {
+  position: relative;
   color: gray;
   text-decoration: none;
 }
 
-/* hover 狀態：變黑並加瀏覽器預設底線 */
-.header-center a:hover,
-.header-right a:hover {
-  color: black;
-  text-decoration: underline;
+/* 偽元素作為底線，預設縮放為 0 */
+.header-center a::after,
+.header-right a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; /* 調整與文字的距離 */
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: 2px; /* 底線粗細，可依需求調整 */
+  background-color: black;
+  transition: transform 0.3s ease-out;
 }
 
-/* 按下（active）狀態：保持黑色 */
+/* hover 時，底線從中間延展 */
+.header-center a:hover::after,
+.header-right a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* hover 或 active 時變色 */
+.header-center a:hover,
 .header-center a:active,
+.header-right a:hover,
 .header-right a:active {
   color: black;
 }
+
 
 /* ---------- 作品展示區（水平滑動） ---------- */
 .slider-container {
