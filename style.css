@@ -140,7 +140,7 @@ header {
   text-align: center;
   margin: 60px 0;
   /* 使用 clamp 來控制字體大小流體調整 */
-  font-size: clamp(2rem, 6vw, 6rem);
+  font-size: clamp(2rem, 9vw, 10rem);
   font-weight: bold;
   white-space: nowrap;  /* 桌機版保持一行 */
   overflow: hidden;     /* 防止超出造成水平捲軸 */
