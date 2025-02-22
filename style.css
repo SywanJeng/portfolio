@@ -1,70 +1,97 @@
-/* 基本重置 */
+/* --------------------
+   1. 基本重置
+-------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* --------------------
+   2. Body 與字型設定
+-------------------- */
 body {
-  font-family: 'Noto Sans TC', 'Noto Sans', sans-serif;
+  font-family: sans-serif;
   color: #000;
 }
 
-/* ---------- Header 區域 ---------- */
+/* --------------------
+   3. Header 區域
+-------------------- */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* 左、中、右分佈 */
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* 左側欄位：預設粗體 */
+/* 左側欄位 */
 .header-left {
-  flex: 1;
-  font-weight: bold;
+  flex: 1;           /* 占一份寬度 */
+  font-weight: bold; /* 預設粗體 */
+  text-align: left;  /* 靠左 */
 }
 
-/* 預設連結樣式 */
+/* 中間欄位 */
+.header-center {
+  flex: 2;                  /* 占兩份寬度 */
+  display: flex;            /* 讓連結並排 */
+  justify-content: center;  /* 水平置中 */
+  gap: 30px;                /* 按鈕之間的距離 */
+}
+
+/* 右側欄位 */
+.header-right {
+  flex: 1;            /* 占一份寬度 */
+  text-align: right;  /* 靠右 */
+}
+
+/* 中間與右側的連結預設狀態 */
 .header-center a,
 .header-right a {
-  position: relative;
   color: gray;
   text-decoration: none;
+  position: relative;
 }
 
-/* 偽元素作為底線，預設縮放為 0 */
-.header-center a::after,
-.header-right a::after {
-  content: "";
-  position: absolute;
-  bottom: -4px; /* 調整與文字的距離 */
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: center;
-  width: 100%;
-  height: 2px; /* 底線粗細，可依需求調整 */
-  background-color: black;
-  transition: transform 0.3s ease-out;
-}
-
-/* hover 時，底線從中間延展 */
-.header-center a:hover::after,
-.header-right a:hover::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-/* hover 或 active 時變色 */
+/* hover: 文字變黑 */
 .header-center a:hover,
+.header-right a:hover {
+  color: black;
+}
+
+/* active: 保持黑色 */
 .header-center a:active,
-.header-right a:hover,
 .header-right a:active {
   color: black;
 }
 
+/* 元素底線 */
+.header-center a::after,
+.header-right a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  transition: transform 0.3s ease-out;
+}
+.header-center a:hover::after,
+.header-center a:active::after,
+.header-right a:hover::after,
+.header-right a:active::after {
+  transform: translateX(-50%) scaleX(1);
+}
 
-/* ---------- 作品展示區（水平滑動） ---------- */
+/* --------------------
+   4. 作品展示區（水平滑動）
+-------------------- */
 .slider-container {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -79,7 +106,7 @@ header {
 .slide {
   flex: 0 0 auto;
   scroll-snap-align: center;
-  width: 300px;  /* 可依需求調整寬度 */
+  width: 300px; /* 可依需求調整寬度 */
   margin-right: 20px;
 }
 
@@ -88,13 +115,13 @@ header {
 }
 
 .work-category {
-  font-weight: 100;  /* 作品區文字字重設定為 100 */
+  font-weight: 100; /* 根據需求設定字重 */
   font-size: 0.9rem;
   color: #444;
 }
 
 .work-title {
-  font-weight: 100;  /* 作品區文字字重設定為 100 */
+  font-weight: 100; /* 根據需求設定字重 */
   font-size: 0.8rem;
   color: #666;
 }
@@ -106,7 +133,9 @@ header {
   /* 建議加入 lazy-loading */
 }
 
-/* ---------- SYWANJ Logo / 標題 ---------- */
+/* --------------------
+   5. 下方 Logo
+-------------------- */
 .logo {
   text-align: center;
   margin: 60px 0;
@@ -114,7 +143,9 @@ header {
   font-weight: bold;
 }
 
-/* ---------- RWD 響應式示範 (可依需求調整) ---------- */
+/* --------------------
+   6. RWD 響應式示範
+-------------------- */
 @media (max-width: 768px) {
   header {
     flex-wrap: wrap;
