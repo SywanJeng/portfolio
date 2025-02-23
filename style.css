@@ -175,13 +175,12 @@ header {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 90vh; /* 預設展開高度，確保不會遮住 header */
-  background: white;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-  transform: translateY(100%); /* 初始隱藏在底部 */
+  height: 90vh;
+  background: #F0F0F0; /* 將底色改為 #F0F0F0 */
+  transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
-  z-index: 998; /* 確保它不會壓過 header */
+  z-index: 998;
 }
 
 /* 當 overlay 被激活時，從底部展開 */
