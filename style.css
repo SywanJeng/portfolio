@@ -137,26 +137,29 @@ header {
 /* --------------------
   5. Logo 區域
 -------------------- */
+/* 父容器：只要上下間距即可 */
 .logo-section {
-  text-align: right;  /* 讓所有內部文字靠右對齊 */
-  margin: 60px 0;     /* 與上下的間距，可依需求調整 */
+  margin: 60px 0; /* 與上下段落的距離，可自行調整 */
 }
 
+/* 小字：右對齊 + 與螢幕右側留空間 */
 .logo-info {
-  font-weight: 300;   /* 小字使用 300 字重 */
-  font-size: 1rem;    /* 可依需求調整小字體大小 */
-  margin: 0;
-  margin-bottom: 10px;  /* 與大字間隔 10px */
-  color: #000;        /* 文字顏色，可依需求調整 */
+  text-align: right;   /* 文字靠右 */
+  margin-right: 20px;  /* 與螢幕右側保留 20px 距離 */
+  margin-bottom: 10px; /* 與下方大字相隔 10px */
+  font-weight: 300;    /* 字重 300 */
+  font-size: 1rem;     /* 可依需求調整 */
+  /* pointer-events: none; // 若您要完全不可點擊，可加上 */
 }
 
+/* 大字：置中 + 流體字體 */
 .logo {
+  text-align: center;
   font-size: clamp(2rem, 9vw, 10rem);
   font-weight: bold;
-  margin-top: -20px;
-  white-space: nowrap; /* 避免換行 */
+  white-space: nowrap;
   overflow: hidden;
-  color: #000;
+  margin: 0 auto; /* 若需要再多一點水平置中保險，可加這行 */
 }
 
 
