@@ -135,22 +135,29 @@ header {
 }
 
 /* --------------------
-   5. 下方 Logo 區域
+  5. Logo 區域
 -------------------- */
-.logo {
-  font-size: clamp(2rem, 9vw, 10rem);
-  font-weight: bold;
-  /* 其他設定... */
-  line-height: 1; /* 控制此行文字的行高 */
-  white-space: nowrap; /* 避免換行 */
+.logo-section {
+  text-align: right;  /* 讓所有內部文字靠右對齊 */
+  margin: 60px 0;     /* 與上下的間距，可依需求調整 */
 }
 
 .logo-info {
-  font-weight: 300;
-  /* 若要讓小字與大字高度稍微對齊，可調整 vertical-align 或使用 inline-flex + align-items */
-  margin-left: 10px; /* 讓小字和大字之間保留空間 */
+  font-weight: 300;   /* 小字使用 300 字重 */
+  font-size: 1rem;    /* 可依需求調整小字體大小 */
+  margin: 0;
+  margin-bottom: 10px;  /* 與大字間隔 10px */
+  color: #000;        /* 文字顏色，可依需求調整 */
 }
 
+.logo {
+  font-size: clamp(2rem, 9vw, 10rem);
+  font-weight: bold;
+  margin-top: -20px;
+  white-space: nowrap; /* 避免換行 */
+  overflow: hidden;
+  color: #000;
+}
 
 
 /* --------------------
