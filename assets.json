@@ -1,12 +1,36 @@
 {
   "Layout": [
-    { "src": "layout1.jpg", "category": "Layout", "title": "2024 XX參考手冊" },
-    { "src": "layout2.jpg", "category": "Layout", "title": "2024 YY參考手冊" }
+    {
+      "title": "2024 XX參考手冊",
+      "category": "Layout",
+      "summary": "這本手冊展示了最新的版面設計概念。",
+      "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
+      "images": ["layout1_1.jpg", "layout1_2.jpg", "layout1_3.jpg"]
+    },
+    {
+      "title": "2024 YY參考手冊",
+      "category": "Layout",
+      "summary": "一本探索現代設計的參考手冊。",
+      "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
+      "images": ["layout2_1.jpg", "layout2_2.jpg", "layout2_3.jpg"]
+    }
   ],
   "Exhibition": [
-    { "src": "exhibition1.jpg", "category": "Exhibition", "title": "2024 展覽參考手冊" }
+    {
+      "title": "2024 展覽參考手冊",
+      "category": "Exhibition",
+      "summary": "這本手冊記錄了各種展覽設計的精彩案例。",
+      "description": "透過詳細的視覺分析，這本手冊介紹了展覽空間的設計要素，從燈光、動線到材質運用。",
+      "images": ["exhibition1_1.jpg", "exhibition1_2.jpg", "exhibition1_3.jpg"]
+    }
   ],
   "Commercial": [
-    { "src": "commercial1.jpg", "category": "Commercial", "title": "2024 商業參考手冊" }
+    {
+      "title": "2024 商業參考手冊",
+      "category": "Commercial",
+      "summary": "一本關於商業設計的靈感參考。",
+      "description": "這本手冊探索了商業設計如何影響品牌形象，包括廣告視覺、包裝設計與行銷策略。",
+      "images": ["commercial1_1.jpg", "commercial1_2.jpg", "commercial1_3.jpg"]
+    }
   ]
 }
