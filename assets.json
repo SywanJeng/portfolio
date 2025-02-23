@@ -32,5 +32,21 @@
       "description": "這本手冊探索了商業設計如何影響品牌形象，包括廣告視覺、包裝設計與行銷策略。",
       "images": ["commercial1_1.jpg", "commercial1_2.jpg", "commercial1_3.jpg"]
     }
+  ],
+  "Photography": [
+    {
+      "title": "2024 攝影作品集",
+      "category": "Photography",
+      "summary": "一系列高品質的攝影作品。",
+      "description": "這本作品集涵蓋了風景、人像、商業攝影等不同主題，展現攝影的藝術與技術。",
+      "images": ["photography1_1.jpg", "photography1_2.jpg", "photography1_3.jpg"]
+    },
+    {
+      "title": "2024 人像攝影專輯",
+      "category": "Photography",
+      "summary": "專注於人像攝影的精選作品。",
+      "description": "這本攝影專輯展現了不同光影、構圖與情感表達，適合攝影師與設計師參考。",
+      "images": ["photography2_1.jpg", "photography2_2.jpg", "photography2_3.jpg"]
+    }
   ]
 }
