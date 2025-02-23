@@ -149,15 +149,14 @@ header {
 
 /* 圖片預設佔滿父容器寬度，並用 transition 調整寬度 */
 .slide img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: width 0.3s ease;
+  width: 800px; /* 固定寬度 */
+  transition: transform 0.3s ease;
+  transform-origin: top left; /* 以左上角為縮放原點 */
+  transform: scale(1);
 }
 
-/* 滑鼠 hover 時，圖片寬度變成 120%，從左上角放大 */
 .slide:hover img {
-  width: 120%;
+  transform: scale(1.5);
 }
 
 /* --------------------
