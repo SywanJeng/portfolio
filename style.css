@@ -90,9 +90,6 @@ header {
   transform: translateX(-50%) scaleX(1);
 }
 
-/* --------------------
-   4. 作品展示區（水平滑動）
--------------------- */
 .slider-container {
   margin-top: 30px;
   overflow-x: auto;
@@ -100,62 +97,74 @@ header {
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
 
-  /* 隱藏捲軸 */
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE 10+ */
+  /* 隱藏 scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .slider-container::-webkit-scrollbar {
-  display: none; /* Chrome / Safari 隱藏捲軸 */
+  display: none;
 }
 
 .slider {
   display: flex;
-  align-items: flex-start; /* 讓頂部對齊 */
+  align-items: flex-start; /* 讓各項目頂部對齊 */
 }
 
 .slide {
-  position: relative;
-  overflow: visible;          /* 允許放大後超出邊界 */
-  flex: 0 0 calc(100% / 6);   /* 1/6螢幕寬度 */
+  transition: transform 0.3s ease;
+  flex: 0 0 calc(100% / 6);
   scroll-snap-align: center;
   margin-right: 0;
 }
 
-.work-info {
-  margin-bottom: 20px;
+.slide.enlarged {
+  transform: scale(1.2);
+  z-index: 1;
 }
 
-/* 預設字重、大小 */
+.work-info {
+  margin-bottom: 8px;
+}
+
 .work-category {
   font-weight: 300;
   font-size: 0.7rem;
   color: #444;
 }
+
 .work-title {
   font-weight: 500;
   font-size: 0.9rem;
   color: #666;
 }
 
-/* 讓圖片從頂部放大、不推擠 */
+.work-category,
+.work-title {
+  transition: font-weight 0.3s ease;
+}
+
+.slide.enlarged .work-category,
+.slide.enlarged .work-title {
+  font-weight: 700;
+}
+
 .slide img {
-  display: block;
   width: 100%;
   height: auto;
-  transform-origin: top center;
+  display: block;
+  transform-origin: top left; /* 修改為左上角 */
   transition: transform 0.3s ease;
 }
 
-/* 滑鼠 hover 時，圖片放大 + 文字變粗 */
+/* 當 hover 時放大圖片與變粗文字 */
 .slide:hover img {
-  transform: scale(1.2);
+  transform: scale(1.5);
   z-index: 1;
 }
 .slide:hover .work-category,
 .slide:hover .work-title {
   font-weight: 700;
 }
-
 
 /* --------------------
   5. Logo 區域
