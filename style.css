@@ -156,10 +156,9 @@ header {
   text-align: center;
   font-size: clamp(2rem, 9vw, 10rem);
   font-weight: bold;
-  margin-top: -10px; /* 與上方大字相隔 10px */
   white-space: nowrap;
   overflow: hidden;
-  margin: 0 auto; /* 若需要再多一點水平置中保險，可加這行 */
+  margin: -10px auto 0 auto; /* 上邊距 -10px，左右 auto，下邊距 0 */
 }
 
 
