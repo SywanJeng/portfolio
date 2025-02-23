@@ -11,6 +11,7 @@
    2. Body 與字型設定
 -------------------- */
 body {
+  background-color: #F0F0F0;
   font-family: "Lexend Deca", "M PLUS 2", serif;
   color: #000;
 }
