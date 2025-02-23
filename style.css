@@ -94,70 +94,68 @@ header {
    4. 作品展示區（水平滑動）
 -------------------- */
 .slider-container {
-  margin-top: 30px; /* 整個展示區離 header 30px 間距 */
+  margin-top: 30px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; /* iOS 平滑滾動 */
+  -webkit-overflow-scrolling: touch;
   padding: 20px 0;
 
-  /* 隱藏 scrollbar */
-  scrollbar-width: none;       /* FireFox */
+  /* 隱藏捲軸 */
+  scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* IE 10+ */
 }
-
 .slider-container::-webkit-scrollbar {
   display: none; /* Chrome / Safari 隱藏捲軸 */
 }
 
 .slider {
   display: flex;
+  align-items: flex-start; /* 讓頂部對齊 */
 }
 
 .slide {
-  transition: transform 0.3s ease;
-  flex: 0 0 calc(100% / 6); /* 每個作品佔螢幕寬度的 1/6 */
+  position: relative;
+  overflow: visible;          /* 允許放大後超出邊界 */
+  flex: 0 0 calc(100% / 6);   /* 1/6螢幕寬度 */
   scroll-snap-align: center;
-  margin-right: 0; /* 移除左右 margin */
-}
-
-.slide.enlarged {
-  transform: scale(1.2);
-  z-index: 1;
+  margin-right: 0;
 }
 
 .work-info {
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
-/* 預設字重與字體大小，可視需求調整 */
+/* 預設字重、大小 */
 .work-category {
   font-weight: 300;
   font-size: 0.7rem;
   color: #444;
 }
-
 .work-title {
-  font-weight: 300;
+  font-weight: 500;
   font-size: 0.9rem;
   color: #666;
 }
 
-/* 滑鼠移入或預設放大時，文字變粗 */
-.work-category,
-.work-title {
-  transition: font-weight 0.3s ease;
+/* 讓圖片從頂部放大、不推擠 */
+.slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: top center;
+  transition: transform 0.3s ease;
 }
 
-.slide.enlarged .work-category,
-.slide.enlarged .work-title {
+/* 滑鼠 hover 時，圖片放大 + 文字變粗 */
+.slide:hover img {
+  transform: scale(1.2);
+  z-index: 1;
+}
+.slide:hover .work-category,
+.slide:hover .work-title {
   font-weight: 700;
 }
 
-.slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 
 /* --------------------
   5. Logo 區域
