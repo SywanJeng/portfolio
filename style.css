@@ -162,11 +162,11 @@ header {
   margin: -10px auto 0 auto; /* 上邊距 -10px，左右 auto，下邊距 0 */
 }
 
-.special-j {
-  font-family: "Ballet", serif; /* 您想要的字體 */
+/* .special-j {
+  font-family: "Ballet", serif; 您想要的字體 */
   /* 如果想要字體大小或字重不一樣，可在這裡再做調整 */
-  /* 例如 font-weight: 700; font-size: 1.2em; 等 */
-}
+  /* 例如 font-weight: 700; font-size: 1.2em; 等 
+}*/
 
 
 /* --------------------
