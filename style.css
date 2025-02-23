@@ -90,40 +90,39 @@ header {
   transform: translateX(-50%) scaleX(1);
 }
 
+/* --------------------
+   4. 作品展示區（水平滑動）
+-------------------- */
 .slider-container {
-  margin-top: 30px;
+  margin-top: 30px; /* 整個展示區離 header 30px 間距 */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
 
   /* 隱藏 scrollbar */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE 10+ */
 }
 .slider-container::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome / Safari 隱藏捲軸 */
 }
 
 .slider {
   display: flex;
-  align-items: flex-start; /* 讓各項目頂部對齊 */
+  align-items: flex-start; /* 讓所有 slide 頂部對齊 */
 }
 
+/* 將固定寬度改為最小寬度，預設為螢幕寬度的 1/6 */
 .slide {
-  transition: transform 0.3s ease;
-  flex: 0 0 calc(100% / 6);
+  flex: 0 0 auto;
+  min-width: calc(100% / 6);
   scroll-snap-align: center;
-  margin-right: 0;
-}
-
-.slide.enlarged {
-  transform: scale(1.2);
-  z-index: 1;
+  margin-right: 0; /* 移除左右 margin */
 }
 
 .work-info {
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
 .work-category {
@@ -138,32 +137,27 @@ header {
   color: #666;
 }
 
+/* 設定文字的轉換效果（僅在 hover 時變粗） */
 .work-category,
 .work-title {
   transition: font-weight 0.3s ease;
 }
-
-.slide.enlarged .work-category,
-.slide.enlarged .work-title {
-  font-weight: 700;
-}
-
-.slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transform-origin: top left; /* 修改為左上角 */
-  transition: transform 0.3s ease;
-}
-
-/* 當 hover 時放大圖片與變粗文字 */
-.slide:hover img {
-  transform: scale(1.5);
-  z-index: 1;
-}
 .slide:hover .work-category,
 .slide:hover .work-title {
   font-weight: 700;
+}
+
+/* 圖片預設佔滿父容器寬度，並用 transition 調整寬度 */
+.slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: width 0.3s ease;
+}
+
+/* 滑鼠 hover 時，圖片寬度變成 120%，從左上角放大 */
+.slide:hover img {
+  width: 120%;
 }
 
 /* --------------------
