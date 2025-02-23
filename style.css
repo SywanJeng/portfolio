@@ -97,17 +97,16 @@ header {
   margin-top: 30px; /* 整個展示區離 header 30px 間距 */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 20px 0;
-  overflow-x: auto;
   -webkit-overflow-scrolling: touch; /* iOS 平滑滾動 */
-  /* 隱藏 scrollbar： */
-  scrollbar-width: none; /* FireFox */
-  -ms-overflow-style: none; /* IE 10+ */
+  padding: 20px 0;
+
+  /* 隱藏 scrollbar */
+  scrollbar-width: none;       /* FireFox */
+  -ms-overflow-style: none;    /* IE 10+ */
 }
 
 .slider-container::-webkit-scrollbar {
-  display: none; /* Chrome Safari 隱藏捲軸 */
+  display: none; /* Chrome / Safari 隱藏捲軸 */
 }
 
 .slider {
@@ -121,21 +120,37 @@ header {
   margin-right: 0; /* 移除左右 margin */
 }
 
+.slide.enlarged {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
 .work-info {
   margin-bottom: 8px;
 }
 
+/* 預設字重與字體大小，可視需求調整 */
 .work-category {
-  font-weight: 300; /* 根據需求設定字重 */
+  font-weight: 300;
   font-size: 0.7rem;
   color: #444;
 }
 
 .work-title {
-  font-weight: 500; /* 根據需求設定字重 */
+  font-weight: 300;
   font-size: 0.9rem;
   color: #666;
-  margin-top: 3px; /* category 與 title 間增加 3px 間距 */
+}
+
+/* 滑鼠移入或預設放大時，文字變粗 */
+.work-category,
+.work-title {
+  transition: font-weight 0.3s ease;
+}
+
+.slide.enlarged .work-category,
+.slide.enlarged .work-title {
+  font-weight: 700;
 }
 
 .slide img {
