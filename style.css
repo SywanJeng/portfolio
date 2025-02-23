@@ -168,25 +168,25 @@ header {
 }
 
 /* --------------------
-   6. 展開內容區域 (從底部展開，覆蓋作品展示區)
+   展開內容區域 (從底部展開，不遮擋 header)
 -------------------- */
 #overlay-content {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* 讓它覆蓋整個畫面 */
+  height: 90vh; /* 預設展開高度，確保不會遮住 header */
   background: white;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-  transform: translateY(100%); /* 預設不顯示 (隱藏在底部) */
+  transform: translateY(100%); /* 初始隱藏在底部 */
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
-  z-index: 999; /* 確保展開區域在其他內容之上 */
+  z-index: 998; /* 確保它不會壓過 header */
 }
 
-/* 顯示 overlay 時 */
+/* 當 overlay 被激活時，從底部展開 */
 #overlay-content.active {
-  transform: translateY(0); /* 向上展開，覆蓋作品展示區 */
+  transform: translateY(0);
 }
 
 /* 內容區塊 */
@@ -201,13 +201,15 @@ header {
   display: block;
 }
 
-/* 當滾動超過 100px，讓 overlay 固定並覆蓋 header */
+/* 當滾動超過 100px，才讓 overlay 覆蓋 header */
 .scroll-active {
   position: fixed;
   top: 0;
   height: 100vh;
   overflow-y: auto;
+  z-index: 1000; /* 讓它覆蓋 header */
 }
+
 
 /* --------------------
    7. RWD 響應式示範
