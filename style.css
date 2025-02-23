@@ -137,19 +137,18 @@ header {
 /* --------------------
    5. 下方 Logo 區域
 -------------------- */
-/* 父容器：只要上下間距即可 */
 .logo-section {
-  margin: 60px 0; /* 與上下段落的距離，可自行調整 */
+  margin: 60px 0; /* 與上下段落的距離，可依需求調整 */
 }
 
-/* 小字：右對齊 + 與螢幕右側留空間 */
+/* 小字：靠右，固定與螢幕右側的距離，不會被擠出畫面 */
 .logo-info {
-  text-align: right;   /* 文字靠右 */
-  margin-right: 35px;  /* 與螢幕右側保留 35px 距離 */
-  margin-bottom: -20px; /* 與下方大字相隔 20px */
-  font-weight: 300;    /* 字重 300 */
-  font-size: 1rem;     /* 可依需求調整 */
-  /* pointer-events: none; // 若您要完全不可點擊，可加上 */
+  text-align: right;      /* 右對齊 */
+  margin-right: 20px;     /* 與螢幕右側保持固定 20px 間距 */
+  margin-bottom: 10px;    /* 與大字相隔 10px */
+  font-weight: 300;       /* 字重 300 */
+  font-size: 1rem;        /* 字體大小可自行調整 */
+  white-space: nowrap;    /* 避免小字自動換行 */
 }
 
 /* 大字：置中 + 流體字體 */
@@ -157,10 +156,11 @@ header {
   text-align: center;
   font-size: clamp(2rem, 9vw, 10rem);
   font-weight: bold;
-  white-space: nowrap;
+  white-space: nowrap; 
   overflow: hidden;
-  margin: 0 auto; /* 若需要再多一點水平置中保險，可加這行 */
+  margin: 0 auto;
 }
+
 
 /* --------------------
    6. RWD 響應式示範
