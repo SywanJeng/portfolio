@@ -116,7 +116,7 @@ header {
 /* 每個作品預設佔螢幕寬度的 1/6 */
 .slide {
   flex: 0 0 auto;
-  min-width: calc(100% / 6);
+  min-width: 300px;
   scroll-snap-align: center;
   margin-right: 0; /* 移除左右 margin */
 }
