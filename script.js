@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 請確認 assets.json 與此檔案在同一目錄，或調整路徑
+  // 作品輪播區載入 assets.json
   fetch('assets.json')
     .then(response => response.json())
     .then(data => {
@@ -36,8 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = document.createElement('img');
             img.src = item.src;
             img.alt = item.title;
-            // 透過 JavaScript 自動加入 lazy-loading 屬性
-            img.setAttribute('loading', 'lazy');
+            img.setAttribute('loading', 'lazy'); // lazy-loading 屬性
 
             slide.appendChild(img);
             // 將 slide 加入 slider
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --------------------
-      7. 展開內容區域 (修正並更新 Photography & AboutMe)
+      展開內容區域 (讓頁面從底部展開)
   -------------------- */
   const links = document.querySelectorAll('.header-center a');
   const overlay = document.getElementById('overlay-content');
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       const targetId = this.getAttribute('data-target');
 
-      // 顯示 overlay
+      // 顯示 overlay，讓它從底部展開
       overlay.classList.add('active');
 
       // 隱藏所有內容，僅顯示點擊的內容
@@ -78,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // 監聽滾動事件，讓 overlay 蓋住 header
+      // 監聽滾動事件，讓 overlay 覆蓋 header
       window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
           overlay.classList.add('scroll-active');
