@@ -93,6 +93,7 @@ header {
    4. 作品展示區（水平滑動）
 -------------------- */
 .slider-container {
+  margin-top: 30px; /* 整個展示區離 header 30px 間距 */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -124,13 +125,13 @@ header {
   font-weight: 500; /* 根據需求設定字重 */
   font-size: 0.9rem;
   color: #666;
+  margin-top: 5px; /* category 與 title 間增加 5px 間距 */
 }
 
 .slide img {
   width: 100%;
   height: auto;
   display: block;
-  /* 建議加入 lazy-loading */
 }
 
 /* --------------------
@@ -155,6 +156,7 @@ header {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+
 }
 
 /* 左側區塊放在最上面 */
