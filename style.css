@@ -149,7 +149,7 @@ header {
   font-size: 1rem;     /* 小字體，可依需求調整 */
   font-weight: normal; /* 不可點擊，維持普通字重 */
   color: #000;         /* 文字顏色可依需求調整 */
-  pointer-events: none;/* 不可點擊 (若想確保點擊無效，可加這行) */
+  /* pointer-events: none;不可點擊 (若想確保點擊無效，可加這行) */
 }
 
 /* 下方 Logo */
