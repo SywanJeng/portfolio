@@ -1,62 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 作品輪播區載入 assets.json
   fetch('assets.json')
-  .then(response => response.json())
-  .then(data => {
-    const slider = document.querySelector('.slider');
+    .then(response => response.json())
+    .then(data => {
+      const slider = document.querySelector('.slider');
 
-    // 針對每個類別處理
-    Object.keys(data).forEach(category => {
-      data[category].forEach(item => {
-        // 建立 slide 容器
-        const slide = document.createElement('div');
-        slide.classList.add('slide');
+      // 針對每個類別處理
+      Object.keys(data).forEach(category => {
+        data[category].forEach(item => {
+          // 建立 slide 容器
+          const slide = document.createElement('div');
+          slide.classList.add('slide');
 
-        // 建立作品資訊區塊
-        const workInfo = document.createElement('div');
-        workInfo.classList.add('work-info');
+          // 建立作品資訊區塊 (僅顯示 category 與 title)
+          const workInfo = document.createElement('div');
+          workInfo.classList.add('work-info');
 
-        const catP = document.createElement('p');
-        catP.classList.add('work-category');
-        catP.textContent = item.category;
+          const catP = document.createElement('p');
+          catP.classList.add('work-category');
+          catP.textContent = item.category;
 
-        const titleP = document.createElement('p');
-        titleP.classList.add('work-title');
-        titleP.textContent = item.title;
+          const titleP = document.createElement('p');
+          titleP.classList.add('work-title');
+          titleP.textContent = item.title;
 
-        const summaryP = document.createElement('p');
-        summaryP.classList.add('work-summary');
-        summaryP.textContent = item.summary;
+          workInfo.appendChild(catP);
+          workInfo.appendChild(titleP);
+          slide.appendChild(workInfo);
 
-        const descriptionP = document.createElement('p');
-        descriptionP.classList.add('work-description');
-        descriptionP.textContent = item.description;
+          // 建立圖片容器，僅讀取第一張圖片
+          if (item.images && item.images.length > 0) {
+            const imagesContainer = document.createElement('div');
+            imagesContainer.classList.add('images-container');
 
-        workInfo.appendChild(catP);
-        workInfo.appendChild(titleP);
-        workInfo.appendChild(summaryP);
-        workInfo.appendChild(descriptionP);
-        slide.appendChild(workInfo);
+            const img = document.createElement('img');
+            // 將圖片路徑改為 "images/" 資料夾下的檔案
+            img.src = 'images/' + item.images[0];
+            img.alt = item.title;
+            img.setAttribute('loading', 'lazy');
+            imagesContainer.appendChild(img);
+            slide.appendChild(imagesContainer);
+          }
 
-        // 建立圖片容器，讀取所有圖片
-        const imagesContainer = document.createElement('div');
-        imagesContainer.classList.add('images-container');
-
-        item.images.forEach(imageFile => {
-          const img = document.createElement('img');
-          // 將圖片路徑改為 "images/" 資料夾下的檔案，例如 portfolio_layout01.png
-          img.src = 'images/' + imageFile;
-          img.alt = item.title;
-          img.setAttribute('loading', 'lazy');
-          imagesContainer.appendChild(img);
+          slider.appendChild(slide);
         });
-
-        slide.appendChild(imagesContainer);
-        slider.appendChild(slide);
       });
-    });
-  })
-  .catch(error => console.error('Error loading assets:', error));
+    })
+    .catch(error => console.error('Error loading assets:', error));
 
   // 另外，若頁面上有其他圖片，也可自動設定 lazy-loading 屬性：
   document.querySelectorAll('img').forEach(img => {
@@ -112,15 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash) {
-      showContent(hash, false); // 不要再 pushState，避免重複更新網址
+      showContent(hash, false);
     } else {
-      overlay.classList.remove('active'); // 沒有 hash 時關閉 overlay
+      overlay.classList.remove('active');
     }
   });
 
   // 頁面載入時，檢查網址的 hash，若有則展開對應內容
   const initialHash = window.location.hash.replace('#', '');
   if (initialHash) {
-    showContent(initialHash, false); // 不要 pushState，因為網址已經是 hash 了
+    showContent(initialHash, false);
   }
 });
