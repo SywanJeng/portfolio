@@ -159,44 +159,45 @@ header {
 }
 
 /* --------------------
-   6. 展開內容區域 (新增部分)
+   6. 展開內容區域 (從底部展開，覆蓋作品展示區)
 -------------------- */
 #overlay-content {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80vh; /* 預設展開的高度 */
-    background: white;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    transform: translateY(100%); /* 預設不顯示 */
-    transition: transform 0.5s ease-in-out;
-    overflow-y: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* 讓它覆蓋整個畫面 */
+  background: white;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  transform: translateY(100%); /* 預設不顯示 (隱藏在底部) */
+  transition: transform 0.5s ease-in-out;
+  overflow-y: auto;
+  z-index: 999; /* 確保展開區域在其他內容之上 */
 }
 
 /* 顯示 overlay 時 */
 #overlay-content.active {
-    transform: translateY(0);
+  transform: translateY(0); /* 向上展開，覆蓋作品展示區 */
 }
 
 /* 內容區塊 */
 .content {
-    display: none;
-    padding: 40px;
-    font-size: 20px;
+  display: none;
+  padding: 40px;
+  font-size: 20px;
 }
 
 /* 顯示當前選擇的內容 */
 .content.active {
-    display: block;
+  display: block;
 }
 
-/* 當滾動時，讓 overlay 固定在畫面上 */
+/* 當滾動超過 100px，讓 overlay 固定並覆蓋 header */
 .scroll-active {
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 /* --------------------
