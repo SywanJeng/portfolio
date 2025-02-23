@@ -145,8 +145,8 @@ header {
 /* 小字：右對齊 + 與螢幕右側留空間 */
 .logo-info {
   text-align: right;   /* 文字靠右 */
-  margin-right: 20px;  /* 與螢幕右側保留 20px 距離 */
-  margin-bottom: 10px; /* 與下方大字相隔 10px */
+  margin-right: 35px;  /* 與螢幕右側保留 35px 距離 */
+  margin-bottom: -15px; /* 與下方大字相隔 15px */
   font-weight: 300;    /* 字重 300 */
   font-size: 1rem;     /* 可依需求調整 */
   /* pointer-events: none; // 若您要完全不可點擊，可加上 */
