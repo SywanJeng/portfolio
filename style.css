@@ -144,7 +144,7 @@ header {
 /* 小字：靠右，固定與螢幕右側的距離，不會被擠出畫面 */
 .logo-info {
   text-align: right;      /* 右對齊 */
-  margin-right: 20px;     /* 與螢幕右側保持固定 20px 間距 */
+  margin-right: 35px;     /* 與螢幕右側保持固定 35px 間距 */
   margin-bottom: 10px;    /* 與大字相隔 10px */
   font-weight: 300;       /* 字重 300 */
   font-size: 1rem;        /* 字體大小可自行調整 */
