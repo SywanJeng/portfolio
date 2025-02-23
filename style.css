@@ -125,7 +125,7 @@ header {
   font-weight: 500; /* 根據需求設定字重 */
   font-size: 0.9rem;
   color: #666;
-  margin-top: 5px; /* category 與 title 間增加 5px 間距 */
+  margin-top: 3px; /* category 與 title 間增加 3px 間距 */
 }
 
 .slide img {
