@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(data => {
       const slider = document.querySelector('.slider');
+      let slideCounter = 0; // 用來計算整個作品牆的索引
 
       // 針對每個類別處理
       Object.keys(data).forEach(category => {
@@ -42,13 +43,43 @@ document.addEventListener('DOMContentLoaded', () => {
             slide.appendChild(imagesContainer);
           }
 
+          // 為每個 slide 加上滑鼠事件
+          slide.addEventListener('mouseenter', () => {
+            // 當滑鼠進入，移除其他 slide 的 enlarged class，再為當前 slide 加上
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
+            slide.classList.add('enlarged');
+          });
+
+          slide.addEventListener('mouseleave', () => {
+            // 當滑鼠離開該 slide時，若滑鼠沒有移入 slider 內其他區域，則恢復預設第四個 slide enlarged
+            setTimeout(() => {
+              // 檢查 slider 內是否仍有 slide被 hover
+              if (!slider.matches(':hover')) {
+                // 移除所有 enlarged class
+                document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
+                // 加回預設的第四個作品（slideCounter從0開始，所以第四個的索引是3）
+                const defaultSlide = slider.querySelectorAll('.slide')[3];
+                if (defaultSlide) {
+                  defaultSlide.classList.add('enlarged');
+                }
+              }
+            }, 100);
+          });
+
           slider.appendChild(slide);
+          slideCounter++;
         });
       });
+
+      // 若所有 slide 都生成完畢，設定預設第四個 slide放大
+      const defaultSlide = slider.querySelectorAll('.slide')[3];
+      if (defaultSlide) {
+        defaultSlide.classList.add('enlarged');
+      }
     })
     .catch(error => console.error('Error loading assets:', error));
 
-  // 另外，若頁面上有其他圖片，也可自動設定 lazy-loading 屬性：
+  // 另外，若頁面上有其他圖片，也自動設定 lazy-loading 屬性：
   document.querySelectorAll('img').forEach(img => {
     if (!img.hasAttribute('loading')) {
       img.setAttribute('loading', 'lazy');
@@ -89,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 監聽滾動事件，當滾動超過 100px 時才讓 overlay 蓋住 header
+  // 監聽滾動事件，當滾動超過 100px 時讓 overlay 蓋住 header
   window.addEventListener('scroll', function() {
     if (window.scrollY > 100) {
       overlay.classList.add('scroll-active');
