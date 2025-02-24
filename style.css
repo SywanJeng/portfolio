@@ -94,12 +94,12 @@ header {
    4. 作品展示區（水平滑動）
 -------------------- */
 .slider-container {
-  margin-top: 30px; /* 整個展示區離 header 30px 間距 */
+  margin-top: 30px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
-  
+
   /* 隱藏 scrollbar */
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* IE 10+ */
@@ -110,20 +110,15 @@ header {
 
 .slider {
   display: flex;
-  align-items: flex-start; /* 讓所有 slide 頂部對齊 */
+  align-items: flex-start;
 }
 
-/* 預設每個 slide 寬度為螢幕的 1/6 */
+/* 每個作品預設佔螢幕寬度的 1/6 */
 .slide {
   transition: width 0.3s ease;
   width: calc(100% / 6);
   scroll-snap-align: center;
-  margin-right: 0; /* 移除左右 margin */
-}
-
-/* hover 狀態下，將 slide 寬度擴大到 1.5 倍 */
-.slide:hover {
-  width: calc((100% / 6) * 1.5);
+  margin-right: 0;
 }
 
 .work-info {
@@ -152,19 +147,42 @@ header {
   font-weight: 700;
 }
 
-/* 讓圖片隨 slide 寬度自動填滿 */
+/* 圖片預設填滿 slide 寬度 */
 .slide img {
   width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.3s ease;
+  transform-origin: top left;
+  transform: scale(1);
+  /* 預設 z-index 在 0 */
+  z-index: 0;
+}
+
+/* 當 hover 時，圖片寬度會改變，且提升 z-index 覆蓋 logo 區域 */
+.slide:hover img {
+  /* 若您希望使用 transform 方式放大，
+     請參考下面的 transform 方式（但那不會真正改變元素寬度）：
+     transform: scale(1.5);
+  */
+  /* 這裡使用改變 width 的方式實際推擠鄰近元素 */
+  width: 120%;
+  z-index: 2;
 }
 
 
 /* --------------------
-  5. Logo 區域
+   5. Logo 區域：固定在視窗底部
 -------------------- */
 .logo-section {
-  margin: 60px 0; /* 與上下段落的距離，可自行調整 */
+  position: fixed;      /* 固定定位 */
+  bottom: 0;            /* 靠近視窗底部 */
+  left: 0;
+  right: 0;
+  z-index: 1;           /* 低於作品區圖片 */
+  background: transparent; /* 如有需要可設定背景色 */
+  padding: 10px 0;      /* 上下內距，可依需求調整 */
+  /* 由於是固定定位，原本 margin 不再生效 */
 }
 
 .logo-info {
@@ -172,6 +190,7 @@ header {
   margin-right: 20px;
   font-weight: 300;
   font-size: 1rem;
+  color: #000;
 }
 
 .logo {
@@ -180,11 +199,13 @@ header {
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
-  margin: -10px auto 0 auto;
+  margin: 0 auto;
+  color: #000;
 }
 
+
 /* --------------------
-   展開內容區域 (從底部展開，不遮擋 header)
+   6. 展開內容區域 (從底部展開，不遮擋 header)
 -------------------- */
 #overlay-content {
   position: fixed;
