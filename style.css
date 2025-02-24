@@ -120,10 +120,10 @@ header {
   align-items: flex-start; /* 讓所有 slide 頂部對齊 */
 }
 
-/* 預設每個 slide 寬度為螢幕的 1/6 */
+/* 預設每個 slide 寬度為螢幕的 1/4 */
 .slide {
   transition: width 0.3s ease;
-  width: calc(100% / 6);
+  width: calc(100% / 4);
   scroll-snap-align: center;
   margin-right: 0;
   /* 如果需要避免 flex 收縮，您也可以加上 flex-shrink: 0; */
@@ -244,6 +244,14 @@ header {
 /* --------------------
    7. RWD 響應式示範
 -------------------- */
+/* 當螢幕寬度小於 1200px */
+@media (max-width: 1200px) {
+  .slide {
+    width: calc(100% / 3);
+  }
+}
+
+/* 當螢幕寬度小於 768px */
 @media (max-width: 768px) {
  /* 調整 header 為縱向排列 */
  header {
