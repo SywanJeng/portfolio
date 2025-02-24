@@ -75,11 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-// 若所有 slide 都生成完畢，設定預設第四個 slide 放大
-const defaultSlide = slider.querySelectorAll('.slide')[3];
-if (defaultSlide) {
-  defaultSlide.classList.add('enlarged');
-}
+      // 若所有 slide 都生成完畢，設定預設第四個 slide 放大並滾動到中央
+      const defaultSlide = slider.querySelectorAll('.slide')[3];
+      if (defaultSlide) {
+        defaultSlide.classList.add('enlarged');
+        defaultSlide.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center',
+          block: 'nearest'
+        });
+      }
     })
     .catch(error => console.error('Error loading assets:', error));
 
