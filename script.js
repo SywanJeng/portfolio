@@ -151,20 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 用原生 JS 動態調整 .responsive-container 內的文字大小
   function adjustResponsiveText() {
-    const container = document.querySelector('.responsive-container');
+    const container = document.querySelector('.logo'); // 改為選取 .logo
     if (!container) return;
-    const textElement = container.querySelector('p');
-    if (!textElement) return;
-
-    let fontSize = parseInt(window.getComputedStyle(textElement).fontSize, 10) || 72; // 初始大字體大小
-    textElement.style.fontSize = fontSize + 'px';
-
+    // 假設 .logo 裡面全部文字都要自動縮放
+    let fontSize = parseInt(window.getComputedStyle(container).fontSize, 10) || 72; // 初始字體大小
+    container.style.fontSize = fontSize + 'px';
+  
     // 若文字超出容器寬度時，逐步降低字體大小
-    while (textElement.scrollWidth > container.clientWidth && fontSize > 10) {
+    while (container.scrollWidth > container.clientWidth && fontSize > 10) {
       fontSize -= 1;
-      textElement.style.fontSize = fontSize + 'px';
+      container.style.fontSize = fontSize + 'px';
     }
-  }
+  }  
   
   // 初次調整，並監聽 resize 事件
   adjustResponsiveText();
