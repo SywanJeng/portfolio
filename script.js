@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      // 若所有 slide 都生成完畢，設定預設第四個 slide放大
+      // 若所有 slide 都生成完畢，設定預設第四個 slide 放大
       const defaultSlide = slider.querySelectorAll('.slide')[3];
       if (defaultSlide) {
         defaultSlide.classList.add('enlarged');
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error loading assets:', error));
 
-  // 另外，若頁面上有其他圖片，也自動設定 lazy-loading 屬性：
+  // 另外，若頁面上有其他圖片，也自動設定 lazy-loading 屬性
   document.querySelectorAll('img').forEach(img => {
     if (!img.hasAttribute('loading')) {
       img.setAttribute('loading', 'lazy');
@@ -148,4 +148,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (initialHash) {
     showContent(initialHash, false);
   }
+
+  // 用原生 JS 動態調整 .responsive-container 內的文字大小
+  function adjustResponsiveText() {
+    const container = document.querySelector('.responsive-container');
+    if (!container) return;
+    const textElement = container.querySelector('p');
+    if (!textElement) return;
+
+    let fontSize = parseInt(window.getComputedStyle(textElement).fontSize, 10) || 72; // 初始大字體大小
+    textElement.style.fontSize = fontSize + 'px';
+
+    // 若文字超出容器寬度時，逐步降低字體大小
+    while (textElement.scrollWidth > container.clientWidth && fontSize > 10) {
+      fontSize -= 1;
+      textElement.style.fontSize = fontSize + 'px';
+    }
+  }
+  
+  // 初次調整，並監聽 resize 事件
+  adjustResponsiveText();
+  window.addEventListener('resize', adjustResponsiveText);
 });
