@@ -99,7 +99,7 @@ header {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
-
+  
   /* 隱藏 scrollbar */
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* IE 10+ */
@@ -113,12 +113,17 @@ header {
   align-items: flex-start; /* 讓所有 slide 頂部對齊 */
 }
 
-/* 每個作品預設佔螢幕寬度的 1/6 */
+/* 預設每個 slide 寬度為螢幕的 1/6 */
 .slide {
-  flex: 0 0 auto;
-  min-width: 300px;
-  scroll-snap-align: center;
+  transition: width 0.3s ease;
+  width: calc(100% / 6);
+  scroll-snap-align: center;/*  */
   margin-right: 0; /* 移除左右 margin */
+}
+
+/* hover 狀態下，將 slide 寬度擴大到 1.5 倍 */
+.slide:hover {
+  width: calc((100% / 6) * 1.5);
 }
 
 .work-info {
@@ -137,7 +142,7 @@ header {
   color: #666;
 }
 
-/* 設定文字轉換效果，hover 時變粗 */
+/* 滑鼠 hover 時文字變粗 */
 .work-category,
 .work-title {
   transition: font-weight 0.3s ease;
@@ -147,16 +152,11 @@ header {
   font-weight: 700;
 }
 
-/* 圖片預設寬度與放大效果 */
+/* 讓圖片隨 slide 寬度自動填滿 */
 .slide img {
-  width: 300px; /* 固定寬度 */
-  transition: transform 0.3s ease;
-  transform-origin: top left; /* 以左上角為縮放原點 */
-  transform: scale(1);
-}
-
-.slide:hover img {
-  transform: scale(1.5);
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 
