@@ -130,13 +130,9 @@ header {
 }
 
 /* 滑鼠 hover 時，擴大當前 slide 寬度（例如 1.5 倍） */
-.slide:hover {
-  width: calc((100% / 4) * 1.88);
-}
-
-/* 預設放大效果：當 slide 加上 enlarged class 時，寬度變為與 hover 狀態相同 */
+.slide:hover,
 .slide.enlarged {
-  width: calc((100% / 4) * 1.88);
+  width: calc((100% / 4) * 1.5);
 }
 
 .work-info {
@@ -253,6 +249,10 @@ header {
   .slide {
     width: calc(100% / 3);
   }
+  .slide:hover,
+  .slide.enlarged {
+    width: calc((100% / 3) * 1.5);
+  }
 }
 
 /* 當螢幕寬度小於 768px */
@@ -283,9 +283,13 @@ header {
   display: none;
 }
 
-/* 小螢幕時，每次只顯示 3 張作品 */
+/* 小螢幕 */
 .slide {
-  width: calc(100% / 3);
+  width: calc(100% / 2);
+}
+.slide:hover,
+.slide.enlarged {
+  width: calc((100% / 2) * 1.5);
 }
 
 /* 讓 logo 自動換行，分成兩行 */
