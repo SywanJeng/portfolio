@@ -48,16 +48,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // 當滑鼠進入，移除其他 slide 的 enlarged class，再為當前 slide 加上
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
             slide.classList.add('enlarged');
+
+            // 自動將當前 slide 滑動到螢幕中間
+            slide.scrollIntoView({
+              behavior: 'smooth',
+              inline: 'center',
+              block: 'nearest'
+            });
           });
 
           slide.addEventListener('mouseleave', () => {
             // 當滑鼠離開該 slide時，若滑鼠沒有移入 slider 內其他區域，則恢復預設第四個 slide enlarged
             setTimeout(() => {
-              // 檢查 slider 內是否仍有 slide被 hover
               if (!slider.matches(':hover')) {
-                // 移除所有 enlarged class
                 document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
-                // 加回預設的第四個作品（slideCounter從0開始，所以第四個的索引是3）
                 const defaultSlide = slider.querySelectorAll('.slide')[3];
                 if (defaultSlide) {
                   defaultSlide.classList.add('enlarged');
