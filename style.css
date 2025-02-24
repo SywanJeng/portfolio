@@ -117,7 +117,7 @@ header {
 .slide {
   transition: width 0.3s ease;
   width: calc(100% / 6);
-  scroll-snap-align: center;/*  */
+  scroll-snap-align: center;
   margin-right: 0; /* 移除左右 margin */
 }
 
