@@ -149,22 +149,40 @@ document.addEventListener('DOMContentLoaded', () => {
     showContent(initialHash, false);
   }
 
-  // 用原生 JS 動態調整 .responsive-container 內的文字大小
+  // 用原生 JS 動態調整 .logo 內的文字大小
   function adjustResponsiveText() {
-    const container = document.querySelector('.logo'); // 改為選取 .logo
+    const container = document.querySelector('.logo');
     if (!container) return;
-    // 假設 .logo 裡面全部文字都要自動縮放
-    let fontSize = parseInt(window.getComputedStyle(container).fontSize, 10) || 72; // 初始字體大小
-    container.style.fontSize = fontSize + 'px';
+    const textElement = container.querySelector('p');
+    if (!textElement) return;
   
-    // 若文字超出容器寬度時，逐步降低字體大小
-    while (container.scrollWidth > container.clientWidth && fontSize > 10) {
+    const maxFontSize = 72; // 定義最大字體大小（px），可依需求調整
+    let fontSize = maxFontSize;
+  
+    // 重置字體大小到最大值
+    textElement.style.fontSize = fontSize + 'px';
+  
+    // 如果文字超出容器寬度，逐步降低字體大小
+    while (textElement.scrollWidth > container.clientWidth && fontSize > 10) {
       fontSize -= 1;
-      container.style.fontSize = fontSize + 'px';
+      textElement.style.fontSize = fontSize + 'px';
     }
-  }  
+  
+    // 如果容器寬度大，且文字寬度小於容器，試著放大文字到最大值（可選，依需求決定是否要自動放大）
+    while (textElement.scrollWidth < container.clientWidth && fontSize < maxFontSize) {
+      fontSize += 1;
+      textElement.style.fontSize = fontSize + 'px';
+      // 避免調整後超出容器，若超出則回退
+      if (textElement.scrollWidth > container.clientWidth) {
+        fontSize -= 1;
+        textElement.style.fontSize = fontSize + 'px';
+        break;
+      }
+    }
+  }
   
   // 初次調整，並監聽 resize 事件
   adjustResponsiveText();
   window.addEventListener('resize', adjustResponsiveText);
+  
 });
