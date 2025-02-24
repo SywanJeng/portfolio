@@ -94,34 +94,37 @@ header {
    4. 作品展示區（水平滑動）
 -------------------- */
 .slider-container {
-  margin-top: 30px; /* 整個展示區離 header 30px 間距 */
+  margin-top: 30px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
   
   /* 隱藏 scrollbar */
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE 10+ */
+  scrollbar-width: none;       
+  -ms-overflow-style: none;    
 }
 .slider-container::-webkit-scrollbar {
-  display: none; /* Chrome / Safari 隱藏捲軸 */
+  display: none;
 }
 
 .slider {
   display: flex;
+  flex-wrap: nowrap;  /* 確保不換行 */
   align-items: flex-start; /* 讓所有 slide 頂部對齊 */
 }
 
-/* 預設每個作品佔螢幕寬度的 1/6 */
+/* 預設每個 slide 寬度為螢幕的 1/6 */
 .slide {
   transition: width 0.3s ease;
   width: calc(100% / 6);
   scroll-snap-align: center;
-  margin-right: 0; /* 移除左右 margin */
+  margin-right: 0;
+  /* 如果需要避免 flex 收縮，您也可以加上 flex-shrink: 0; */
+  flex-shrink: 0;
 }
 
-/* 滑鼠 hover 時，將 slide 寬度擴大到 1.5 倍 */
+/* 滑鼠 hover 時，擴大當前 slide 寬度（例如 1.5 倍） */
 .slide:hover {
   width: calc((100% / 6) * 1.5);
 }
@@ -144,19 +147,17 @@ header {
   transition: font-weight 0.3s ease;
 }
 
-/* 滑鼠 hover 時文字變粗 */
 .slide:hover .work-category,
 .slide:hover .work-title {
   font-weight: 700;
 }
 
-/* 圖片隨著 slide 寬度自動填滿 */
+/* 讓圖片隨著 slide 寬度自動填滿 */
 .slide img {
   width: 100%;
   height: auto;
   display: block;
 }
-
 
 /* --------------------
    5. Logo 區域：固定在視窗底部
