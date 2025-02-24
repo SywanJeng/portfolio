@@ -75,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
 
-      // 若所有 slide 都生成完畢，設定預設第四個 slide 放大
-      const defaultSlide = slider.querySelectorAll('.slide')[3];
-      if (defaultSlide) {
-        defaultSlide.classList.add('enlarged');
-      }
+// 若所有 slide 都生成完畢，設定預設第四個 slide 放大
+const defaultSlide = slider.querySelectorAll('.slide')[3];
+if (defaultSlide) {
+  defaultSlide.classList.add('enlarged');
+}
     })
     .catch(error => console.error('Error loading assets:', error));
 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 監聽滾動事件，當滾動超過 100px 時讓 overlay 蓋住 header
+  // 監聽滾動事件，當滾動超過 100px 時讓 overlay 蓋住作品區域
   window.addEventListener('scroll', function() {
     if (window.scrollY > 100) {
       overlay.classList.add('scroll-active');
