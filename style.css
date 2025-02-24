@@ -19,13 +19,19 @@ body {
 /* --------------------
    3. Header 區域
 -------------------- */
+:root {
+  --header-height: 8vh;
+}
+
 header {
   display: flex;
-  justify-content: space-between; /* 左、中、右分佈 */
+  justify-content: space-between;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  height: var(--header-height);
+  min-height: 60px;
 }
 
 /* 左側欄位 */
@@ -200,15 +206,15 @@ header {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 90vh;
-  background: #F0F0F0; /* 將底色改為 #F0F0F0 */
+  height: calc(100vh - var(--header-height));
+  background: #F0F0F0; /* 設定底色 */
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
   z-index: 998;
 }
 
-/* 當 overlay 被激活時，從底部展開 */
+/* 當 overlay 被激活時，展開到 header 底部 */
 #overlay-content.active {
   transform: translateY(0);
 }
