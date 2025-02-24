@@ -126,12 +126,16 @@ header {
   width: calc(100% / 4);
   scroll-snap-align: center;
   margin-right: 0;
-  /* 如果需要避免 flex 收縮，您也可以加上 flex-shrink: 0; */
   flex-shrink: 0;
 }
 
 /* 滑鼠 hover 時，擴大當前 slide 寬度（例如 1.5 倍） */
 .slide:hover {
+  width: calc((100% / 6) * 1.5);
+}
+
+/* 預設放大效果：當 slide 加上 enlarged class 時，寬度變為與 hover 狀態相同 */
+.slide.enlarged {
   width: calc((100% / 6) * 1.5);
 }
 
