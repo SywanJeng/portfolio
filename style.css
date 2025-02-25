@@ -189,12 +189,15 @@ header {
 
 .logo {
   text-align: center;
-  font-size: clamp(2rem, 9vw, 10rem);
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   margin: 0 auto;
   color: #000;
+}
+
+.logo p {
+  font-size: 72px; /* 預設字體大小，JS 會根據容器寬度做調整 */
 }
 
 
