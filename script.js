@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const textElement = container.querySelector('p');
     if (!textElement) return;
   
-    const maxFontSize = 144; // 定義最大字體大小（px），可依需求調整
+    const maxFontSize = 250; // 定義最大字體大小（px），可依需求調整
     let fontSize = maxFontSize;
   
     // 重置字體大小到最大值
