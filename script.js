@@ -91,15 +91,29 @@ document.addEventListener('DOMContentLoaded', () => {
       if (contentElement) {
         contentElement.classList.add('active');
   
+        // 加入大標題
+        const header = document.createElement('h1');
+        header.classList.add('content-title');
+        header.textContent = targetId.charAt(0).toUpperCase() + targetId.slice(1);
+        contentElement.appendChild(header);
+  
         // 讀取該分類的所有資料
         assetsData[targetId].forEach(item => {
           const itemContainer = document.createElement('div');
-          itemContainer.classList.add('content-item'); // 加入 CSS 樣式
+          itemContainer.classList.add('content-item');
   
           itemContainer.innerHTML = `
-            <h2>${item.title}</h2>
-            <p>${item.summary}</p>
-            <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
+            <div class="content-header">
+              <h2 class="item-title">${item.title}</h2>
+            </div>
+            <div class="content-body">
+              <div class="content-image">
+                <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
+              </div>
+              <div class="content-text">
+                <p class="item-summary">${item.summary}</p>
+              </div>
+            </div>
           `;
   
           contentElement.appendChild(itemContainer);
@@ -112,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
       history.pushState(null, null, `#${targetId}`);
     }
   }
-  
 
   document.querySelectorAll('.header-center a').forEach(link => {
     link.addEventListener('click', function(event) {
