@@ -85,49 +85,52 @@ document.addEventListener('DOMContentLoaded', () => {
       content.innerHTML = ""; // 清空內容，避免舊資料殘留
     });
   
-    if (assetsData[targetId]) {
-      const contentElement = document.getElementById(targetId);
+    if (!assetsData[targetId]) {
+      console.warn(`⚠ 無法找到 "${targetId}" 的資料`);
+      return; // 直接返回，避免程式繼續執行
+    }
   
-      if (contentElement) {
-        contentElement.classList.add('active');
+    const contentElement = document.getElementById(targetId);
   
-// 手動設定標題
-const titleMap = {
-  "layout": "Layout 編排設計",
-  "exhibition": "Exhibition 展場設計",
-  "commercial": "Commercial Projects 電商圖",
-  "photography": "Photography 商攝作品",
-  "about": "AboutMe 關於我"
-};
-
-// 加入大標題
-const header = document.createElement('h1');
-header.classList.add('content-title');
-header.textContent = titleMap[targetId] || "Untitled"; // 找不到則顯示 Untitled
-contentElement.appendChild(header);
+    if (contentElement) {
+      contentElement.classList.add('active');
   
-        // 讀取該分類的所有資料
-        assetsData[targetId].forEach(item => {
-          const itemContainer = document.createElement('div');
-          itemContainer.classList.add('content-item');
+      // 手動設定標題
+      const titleMap = {
+        "layout": "Layout 編排設計",
+        "exhibition": "Exhibition 展場設計",
+        "commercial": "Commercial Projects 電商圖",
+        "photography": "Photography 商攝作品",
+        "about": "AboutMe 關於我"
+      };
   
-          itemContainer.innerHTML = `
-            <div class="content-header">
-              <h2 class="item-title">${item.title}</h2>
+      // 插入大標題
+      const header = document.createElement('h1');
+      header.classList.add('content-title');
+      header.textContent = titleMap[targetId] || "Untitled";
+      contentElement.appendChild(header);
+  
+      // 讀取該分類的所有資料
+      assetsData[targetId].forEach(item => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('content-item', 'fade-in'); // 加入動畫
+  
+        itemContainer.innerHTML = `
+          <div class="content-header">
+            <h2 class="item-title">${item.title}</h2>
+          </div>
+          <div class="content-body">
+            <div class="content-image">
+              <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
             </div>
-            <div class="content-body">
-              <div class="content-image">
-                <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
-              </div>
-              <div class="content-text">
-                <p class="item-summary">${item.summary}</p>
-              </div>
+            <div class="content-text">
+              <p class="item-summary">${item.summary}</p>
             </div>
-          `;
+          </div>
+        `;
   
-          contentElement.appendChild(itemContainer);
-        });
-      }
+        contentElement.appendChild(itemContainer);
+      });
     }
   
     // 更新網址（但避免重複設定相同網址）
@@ -135,6 +138,7 @@ contentElement.appendChild(header);
       history.pushState(null, null, `#${targetId}`);
     }
   }
+  
 
   document.querySelectorAll('.header-center a').forEach(link => {
     link.addEventListener('click', function(event) {
