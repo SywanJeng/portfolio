@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 設定大標題
     const overlayTitle = document.createElement('h1');
-    overlayTitle.textContent = category.toUpperCase() + ' 編排設計';
+    overlayTitle.textContent = category.toUpperCase();
     overlayInner.appendChild(overlayTitle);
 
     // 建立列表容器
