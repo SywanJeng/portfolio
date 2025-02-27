@@ -215,6 +215,10 @@ header {
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
   z-index: 998;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 當 overlay 被激活時，展開到 header 底部 */
@@ -225,13 +229,49 @@ header {
 /* 內容區塊 */
 .content {
   display: none;
-  padding: 40px;
-  font-size: 20px;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* 顯示當前選擇的內容 */
 .content.active {
   display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 標題樣式 */
+.content h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* 摘要樣式 */
+.content p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* 內容圖片 */
+.content img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out;
+}
+
+.content img:hover {
+  transform: scale(1.05);
 }
 
 /* 當滾動超過 100px，才讓 overlay 覆蓋 header */
@@ -240,9 +280,20 @@ header {
   top: 0;
   height: 100vh;
   overflow-y: auto;
-  z-index: 1000; /* 讓它覆蓋 header */
+  z-index: 1000;
 }
 
+/* 動畫效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* --------------------
    7. RWD 響應式示範
