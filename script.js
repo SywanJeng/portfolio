@@ -91,11 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (contentElement) {
         contentElement.classList.add('active');
   
-        // 加入大標題
-        const header = document.createElement('h1');
-        header.classList.add('content-title');
-        header.textContent = targetId.charAt(0).toUpperCase() + targetId.slice(1);
-        contentElement.appendChild(header);
+// 手動設定標題
+const titleMap = {
+  "layout": "Layout 編排設計",
+  "exhibition": "Exhibition 展場設計",
+  "commercial": "Commercial Projects 電商圖",
+  "photography": "Photography 商攝作品",
+  "about": "AboutMe 關於我"
+};
+
+// 加入大標題
+const header = document.createElement('h1');
+header.classList.add('content-title');
+header.textContent = titleMap[targetId] || "Untitled"; // 找不到則顯示 Untitled
+contentElement.appendChild(header);
   
         // 讀取該分類的所有資料
         assetsData[targetId].forEach(item => {
