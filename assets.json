@@ -1,5 +1,5 @@
 {
-  "Layout": [
+  "layout": [
     {
       "title": "作品集設計講義設計",
       "category": "Layout",
@@ -15,7 +15,7 @@
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
-  "Exhibition": [
+  "exhibition": [
     {
       "title": "2024 展覽參考手冊",
       "category": "Exhibition",
@@ -24,7 +24,7 @@
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
-  "Commercial": [
+  "commercial": [
     {
       "title": "2024 商業參考手冊",
       "category": "Commercial",
@@ -33,7 +33,7 @@
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
-  "Photography": [
+  "photography": [
     {
       "title": "2024 攝影作品集",
       "category": "Photography",
