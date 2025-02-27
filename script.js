@@ -1,31 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
   let projectData = {}; // 儲存 JSON 內容
 
-  // 讀取 JSON 資料
+  // 讀取 JSON
   fetch('assets.json')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      return response.json();
+    })
     .then(data => {
       projectData = data;
-      loadSlider(projectData); // 載入作品輪播
-    })
-    .catch(error => console.error('Error loading assets:', error));
+      loadSlider(projectData);
+    });
 
   const overlay = document.getElementById('overlay-content');
   const overlayInner = document.getElementById('overlay-inner');
-  const closeOverlayBtn = document.getElementById('close-overlay');
   const navLinks = document.querySelectorAll('.header-center a');
 
-  // 載入作品輪播
   function loadSlider(data) {
     const slider = document.querySelector('.slider');
-    let slideCounter = 0;
-
     Object.keys(data).forEach(category => {
       data[category].forEach(item => {
         const slide = document.createElement('div');
         slide.classList.add('slide');
 
-        // 建立作品資訊區塊
+        // 作品資訊
         const workInfo = document.createElement('div');
         workInfo.classList.add('work-info');
 
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         workInfo.appendChild(titleP);
         slide.appendChild(workInfo);
 
-        // 建立圖片容器（讀取第一張圖片）
+        // 圖片（讀取第一張）
         if (item.images && item.images.length > 0) {
           const img = document.createElement('img');
           img.src = 'images/' + item.images[0];
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         slider.appendChild(slide);
-        slideCounter++;
       });
     });
 
@@ -80,18 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 點擊選單，展開對應內容
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(event) {
-      event.preventDefault();
-      const targetId = this.getAttribute('data-target');
-      showContent(targetId);
-    });
-  });
-
-  // 動態載入展開內容
   function showContent(category) {
-    overlay.classList.add('active');
+    overlay.style.display = "block";
+    setTimeout(() => overlay.classList.add("active"), 10);
     overlayInner.innerHTML = '';
 
     // 設定大標題
@@ -108,39 +96,26 @@ document.addEventListener('DOMContentLoaded', () => {
       projectData[category].forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('overlay-item');
-
-        // 標題
-        const title = document.createElement('h2');
-        title.textContent = item.title;
-        itemDiv.appendChild(title);
-
-        // 簡介
-        const summary = document.createElement('p');
-        summary.textContent = item.summary;
-        summary.classList.add('summary');
-        itemDiv.appendChild(summary);
-
-        // 9:16 圖片
-        if (item.images && item.images.length > 0) {
-          const img = document.createElement('img');
-          img.src = 'images/' + item.images[0];
-          img.alt = item.title;
-          img.classList.add('overlay-image');
-          itemDiv.appendChild(img);
-        }
-
+        itemDiv.innerHTML = `
+          <h2>${item.title}</h2>
+          <p class="summary">${item.summary}</p>
+          <img src="images/${item.images[0]}" class="overlay-image" alt="${item.title}">
+        `;
         overlayList.appendChild(itemDiv);
       });
     } else {
       overlayList.innerHTML = '<p>沒有找到對應的內容。</p>';
     }
-
     history.pushState(null, null, `#${category}`);
   }
 
-  // 關閉 overlay
-  closeOverlayBtn.addEventListener('click', function() {
-    overlay.classList.remove('active');
+  // 點擊導覽按鈕展開內容
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      const targetId = this.getAttribute('data-target');
+      showContent(targetId);
+    });
   });
 
   // 監聽網址變化，使用者按「上一頁/下一頁」時正確顯示內容
