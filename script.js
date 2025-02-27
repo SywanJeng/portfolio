@@ -80,26 +80,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
-    contents.forEach(content => content.classList.remove('active'));
-
+    contents.forEach(content => {
+      content.classList.remove('active');
+      content.innerHTML = ""; // 清空內容，避免舊資料殘留
+    });
+  
     if (assetsData[targetId]) {
-      const categoryData = assetsData[targetId][0]; // 取第一筆資料
       const contentElement = document.getElementById(targetId);
-
+  
       if (contentElement) {
         contentElement.classList.add('active');
-        contentElement.innerHTML = `
-          <h2>${categoryData.title}</h2>
-          <p>${categoryData.summary}</p>
-          <img src="images/${categoryData.images[0]}" alt="${categoryData.title}" loading="lazy">
-        `;
+  
+        // 讀取該分類的所有資料
+        assetsData[targetId].forEach(item => {
+          const itemContainer = document.createElement('div');
+          itemContainer.classList.add('content-item'); // 加入 CSS 樣式
+  
+          itemContainer.innerHTML = `
+            <h2>${item.title}</h2>
+            <p>${item.summary}</p>
+            <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
+          `;
+  
+          contentElement.appendChild(itemContainer);
+        });
       }
     }
-
-    if (updateUrl) {
+  
+    // 更新網址（但避免重複設定相同網址）
+    if (updateUrl && window.location.hash !== `#${targetId}`) {
       history.pushState(null, null, `#${targetId}`);
     }
   }
+  
 
   document.querySelectorAll('.header-center a').forEach(link => {
     link.addEventListener('click', function(event) {
