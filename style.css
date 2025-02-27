@@ -204,29 +204,15 @@ header {
 /* --------------------
    6. 展開內容區域 (從底部展開，不遮擋 header)
 -------------------- */
+/* 讓 overlay 內容區域有背景與適當間距 */
 #overlay-content {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - var(--header-height));
-  background: #F0F0F0; /* 設定底色 */
-  transform: translateY(100%);
-  transition: transform 0.5s ease-in-out;
-  overflow-y: auto;
-  z-index: 998;
-  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 40px 20px;
 }
 
-/* 當 overlay 被激活時，展開到 header 底部 */
-#overlay-content.active {
-  transform: translateY(0);
-}
-
-/* 內容區塊 */
+/* 確保 .content 預設隱藏 */
 .content {
   display: none;
   width: 100%;
@@ -238,49 +224,18 @@ header {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 顯示當前選擇的內容 */
+/* 當 .content 被選擇時，才顯示 */
 .content.active {
   display: block;
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 標題樣式 */
-.content h2 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* 摘要樣式 */
-.content p {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-/* 內容圖片 */
+/* 圖片樣式 */
 .content img {
   width: 100%;
   max-width: 600px;
-  height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease-in-out;
-}
-
-.content img:hover {
-  transform: scale(1.05);
-}
-
-/* 當滾動超過 100px，才讓 overlay 覆蓋 header */
-.scroll-active {
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 1000;
 }
 
 /* 動畫效果 */
