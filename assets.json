@@ -13,6 +13,20 @@
       "summary": "一本探索現代設計的參考手冊。",
       "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "作品集設計講義設計",
+      "category": "Layout",
+      "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
+      "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "2024 YY參考手冊",
+      "category": "Layout",
+      "summary": "一本探索現代設計的參考手冊。",
+      "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
   "exhibition": [
@@ -22,6 +36,20 @@
       "summary": "這本手冊記錄了各種展覽設計的精彩案例。",
       "description": "透過詳細的視覺分析，這本手冊介紹了展覽空間的設計要素，從燈光、動線到材質運用。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "作品集設計講義設計",
+      "category": "Layout",
+      "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
+      "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "2024 YY參考手冊",
+      "category": "Layout",
+      "summary": "一本探索現代設計的參考手冊。",
+      "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
   "commercial": [
@@ -30,6 +58,20 @@
       "category": "Commercial",
       "summary": "一本關於商業設計的靈感參考。",
       "description": "這本手冊探索了商業設計如何影響品牌形象，包括廣告視覺、包裝設計與行銷策略。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "作品集設計講義設計",
+      "category": "Layout",
+      "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
+      "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "2024 YY參考手冊",
+      "category": "Layout",
+      "summary": "一本探索現代設計的參考手冊。",
+      "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
@@ -46,6 +88,20 @@
       "category": "Photography",
       "summary": "專注於人像攝影的精選作品。",
       "description": "這本攝影專輯展現了不同光影、構圖與情感表達，適合攝影師與設計師參考。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "作品集設計講義設計",
+      "category": "Layout",
+      "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
+      "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
+      "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
+    },
+    {
+      "title": "2024 YY參考手冊",
+      "category": "Layout",
+      "summary": "一本探索現代設計的參考手冊。",
+      "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ]
