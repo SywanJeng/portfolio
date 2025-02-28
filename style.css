@@ -221,7 +221,7 @@ header {
   overflow-y: auto;
   z-index: 998;
   display: flex;
-  flex-direction: flex-start;
+  flex-direction: column;
   align-items: flex-start; /* 讓內容與 header 對齊 */
 }
 
@@ -238,30 +238,29 @@ body.overlay-active {
 /* 內容區塊 */
 #overlay-content .overlay-inner {
   width: 100%;
-  max-width: 1200px; /* 與 header 相同 */
-  margin-left: 20px; /* 確保 `.overlay-inner` 靠左 */
-  padding: 0 20px; /* 確保與 `header` 內的左右間距相同 */
+  max-width: 1200px; /* ✅ 讓寬度與 header 一致 */
+  margin: 0 auto; /* ✅ 確保與 header 水平對齊 */
+  padding: 0 20px; /* ✅ 讓左右邊界與 header 一致 */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 讓內容靠左對齊 */
+  align-items: flex-start; /* ✅ 確保內容靠左對齊 */
 }
 
 /* 區塊大標 */
 #overlay-content .content-title {
-  font-size: 42px;
+  font-size: 144px;
   font-weight: bold;
   color: black;
   text-align: left;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 /* 作品列表 */
 #overlay-content .content-item {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #ddd;
-  padding: 15px 0;
+  padding: 25px 0;
   width: 100%;
   text-align: left;
   animation: fadeIn 0.5s ease-in-out;
@@ -269,15 +268,16 @@ body.overlay-active {
 
 /* 標題 summary (作為主要標題) */
 #overlay-content .item-summary {
-  font-size: 20px;
+  font-size: 32px;
   font-weight: bold;
   color: #000;
   margin-bottom: 5px;
+  text-align: left; /* ✅ 確保文字不會置中 */
 }
 
 /* 作品標題 title (置左對齊 summary) */
 #overlay-content .item-title {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
   text-align: left;
 }
