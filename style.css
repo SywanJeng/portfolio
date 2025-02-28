@@ -230,6 +230,11 @@ header {
   transform: translateY(0);
 }
 
+/* 當 overlay 被激活時，禁止 body 滾動 */
+body.overlay-active {
+  overflow: hidden; /* 防止 body 滾動 */
+}
+
 /* 內容區塊 */
 #overlay-content .overlay-inner {
   width: 100%;
