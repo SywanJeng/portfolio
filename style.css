@@ -292,13 +292,14 @@ body.overlay-active {
   order: 1; /* ✅ 讓圖片跑到最後 */
 }
 
-/* 內容圖片 */
+/* 內容圖片 - 強制維持 16:9 橫式比例 */
 .content-image img {
   width: 100%;
   max-width: 300px; /* 限制圖片最大寬度 */
-  aspect-ratio: 16 / 9; /* ✅ 確保 16:9 比例 */
+  aspect-ratio: 16 / 9; /* 確保圖片維持 16:9 比例 */
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: cover; /* 圖片會填滿框架，避免變形 */
+  display: block;
 }
 
 /* 文字區塊 */
