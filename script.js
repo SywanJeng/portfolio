@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
+    document.body.classList.add("overlay-active"); // ✅ 禁止 body 滾動
     contents.forEach(content => {
       content.classList.remove('active');
       content.innerHTML = ""; // 清空內容，避免舊資料殘留
