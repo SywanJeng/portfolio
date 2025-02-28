@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 🚀 監聽滾動事件，當滾動超過 100px，讓 `overlay` 覆蓋 `header`
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 50) {
         document.getElementById("overlay-content").classList.add("scroll-active");
       } else {
         document.getElementById("overlay-content").classList.remove("scroll-active");
