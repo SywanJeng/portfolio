@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let assetsData = {}; // 儲存 assets.json 資料
+  const overlay = document.getElementById('overlay-content');
+  const contents = document.querySelectorAll('.content');
 
   // 先載入 assets.json
   fetch('assets.json')
@@ -7,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       assetsData = data; // 存到變數
       generateSlides(data); // 生成作品輪播
+      checkInitialHash(); // 🚀 **頁面載入時檢查 URL hash 並顯示對應內容**
     })
     .catch(error => console.error('Error loading assets:', error));
 
@@ -75,30 +78,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const overlay = document.getElementById('overlay-content');
-  const contents = document.querySelectorAll('.content');
-
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
     contents.forEach(content => {
       content.classList.remove('active');
       content.innerHTML = ""; // 清空內容，避免舊資料殘留
     });
-  
+
     if (!assetsData[targetId]) {
       console.warn(`⚠ 無法找到 "${targetId}" 的資料`);
       return;
     }
-  
+
     const contentElement = document.getElementById(targetId);
-  
+
     if (contentElement) {
       contentElement.classList.add('active');
-  
+
       // 建立 `.overlay-inner` 容器，讓內容對齊 header 內的文字
       const overlayInner = document.createElement('div');
       overlayInner.classList.add('overlay-inner');
-  
+
       // 手動設定標題
       const titleMap = {
         "layout": "Layouts",
@@ -107,34 +107,36 @@ document.addEventListener('DOMContentLoaded', () => {
         "photography": "Photography Collection",
         "about": "About Me"
       };
-  
+
       // 插入大標題
       const header = document.createElement('h1');
       header.classList.add('content-title');
       header.textContent = titleMap[targetId] || "Untitled";
       overlayInner.appendChild(header);
-  
+
       // 讀取該分類的所有資料
       assetsData[targetId].forEach(item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('content-item', 'fade-in');
-  
+
         itemContainer.innerHTML = `
           <h2 class="item-summary">${item.summary}</h2>
           <p class="item-title">${item.title}</p>
         `;
-  
+
         overlayInner.appendChild(itemContainer);
       });
-  
+
       contentElement.appendChild(overlayInner);
     }
-  
+
+    // ✅ 只有當 hash 真的變更時才更新網址，避免影響重新整理
     if (updateUrl && window.location.hash !== `#${targetId}`) {
       history.pushState(null, null, `#${targetId}`);
     }
   }
 
+  // 🚀 **監聽選單點擊，展開對應內容**
   document.querySelectorAll('.header-center a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
@@ -143,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // 🚀 **當用戶點擊「上一頁/下一頁」時，自動更新 overlay**
   window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash) {
@@ -152,9 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const initialHash = window.location.hash.replace('#', '');
-  if (initialHash) {
-    showContent(initialHash, false);
+  // 🚀 **頁面載入時，若有 hash，則自動展開對應內容**
+  function checkInitialHash() {
+    const initialHash = window.location.hash.replace('#', '');
+    if (initialHash) {
+      showContent(initialHash, false);
+    }
   }
 
   function adjustResponsiveText() {
@@ -162,15 +168,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
     const textElement = container.querySelector('p');
     if (!textElement) return;
-    
+
     let fontSize = 250;
     textElement.style.fontSize = fontSize + 'px';
-    
+
     while (textElement.scrollWidth > container.clientWidth && fontSize > 10) {
       fontSize -= 1;
       textElement.style.fontSize = fontSize + 'px';
     }
-    
+
     while (textElement.scrollWidth < container.clientWidth && fontSize < 250) {
       fontSize += 1;
       textElement.style.fontSize = fontSize + 'px';
