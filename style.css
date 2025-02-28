@@ -214,7 +214,7 @@ header {
   width: 100%;
   max-width: 100vw; /* 確保展開時橫向佔滿全螢幕 */
   padding-top: 30px; /* 只設定上方間距，左右間距由內部內容控制 */
-  height: calc(100vh - var(--header-height));
+  height: 100vh; /* ✅ 確保展開時覆蓋整個螢幕 */
   background: #F0F0F0;
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
@@ -235,17 +235,18 @@ body.overlay-active {
   overflow: hidden; /* 防止 body 滾動 */
 }
 
-/* 內容區塊 */
+/* 🚀 內部內容對齊 header */
 #overlay-content .overlay-inner {
-  width: auto; /* ✅ 讓寬度根據 header 自適應 */
-  max-width: 100%; /* ✅ 確保不超過 viewport */
+  width: 100%;
+  max-width: 1200px; /* ✅ 確保與 header 寬度一致 */
+  margin: 0 auto; /* ✅ 讓內容區塊與 header 左右對齊 */
   padding: 0 20px; /* ✅ 確保內邊距與 header 一致 */
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* ✅ 確保內容靠左對齊 */
 }
 
-/* 區塊大標 */
+/* 🚀 區塊大標 */
 #overlay-content .content-title {
   font-size: 144px;
   font-weight: bold;
@@ -255,7 +256,7 @@ body.overlay-active {
   margin-bottom: 50px;
 }
 
-/* 作品列表 */
+/* 🚀 作品列表 */
 #overlay-content .content-item {
   display: flex;
   flex-direction: column;
@@ -265,30 +266,71 @@ body.overlay-active {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 標題 summary (作為主要標題) */
-#overlay-content .item-summary {
+/* 🚀 讓圖片隨機出現在左側或右側 */
+.content-body {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* 圖片在左側 */
+.content-body.left .content-image {
+  order: -1; /* ✅ 讓圖片跑到最前面 */
+}
+
+/* 圖片在右側 */
+.content-body.right .content-image {
+  order: 1; /* ✅ 讓圖片跑到最後 */
+}
+
+/* 內容圖片 */
+.content-image img {
+  width: 100%;
+  max-width: 300px; /* 限制圖片最大寬度 */
+  aspect-ratio: 16 / 9; /* ✅ 確保 16:9 比例 */
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* 文字區塊 */
+.content-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* 🚀 讓 summary 文字更有層次感 */
+.item-summary {
   font-size: 32px;
   font-weight: bold;
   color: #000;
   margin-bottom: 5px;
-  text-align: left; /* ✅ 確保文字不會置中 */
+  text-align: left;
 }
 
-/* 作品標題 title (置左對齊 summary) */
-#overlay-content .item-title {
+/* 🚀 讓標題文字隨機排列，模仿雜誌風格 */
+.item-summary span {
+  display: inline-block;
+  transform: translateX(calc(-5px + 10px * (var(--random-indent, 0))));
+}
+
+/* 🚀 作品標題 title (置左對齊 summary) */
+.item-title {
   font-size: 16px;
   color: #666;
   text-align: left;
 }
 
-/* 內容圖片 */
-.content img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease-in-out;
+/* ✅ 讓文字繞過圖片 */
+@media (max-width: 768px) {
+  .content-body {
+    flex-direction: column;
+  }
+
+  .content-body .content-image {
+    order: 0;
+    max-width: 100%;
+  }
 }
 
 /* 當滾動超過 100px，讓 `overlay` 覆蓋整個螢幕 */
