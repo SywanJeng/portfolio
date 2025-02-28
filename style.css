@@ -210,6 +210,7 @@ header {
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
   max-width: 100vw; /* 確保展開時橫向佔滿全螢幕 */
   padding-top: 40px; /* 只設定上方間距，左右間距由內部內容控制 */
@@ -220,8 +221,8 @@ header {
   overflow-y: auto;
   z-index: 998;
   display: flex;
-  flex-direction: column;
-  align-items: center; /* 讓內容保持置中 */
+  flex-direction: flex-start;
+  align-items: flex-start; /* 讓內容與 header 對齊 */
 }
 
 /* 當 overlay 被激活時，展開到 header 底部 */
@@ -233,8 +234,8 @@ header {
 #overlay-content .overlay-inner {
   width: 100%;
   max-width: 1200px; /* 與 header 相同 */
-  margin: 0 auto;
-  padding: 0 20px; /* 與 header 內的左右間距相同 */
+  margin-left: 20px; /* 確保 `.overlay-inner` 靠左 */
+  padding: 0 20px; /* 確保與 `header` 內的左右間距相同 */
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* 讓內容靠左對齊 */
