@@ -212,16 +212,16 @@ header {
   left: 0;
   width: 100%;
   max-width: 100vw; /* 確保展開時橫向佔滿全螢幕 */
-  margin: 0 auto;
+  padding-top: 40px; /* 只設定上方間距，左右間距由內部內容控制 */
   height: calc(100vh - var(--header-height));
   background: #F0F0F0;
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
   z-index: 998;
-  padding: 40px 20px;
   display: flex;
   flex-direction: column;
+  align-items: center; /* 讓內容保持置中 */
 }
 
 /* 當 overlay 被激活時，展開到 header 底部 */
@@ -230,6 +230,13 @@ header {
 }
 
 /* 內容區塊 */
+#overlay-content .overlay-inner {
+  width: 100%;
+  max-width: 1200px; /* 與 header 相同 */
+  margin: 0 auto;
+  padding: 0 20px; /* 與 header 的 `padding: 20px;` 一致 */
+}
+
 /* 區塊大標 */
 #overlay-content .content-title {
   font-size: 42px;
