@@ -164,6 +164,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+    // 🚀 監聽滾動事件，當滾動超過 100px，讓 `overlay` 覆蓋 `header`
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        document.getElementById("overlay-content").classList.add("scroll-active");
+      } else {
+        document.getElementById("overlay-content").classList.remove("scroll-active");
+      }
+    });
+
   function adjustResponsiveText() {
     const container = document.querySelector('.logo');
     if (!container) return;
