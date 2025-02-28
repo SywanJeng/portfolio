@@ -95,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contentElement) {
       contentElement.classList.add('active');
   
+      // 建立 `.overlay-inner` 容器，讓內容對齊 header 內的文字
+      const overlayInner = document.createElement('div');
+      overlayInner.classList.add('overlay-inner');
+  
       // 手動設定標題
       const titleMap = {
         "layout": "Layouts",
@@ -108,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const header = document.createElement('h1');
       header.classList.add('content-title');
       header.textContent = titleMap[targetId] || "Untitled";
-      contentElement.appendChild(header);
+      overlayInner.appendChild(header);
   
       // 讀取該分類的所有資料
       assetsData[targetId].forEach(item => {
@@ -120,8 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="item-title">${item.title}</p>
         `;
   
-        contentElement.appendChild(itemContainer);
+        overlayInner.appendChild(itemContainer);
       });
+  
+      contentElement.appendChild(overlayInner);
     }
   
     if (updateUrl && window.location.hash !== `#${targetId}`) {
