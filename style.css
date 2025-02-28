@@ -292,13 +292,13 @@ body.overlay-active {
   transition: transform 0.3s ease-in-out;
 }
 
-/* 當滾動超過 100px，才讓 overlay 覆蓋 header */
-.scroll-active {
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
+/* 當滾動超過 100px，讓 `overlay` 覆蓋整個螢幕 */
+#overlay-content.scroll-active {
+  position: fixed; /* ✅ 讓 `overlay` 覆蓋整個螢幕 */
+  top: 0; /* ✅ 貼齊畫面頂部 */
+  height: 100vh; /* ✅ 讓 `overlay` 填滿整個畫面 */
   z-index: 1000;
+  overflow-y: auto; /* ✅ 讓 `overlay` 內部可以滾動 */
 }
 
 /* 動畫效果 */
