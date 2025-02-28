@@ -86,21 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
       content.classList.remove('active');
       content.innerHTML = ""; // 清空內容，避免舊資料殘留
     });
-
+  
     if (!assetsData[targetId]) {
       console.warn(`⚠ 無法找到 "${targetId}" 的資料`);
       return;
     }
-
+  
     const contentElement = document.getElementById(targetId);
-
+  
     if (contentElement) {
       contentElement.classList.add('active');
-
+  
       // 建立 `.overlay-inner` 容器，讓內容對齊 header 內的文字
       const overlayInner = document.createElement('div');
       overlayInner.classList.add('overlay-inner');
-
+  
       // 手動設定標題
       const titleMap = {
         "layout": "Layouts",
@@ -109,35 +109,67 @@ document.addEventListener('DOMContentLoaded', () => {
         "photography": "Photography Collection",
         "about": "About Me"
       };
-
+  
       // 插入大標題
       const header = document.createElement('h1');
       header.classList.add('content-title');
       header.textContent = titleMap[targetId] || "Untitled";
       overlayInner.appendChild(header);
-
+  
       // 讀取該分類的所有資料
       assetsData[targetId].forEach(item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('content-item', 'fade-in');
-
+  
+        // 隨機決定圖片在左或右
+        const imagePosition = Math.random() > 0.5 ? "left" : "right";
+  
         itemContainer.innerHTML = `
-          <h2 class="item-summary">${item.summary}</h2>
-          <p class="item-title">${item.title}</p>
+          <div class="content-body ${imagePosition}">
+            <div class="content-image">
+              <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
+            </div>
+            <div class="content-text">
+              <h2 class="item-summary">${item.summary}</h2>
+              <p class="item-title">${item.title}</p>
+            </div>
+          </div>
         `;
-
+  
         overlayInner.appendChild(itemContainer);
       });
-
+  
       contentElement.appendChild(overlayInner);
       syncOverlayMargin(); // 🚀 **確保內容 margin 與 header 一致**
+      applyRandomTextLayout(); // 🚀 **確保 summary 文字隨機排列**
     }
-
+  
     // ✅ 只有當 hash 真的變更時才更新網址，避免影響重新整理
     if (updateUrl && window.location.hash !== `#${targetId}`) {
       history.pushState(null, null, `#${targetId}`);
     }
   }
+  
+  // 🚀 讓 `summary` 文字排列更有趣的雜誌風格
+  function applyRandomTextLayout() {
+    document.querySelectorAll(".item-summary").forEach((summary) => {
+      const words = summary.textContent.split(" ");
+      let formattedText = "";
+  
+      words.forEach((word, index) => {
+        // 隨機決定是否在該單字前加換行
+        const randomSpacing = Math.random() > 0.6 ? "<br>" : "";
+        formattedText += `${randomSpacing} ${word}`;
+      });
+  
+      summary.innerHTML = formattedText.trim();
+    });
+  }
+  
+  // 🚀 當 `overlay-content` 載入後，自動應用文字排版
+  document.addEventListener("DOMContentLoaded", () => {
+    applyRandomTextLayout();
+  });
 
   // 🚀 **監聽選單點擊，展開對應內容**
   document.querySelectorAll('.header-center a').forEach(link => {
