@@ -11,6 +11,7 @@
    2. Body 與字型設定
 -------------------- */
 body {
+  display: block !important;  /* 避免被 `flex` 影響 */
   background-color: #F0F0F0;
   font-family: "Lexend Deca", "M PLUS 2", serif;
   color: #000;
@@ -105,7 +106,8 @@ header {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
-  
+  position: relative;  /* 確保 z-index 生效 */
+  z-index: 2; /* 讓它比 .logo-section 更高 */
   /* 隱藏 scrollbar */
   scrollbar-width: none;       
   -ms-overflow-style: none;    
