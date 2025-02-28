@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       assetsData = data; // 存到變數
       generateSlides(data); // 生成作品輪播
+      syncOverlayWidth(); // 🚀 **確保 overlay 內部與 header 同寬**
       checkInitialHash(); // 🚀 **頁面載入時檢查 URL hash 並顯示對應內容**
     })
     .catch(error => console.error('Error loading assets:', error));
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       contentElement.appendChild(overlayInner);
+      syncOverlayWidth(); // 🚀 **確保內容寬度與 header 一致**
     }
 
     // ✅ 只有當 hash 真的變更時才更新網址，避免影響重新整理
@@ -164,14 +166,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-    // 🚀 監聽滾動事件，當滾動超過 100px，讓 `overlay` 覆蓋 `header`
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
-        document.getElementById("overlay-content").classList.add("scroll-active");
-      } else {
-        document.getElementById("overlay-content").classList.remove("scroll-active");
-      }
-    });
+  // 🚀 監聽滾動事件，當滾動超過 50px，讓 `overlay` 覆蓋 `header`
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      document.getElementById("overlay-content").classList.add("scroll-active");
+    } else {
+      document.getElementById("overlay-content").classList.remove("scroll-active");
+    }
+  });
+
+  // 🚀 **同步 overlay-content 與 header 寬度**
+  function syncOverlayWidth() {
+    const header = document.querySelector("header");
+    const overlayInner = document.querySelector("#overlay-content .overlay-inner");
+
+    if (header && overlayInner) {
+      overlayInner.style.maxWidth = `${header.clientWidth}px`; // ✅ 讓 overlay 內部與 header 同寬
+    }
+  }
+
+  window.addEventListener("resize", syncOverlayWidth);
+  window.addEventListener("DOMContentLoaded", syncOverlayWidth);
 
   function adjustResponsiveText() {
     const container = document.querySelector('.logo');
