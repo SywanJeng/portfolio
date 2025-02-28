@@ -7,15 +7,17 @@
   box-sizing: border-box;
 }
 
+/* --------------------
+   2. Body 與字型設定
+-------------------- */
 body {
   background-color: #F0F0F0;
   font-family: "Lexend Deca", "M PLUS 2", serif;
   color: #000;
-  overflow-x: hidden; /* 避免水平滾動問題 */
 }
 
 /* --------------------
-   2. Header 樣式
+   3. Header 區域
 -------------------- */
 :root {
   --header-height: 8vh;
@@ -32,7 +34,28 @@ header {
   min-height: 60px;
 }
 
-/* Header 內的連結樣式 */
+/* 左側欄位 */
+.header-left {
+  flex: 1;           /* 占一份寬度 */
+  font-weight: bold; /* 預設粗體 */
+  text-align: left;  /* 靠左 */
+}
+
+/* 中間欄位 */
+.header-center {
+  flex: 2;                  /* 占兩份寬度 */
+  display: flex;            /* 讓連結並排 */
+  justify-content: center;  /* 水平置中 */
+  gap: 30px;                /* 按鈕之間的距離 */
+}
+
+/* 右側欄位 */
+.header-right {
+  flex: 1;            /* 占一份寬度 */
+  text-align: right;  /* 靠右 */
+}
+
+/* 中間與右側的連結預設狀態 */
 .header-center a,
 .header-right a {
   color: gray;
@@ -40,13 +63,41 @@ header {
   position: relative;
 }
 
+/* hover: 文字變黑 */
 .header-center a:hover,
 .header-right a:hover {
   color: black;
 }
 
+/* active: 保持黑色 */
+.header-center a:active,
+.header-right a:active {
+  color: black;
+}
+
+/* 元素底線 */
+.header-center a::after,
+.header-right a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  transition: transform 0.3s ease-out;
+}
+.header-center a:hover::after,
+.header-center a:active::after,
+.header-right a:hover::after,
+.header-right a:active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
 /* --------------------
-   3. 作品展示區（首頁）
+   4. 作品展示區（水平滑動）
 -------------------- */
 .slider-container {
   margin-top: 30px;
@@ -54,47 +105,104 @@ header {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding: 20px 0;
+  
+  /* 隱藏 scrollbar */
+  scrollbar-width: none;       
+  -ms-overflow-style: none;    
+}
+.slider-container::-webkit-scrollbar {
+  display: none;
 }
 
 .slider {
   display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-start;
+  flex-wrap: nowrap;  /* 確保不換行 */
+  align-items: flex-start; /* 讓所有 slide 頂部對齊 */
 }
 
+/* 預設每個 slide 寬度為螢幕的 1/4 */
 .slide {
   transition: width 0.3s ease;
   width: calc(100% / 4);
   scroll-snap-align: center;
+  margin-right: 0;
   flex-shrink: 0;
 }
 
+/* 滑鼠 hover 時，擴大當前 slide 寬度（例如 1.5 倍） */
 .slide:hover,
 .slide.enlarged {
   width: calc((100% / 4) * 1.5);
 }
 
+.work-info {
+  margin-bottom: 20px;
+}
+
+.work-category {
+  font-weight: 300;
+  font-size: 0.7rem;
+  color: #444;
+  transition: font-weight 0.3s ease;
+}
+
+.work-title {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #666;
+  transition: font-weight 0.3s ease;
+}
+
+.slide:hover .work-category,
+.slide:hover .work-title {
+  font-weight: 700;
+}
+
+/* 讓圖片隨著 slide 寬度自動填滿 */
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* --------------------
-   4. Logo 區域（固定底部）
+   5. Logo 區域：固定在視窗底部
 -------------------- */
 .logo-section {
-  position: fixed;
-  bottom: 0;
+  position: fixed;      /* 固定定位 */
+  bottom: 0;            /* 靠近視窗底部 */
   left: 0;
   right: 0;
-  z-index: 1;
-  padding: 10px 0;
+  z-index: 1;           /* 低於作品區圖片 */
+  background: transparent; /* 如有需要可設定背景色 */
+  padding: 10px 0;      /* 上下內距，可依需求調整 */
+  /* 由於是固定定位，原本 margin 不再生效 */
+}
+
+.logo-info {
+  text-align: right;
+  margin-right: 20px;
+  font-weight: 300;
+  font-size: 1rem;
+  color: #000;
 }
 
 .logo {
   text-align: center;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
   margin: 0 auto;
   color: #000;
 }
 
+.logo p {
+  font-size: 72px; /* 預設字體大小，JS 會根據容器寬度做調整 */
+}
+
+
 /* --------------------
-   5. 展開內容區域 (overlay)
+   6. 展開內容區域 (從底部展開，不遮擋 header)
 -------------------- */
 #overlay-content {
   position: fixed;
@@ -102,100 +210,80 @@ header {
   left: 0;
   width: 100%;
   height: calc(100vh - var(--header-height));
-  background: #F0F0F0;
+  background: #F0F0F0; /* 設定底色 */
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
   z-index: 998;
   padding: 40px 20px;
-  display: none; /* 初始隱藏 */
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* 當 overlay 被激活時，展開到 header 底部 */
 #overlay-content.active {
   transform: translateY(0);
-  display: flex; /* 展開時才影響 */
 }
 
-/* --------------------
-   6. 內容區塊（只影響展開內容）
--------------------- */
-/* 限制影響範圍 */
-#overlay-content .content-title {
-  font-size: 42px;
-  font-weight: bold;
-  color: black;
-  margin-bottom: 30px;
-  text-align: left;
+/* 內容區塊 */
+.content {
+  display: none;
   width: 100%;
   max-width: 800px;
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 內容列表 */
-#overlay-content .content-item {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  width: 100%;
-  max-width: 800px;
+/* 顯示當前選擇的內容 */
+.content.active {
+  display: block;
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 標題區 */
-#overlay-content .content-header {
-  text-align: left;
+/* 標題樣式 */
+.content h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 10px;
 }
 
-/* 內容標題 */
-#overlay-content .item-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000;
+/* 摘要樣式 */
+.content p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
 
-/* 內容主要區域（圖片 + 文字） */
-#overlay-content .content-body {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-/* 限定圖片區域 */
-#overlay-content .content-image {
-  flex: 0 0 200px;
-  height: 355px; /* 9:16 比例 */
-  overflow: hidden;
+/* 內容圖片 */
+.content img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out;
 }
 
-#overlay-content .content-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.content img:hover {
+  transform: scale(1.05);
 }
 
-/* 右側文字區 */
-#overlay-content .content-text {
-  flex: 1;
-  text-align: left;
+/* 當滾動超過 100px，才讓 overlay 覆蓋 header */
+.scroll-active {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
-/* 摘要文字 */
-#overlay-content .item-summary {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-  max-width: 500px;
-}
-
-/* --------------------
-   7. 動畫效果
--------------------- */
+/* 動畫效果 */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -208,8 +296,9 @@ header {
 }
 
 /* --------------------
-   8. RWD 響應式設計
+   7. RWD 響應式示範
 -------------------- */
+/* 當螢幕寬度小於 1200px */
 @media (max-width: 1200px) {
   .slide {
     width: calc(100% / 3);
@@ -220,44 +309,45 @@ header {
   }
 }
 
+/* 當螢幕寬度小於 768px */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
+ /* 調整 header 為縱向排列 */
+ header {
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
-  .header-left {
-    width: 100%;
-    text-align: center;
-  }
+/* 左側區塊放在最上面 */
+.header-left {
+  order: 1;
+  width: 100%;
+  text-align: center;
+}
 
-  .header-center {
-    width: 100%;
-    justify-content: center;
-  }
+/* 中間區塊放在下方 */
+.header-center {
+  order: 2;
+  width: 100%;
+  justify-content: center;
+}
 
-  .header-right {
-    display: none;
-  }
+/* 隱藏右側區塊 */
+.header-right {
+  display: none;
+}
 
-  .slide {
-    width: calc(100% / 2);
-  }
+/* 小螢幕 */
+.slide {
+  width: calc(100% / 2);
+}
+.slide:hover,
+.slide.enlarged {
+  width: calc((100% / 2) * 1.5);
+}
 
-  .slide:hover,
-  .slide.enlarged {
-    width: calc((100% / 2) * 1.5);
-  }
-
-  #overlay-content .content-body {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #overlay-content .content-image {
-    width: 100%;
-    height: auto;
-    max-height: 355px;
-  }
+/* 讓 logo 自動換行，分成兩行 */
+.logo {
+  white-space: normal;
+}
 }
