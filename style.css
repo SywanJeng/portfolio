@@ -213,7 +213,7 @@ header {
   right: 0;
   width: 100%;
   max-width: 100vw; /* 確保展開時橫向佔滿全螢幕 */
-  padding-top: 40px; /* 只設定上方間距，左右間距由內部內容控制 */
+  padding-top: 30px; /* 只設定上方間距，左右間距由內部內容控制 */
   height: calc(100vh - var(--header-height));
   background: #F0F0F0;
   transform: translateY(100%);
