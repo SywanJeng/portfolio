@@ -235,6 +235,14 @@ body.overlay-active {
   overflow: hidden; /* 防止 body 滾動 */
 }
 
+/* 🚀 當滾動超過 100px，讓 overlay 固定並覆蓋 header */
+#overlay-content.scroll-active {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  z-index: 1000; /* 這時候才讓 overlay 蓋住 header */
+}
+
 /* 🚀 內部內容對齊 header */
 #overlay-content .overlay-inner {
   width: 100%;
