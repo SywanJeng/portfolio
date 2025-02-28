@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     if (!assetsData[targetId]) {
       console.warn(`⚠ 無法找到 "${targetId}" 的資料`);
-      return; // 直接返回，避免程式繼續執行
+      return;
     }
   
     const contentElement = document.getElementById(targetId);
@@ -97,11 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
       // 手動設定標題
       const titleMap = {
-        "layout": "Layout 編排設計",
-        "exhibition": "Exhibition 展場設計",
-        "commercial": "Commercial Projects 電商圖",
-        "photography": "Photography 商攝作品",
-        "about": "AboutMe 關於我"
+        "layout": "Layouts",
+        "exhibition": "Exhibitions",
+        "commercial": "Commercial Projects",
+        "photography": "Photography Collection",
+        "about": "About Me"
       };
   
       // 插入大標題
@@ -113,32 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
       // 讀取該分類的所有資料
       assetsData[targetId].forEach(item => {
         const itemContainer = document.createElement('div');
-        itemContainer.classList.add('content-item', 'fade-in'); // 加入動畫
+        itemContainer.classList.add('content-item', 'fade-in');
   
         itemContainer.innerHTML = `
-          <div class="content-header">
-            <h2 class="item-title">${item.title}</h2>
-          </div>
-          <div class="content-body">
-            <div class="content-image">
-              <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
-            </div>
-            <div class="content-text">
-              <p class="item-summary">${item.summary}</p>
-            </div>
-          </div>
+          <h2 class="item-summary">${item.summary}</h2>
+          <p class="item-title">${item.title}</p>
         `;
   
         contentElement.appendChild(itemContainer);
       });
     }
   
-    // 更新網址（但避免重複設定相同網址）
     if (updateUrl && window.location.hash !== `#${targetId}`) {
       history.pushState(null, null, `#${targetId}`);
     }
   }
-  
 
   document.querySelectorAll('.header-center a').forEach(link => {
     link.addEventListener('click', function(event) {
