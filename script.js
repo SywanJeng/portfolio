@@ -166,14 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🚀 監聽滾動事件，當滾動超過 50px，讓 `overlay` 覆蓋 `header`
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      document.getElementById("overlay-content").classList.add("scroll-active");
-    } else {
-      document.getElementById("overlay-content").classList.remove("scroll-active");
-    }
-  });
+// 🚀 監聽滾動事件，確保 overlay 在滾動時覆蓋 header
+window.addEventListener("scroll", () => {
+  const overlay = document.getElementById("overlay-content");
+  if (window.scrollY > 50) {
+    overlay.classList.add("scroll-active"); // ✅ 讓 overlay 變成 fixed，覆蓋 header
+  } else {
+    overlay.classList.remove("scroll-active"); // ✅ 恢復原狀
+  }
+});
 
   // 🚀 **同步 overlay-content 的 margin 與 header 一致**
   function syncOverlayMargin() {
