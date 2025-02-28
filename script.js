@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       assetsData = data; // 存到變數
       generateSlides(data); // 生成作品輪播
+      syncOverlayMargin(); // 🚀 **確保 overlay-inner margin 與 header 一致**
       checkInitialHash(); // 🚀 **頁面載入時檢查 URL hash 並顯示對應內容**
     })
     .catch(error => console.error('Error loading assets:', error));
@@ -129,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       contentElement.appendChild(overlayInner);
+      syncOverlayMargin(); // 🚀 **確保內容 margin 與 header 一致**
     }
 
     // ✅ 只有當 hash 真的變更時才更新網址，避免影響重新整理
@@ -164,14 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-    // 🚀 監聽滾動事件，當滾動超過 100px，讓 `overlay` 覆蓋 `header`
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
-        document.getElementById("overlay-content").classList.add("scroll-active");
-      } else {
-        document.getElementById("overlay-content").classList.remove("scroll-active");
-      }
-    });
+  // 🚀 監聽滾動事件，當滾動超過 50px，讓 `overlay` 覆蓋 `header`
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      document.getElementById("overlay-content").classList.add("scroll-active");
+    } else {
+      document.getElementById("overlay-content").classList.remove("scroll-active");
+    }
+  });
+
+  // 🚀 **同步 overlay-content 的 margin 與 header 一致**
+  function syncOverlayMargin() {
+    const header = document.querySelector("header");
+    const overlayInner = document.querySelector("#overlay-content .overlay-inner");
+
+    if (header && overlayInner) {
+      const headerMargin = (window.innerWidth - header.clientWidth) / 2;
+      overlayInner.style.marginLeft = `${headerMargin}px`;
+      overlayInner.style.marginRight = `${headerMargin}px`;
+    }
+  }
+
+  window.addEventListener("resize", syncOverlayMargin);
+  window.addEventListener("DOMContentLoaded", syncOverlayMargin);
 
   function adjustResponsiveText() {
     const container = document.querySelector('.logo');
