@@ -1,23 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let assetsData = {}; // 儲存 assets.json 資料
+  let assetsData = {}; 
   const overlay = document.getElementById('overlay-content');
   const contents = document.querySelectorAll('.content');
-  const headerLeft = document.querySelector('.header-left'); // 🚀 找到 header 左側區域
+  const headerLeft = document.querySelector('.header-left'); 
+  const slider = document.querySelector('.slider'); // 🎡 作品輪播
 
-  // 先載入 assets.json
+  // 🚀 創建返回按鈕
+  const backButton = document.createElement('span');
+  backButton.classList.add('back-button');
+  backButton.innerHTML = '⭠'; 
+  backButton.style.display = 'none'; 
+  headerLeft.prepend(backButton);
+
+  // 🚀 點擊返回按鈕時關閉 overlay
+  backButton.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    document.body.classList.remove("overlay-active");
+    backButton.style.display = 'none';
+    history.pushState(null, null, window.location.origin); // 修正網址
+  });
+
+  // 🚀 載入 assets.json
   fetch('assets.json')
-    .then(response => response.json())
-    .then(data => {
-      assetsData = data; // 存到變數
-      generateSlides(data); // 生成作品輪播
-      syncOverlayMargin(); // 🚀 確保 overlay-inner margin 與 header 一致
-      checkInitialHash(); // 🚀 頁面載入時檢查 URL hash 並顯示對應內容
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+      return response.json();
     })
-    .catch(error => console.error('Error loading assets:', error));
+    .then(data => {
+      assetsData = data;
+      console.log("✅ assets.json 載入成功:", data);
+      generateSlides(data);
+      syncOverlayMargin();
+      checkInitialHash();
+    })
+    .catch(error => {
+      console.error('❌ Error loading assets.json:', error);
+      alert("⚠ 無法載入作品資料，請稍後再試！");
+    });
 
+  // 🎡 **生成作品輪播**
   function generateSlides(data) {
-    const slider = document.querySelector('.slider');
     let slideCounter = 0;
+    slider.innerHTML = ""; // 清空舊的內容
 
     Object.keys(data).forEach(category => {
       data[category].forEach(item => {
@@ -73,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // 預設讓中間的 slide 被放大
     const defaultSlide = slider.querySelectorAll('.slide')[3];
     if (defaultSlide) {
       defaultSlide.classList.add('enlarged');
@@ -80,34 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🚀 創建返回按鈕
-  const backButton = document.createElement('span');
-  backButton.classList.add('back-button');
-  backButton.innerHTML = '⭠'; // 左箭頭
-  backButton.style.display = 'none'; // 預設隱藏
-  headerLeft.prepend(backButton); // 插入到 header-left 的最前面
-
-  // 🚀 點擊返回按鈕時關閉 overlay
-  backButton.addEventListener('click', () => {
-    overlay.classList.remove('active');
-    document.body.classList.remove("overlay-active");
-    backButton.style.display = 'none'; // 隱藏返回按鈕
-    history.pushState(null, null, '/'); // 回到首頁
-  });
-
+  // 🚀 展開內容
   function showContent(targetId, updateUrl = true) {
-    overlay.classList.add('active');
-    document.body.classList.add("overlay-active"); 
-    backButton.style.display = 'inline-block';
-    contents.forEach(content => {
-      content.classList.remove('active');
-      content.innerHTML = ""; 
-    });
-
     if (!assetsData[targetId]) {
       console.warn(`⚠ 無法找到 "${targetId}" 的資料`);
       return;
     }
+
+    overlay.classList.add('active');
+    document.body.classList.add("overlay-active");
+    backButton.style.display = 'inline-block';
+    contents.forEach(content => {
+      content.classList.remove('active');
+      content.innerHTML = "";
+    });
 
     const contentElement = document.getElementById(targetId);
     if (contentElement) {
@@ -146,11 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const positionType = Math.random();
 
         if (positionType < 0.3) {
-          insertIndex = 0; // 30% 機率圖片插入到開頭
+          insertIndex = 0; 
         } else if (positionType > 0.7) {
-          insertIndex = words.length; // 30% 機率圖片插入到結尾
+          insertIndex = words.length; 
         } else {
-          insertIndex = Math.floor(Math.random() * words.length); // 40% 機率隨機插入
+          insertIndex = Math.floor(Math.random() * words.length); 
         }
 
         words.splice(insertIndex, 0, imgTag);
