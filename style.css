@@ -15,7 +15,7 @@ body {
   background-color: #F0F0F0;
   font-family: "Lexend Deca", "M PLUS 2", serif;
   color: #000;
-  padding-top: 10vh;
+  padding-top: 8vh; /* 避免 header 遮擋內容 */
 }
 
 /* --------------------
@@ -31,9 +31,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff; /* 可自行選擇背景色 */
   padding: 0 20px;        /* 左右內距 */
-  height: 10vh; /* 使用螢幕高度的 10% */
+  height: 8vh; /* 使用螢幕高度的 10% */
   box-sizing: border-box;
 }
 
