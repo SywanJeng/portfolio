@@ -100,16 +100,18 @@ header {
 /* 🚀 返回按鈕 */
 .back-button {
   font-size: 24px;
-  font-weight: normal; /* 預設不加粗 */
+  font-weight: bold;
   cursor: pointer;
   margin-right: 15px; /* 與標題保持距離 */
-  color: #888; /* 初始為灰色 */
-  transition: color 0.3s, font-weight 0.3s;
+  opacity: 0.5;
+  color: gray;
+  transition: all 0.3s ease-in-out;
 }
 
 .back-button:hover {
-  color: #000; /* 懸停時變黑 */
-  font-weight: bold; /* 懸停時加粗 */
+  font-weight: bolder;
+  color: black;
+  opacity: 1;
 }
 
 /* --------------------
