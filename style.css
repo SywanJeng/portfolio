@@ -164,6 +164,7 @@ header {
 .slide {
   transition: width 0.3s ease;
   width: calc(100% / 4);
+  aspect-ratio: 16 / 9;  /* 例如 16:9，瀏覽器支援度要注意 */
   scroll-snap-align: center;
   margin-right: 0;
   flex-shrink: 0;
