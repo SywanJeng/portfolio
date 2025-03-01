@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let assetsData = {}; // 儲存 assets.json 資料
   const overlay = document.getElementById('overlay-content');
   const contents = document.querySelectorAll('.content');
+  const headerLeft = document.querySelector('.header-left'); // 🚀 找到 header 左側區域
 
   // 先載入 assets.json
   fetch('assets.json')
@@ -13,6 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
       checkInitialHash(); // 🚀 頁面載入時檢查 URL hash 並顯示對應內容
     })
     .catch(error => console.error('Error loading assets:', error));
+
+  // 🚀 創建返回按鈕
+  const backButton = document.createElement('span');
+  backButton.classList.add('back-button');
+  backButton.innerHTML = '←'; // 左箭頭
+  backButton.style.display = 'none'; // 預設隱藏
+  headerLeft.prepend(backButton); // 插入到 header-left 的最前面
+
+  // 🚀 點擊返回按鈕時關閉 overlay
+  backButton.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    document.body.classList.remove("overlay-active");
+    backButton.style.display = 'none'; // 隱藏返回按鈕
+    history.pushState(null, null, '/'); // 回到首頁
+  });
 
   function generateSlides(data) {
     const slider = document.querySelector('.slider');
