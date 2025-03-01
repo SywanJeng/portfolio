@@ -32,7 +32,7 @@ header {
   justify-content: space-between;
   background-color: #fff; /* 可自行選擇背景色 */
   padding: 0 20px;        /* 左右內距 */
-  height: 60px;           /* 固定高度 */
+  height: 10vh; /* 使用螢幕高度的 10% */
   box-sizing: border-box;
 }
 
