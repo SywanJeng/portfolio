@@ -97,6 +97,21 @@ header {
   transform: translateX(-50%) scaleX(1);
 }
 
+/* 🚀 返回按鈕 */
+.back-button {
+  font-size: 24px;
+  font-weight: normal; /* 預設不加粗 */
+  cursor: pointer;
+  margin-right: 15px; /* 與標題保持距離 */
+  color: #888; /* 初始為灰色 */
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.back-button:hover {
+  color: #000; /* 懸停時變黑 */
+  font-weight: bold; /* 懸停時加粗 */
+}
+
 /* --------------------
    4. 作品展示區（水平滑動）
 -------------------- */
