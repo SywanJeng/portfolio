@@ -162,7 +162,7 @@ header {
 /* 每個 slide 設定固定比例與 overflow 隱藏 */
 .slide {
   width: calc(100% / 4);
-  aspect-ratio: 16 / 9; /* 固定比例 */
+  aspect-ratio: 9 / 16; /* 固定比例 */
   overflow: hidden;
   transition: width 0.3s ease;
   flex-shrink: 0;
