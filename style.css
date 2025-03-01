@@ -26,83 +26,45 @@ body {
 
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  height: var(--header-height);
-  min-height: 60px;
 }
 
-/* 左側欄位 */
-.header-left {
-  flex: 1;           /* 占一份寬度 */
-  font-weight: bold; /* 預設粗體 */
-  text-align: left;  /* 靠左 */
+/* 讓 header 下的每個區塊都屬於一個共同的 class */
+.header-col {
+  flex: 1;
+  text-align: center;
 }
 
-/* 中間欄位 */
-.header-center {
-  flex: 2;                  /* 占兩份寬度 */
-  display: flex;            /* 讓連結並排 */
-  justify-content: center;  /* 水平置中 */
-  gap: 30px;                /* 按鈕之間的距離 */
+/* 左側返回箭頭區塊靠左對齊 */
+.header-back {
+  text-align: left;
 }
 
-/* 右側欄位 */
+/* 右側訊息區塊靠右對齊 */
 .header-right {
-  flex: 1;            /* 占一份寬度 */
-  text-align: right;  /* 靠右 */
+  text-align: right;
 }
 
-/* 中間與右側的連結預設狀態 */
-.header-center a,
-.header-right a {
-  color: gray;
+/* 導覽連結樣式（可依需求調整） */
+.header-nav a {
+  margin: 0 10px;
   text-decoration: none;
-  position: relative;
+  color: gray;
+  transition: color 0.3s;
 }
 
-/* hover: 文字變黑 */
-.header-center a:hover,
-.header-right a:hover {
+.header-nav a:hover {
   color: black;
 }
 
-/* active: 保持黑色 */
-.header-center a:active,
-.header-right a:active {
-  color: black;
-}
-
-/* 元素底線 */
-.header-center a::after,
-.header-right a::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: center;
-  width: 100%;
-  height: 2px;
-  background-color: black;
-  transition: transform 0.3s ease-out;
-}
-.header-center a:hover::after,
-.header-center a:active::after,
-.header-right a:hover::after,
-.header-right a:active::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-/* 🚀 返回按鈕 */
+/* 返回箭頭樣式 */
 .back-button {
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  margin-right: 15px; /* 與標題保持距離 */
   opacity: 0.5;
   color: gray;
   transition: all 0.3s ease-in-out;
@@ -113,6 +75,7 @@ header {
   color: black;
   opacity: 1;
 }
+
 
 /* --------------------
    4. 作品展示區（水平滑動）
