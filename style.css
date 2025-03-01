@@ -301,15 +301,17 @@ body.overlay-active {
   line-height: 1.5; /* ✅ 讓文字更易讀 */
 }
 
-/* 🚀 內聯圖片 */
+/* 🚀 內聯圖片設定 */
 .item-summary img {
-  width: 120px;  /* ✅ 確保圖片不會過大 */
+  width: auto;  
   height: auto;
-  aspect-ratio: 16 / 9;  /* ✅ 確保維持 16:9 */
+  max-width: 600px;
+  min-width: 300px;
+  aspect-ratio: 16 / 9;
   vertical-align: baseline; /* ✅ 讓圖片底部與文字底部對齊 */
-  margin: 0 8px;  /* ✅ 增加左右間距，防止太靠近 */
-  border-radius: 4px;  /* ✅ 讓圖片更美觀 */
-  object-fit: cover; /* ✅ 確保圖片裁切 */
+  margin: 0 8px;
+  border-radius: 4px;
+  object-fit: cover;
 }
 
 /* 🚀 讓標題文字隨機排列，模仿雜誌風格 */
