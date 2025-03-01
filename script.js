@@ -14,6 +14,71 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error loading assets:', error));
 
+  function generateSlides(data) {
+    const slider = document.querySelector('.slider');
+    let slideCounter = 0;
+
+    Object.keys(data).forEach(category => {
+      data[category].forEach(item => {
+        const slide = document.createElement('div');
+        slide.classList.add('slide');
+
+        const workInfo = document.createElement('div');
+        workInfo.classList.add('work-info');
+
+        const catP = document.createElement('p');
+        catP.classList.add('work-category');
+        catP.textContent = item.category;
+
+        const titleP = document.createElement('p');
+        titleP.classList.add('work-title');
+        titleP.textContent = item.title;
+
+        workInfo.appendChild(catP);
+        workInfo.appendChild(titleP);
+        slide.appendChild(workInfo);
+
+        if (item.images && item.images.length > 0) {
+          const imagesContainer = document.createElement('div');
+          imagesContainer.classList.add('images-container');
+          const img = document.createElement('img');
+          img.src = 'images/' + item.images[0];
+          img.alt = item.title;
+          img.setAttribute('loading', 'lazy');
+          imagesContainer.appendChild(img);
+          slide.appendChild(imagesContainer);
+        }
+
+        slide.addEventListener('mouseenter', () => {
+          document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
+          slide.classList.add('enlarged');
+          slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+
+        slide.addEventListener('mouseleave', () => {
+          setTimeout(() => {
+            if (!slider.matches(':hover')) {
+              document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
+              const defaultSlide = slider.querySelectorAll('.slide')[3];
+              if (defaultSlide) {
+                defaultSlide.classList.add('enlarged');
+              }
+            }
+          }, 100);
+        });
+
+        slider.appendChild(slide);
+        slideCounter++;
+      });
+    });
+
+    const defaultSlide = slider.querySelectorAll('.slide')[3];
+    if (defaultSlide) {
+      defaultSlide.classList.add('enlarged');
+      defaultSlide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }
+
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
     document.body.classList.add("overlay-active"); // ✅ 禁止 body 滾動
