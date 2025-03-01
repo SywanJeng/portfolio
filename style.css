@@ -167,7 +167,7 @@ header {
 /* 滑鼠 hover 時，擴大當前 slide 寬度（例如 1.5 倍） */
 .slide:hover,
 .slide.enlarged {
-  width: calc((100% / 4) * 1.5);
+  width: calc((100% / 4) * 1.3);
 }
 
 .work-info {
