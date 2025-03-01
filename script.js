@@ -15,21 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error loading assets:', error));
 
-  // 🚀 創建返回按鈕
-  const backButton = document.createElement('span');
-  backButton.classList.add('back-button');
-  backButton.innerHTML = '←'; // 左箭頭
-  backButton.style.display = 'none'; // 預設隱藏
-  headerLeft.prepend(backButton); // 插入到 header-left 的最前面
-
-  // 🚀 點擊返回按鈕時關閉 overlay
-  backButton.addEventListener('click', () => {
-    overlay.classList.remove('active');
-    document.body.classList.remove("overlay-active");
-    backButton.style.display = 'none'; // 隱藏返回按鈕
-    history.pushState(null, null, '/'); // 回到首頁
-  });
-
   function generateSlides(data) {
     const slider = document.querySelector('.slider');
     let slideCounter = 0;
@@ -95,9 +80,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // 🚀 創建返回按鈕
+  const backButton = document.createElement('span');
+  backButton.classList.add('back-button');
+  backButton.innerHTML = '←'; // 左箭頭
+  backButton.style.display = 'none'; // 預設隱藏
+  headerLeft.prepend(backButton); // 插入到 header-left 的最前面
+
+  // 🚀 點擊返回按鈕時關閉 overlay
+  backButton.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    document.body.classList.remove("overlay-active");
+    backButton.style.display = 'none'; // 隱藏返回按鈕
+    history.pushState(null, null, '/'); // 回到首頁
+  });
+
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
     document.body.classList.add("overlay-active"); // ✅ 禁止 body 滾動
+    backButton.style.display = 'inline-block'; // 顯示返回按鈕
     contents.forEach(content => {
       content.classList.remove('active');
       content.innerHTML = ""; // 清空內容，避免舊資料殘留
@@ -109,11 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const contentElement = document.getElementById(targetId);
-
     if (contentElement) {
       contentElement.classList.add('active');
 
-      // 建立 `.overlay-inner` 容器，讓內容對齊 header 內的文字
+      // 🚀 插入內容
       const overlayInner = document.createElement('div');
       overlayInner.classList.add('overlay-inner');
 
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         style="width:${randomWidth}px; height:auto;">`;
 
         let insertIndex;
-        const positionType = Math.random(); // 0~1 之間的隨機數
+        const positionType = Math.random();
 
         if (positionType < 0.3) {
           insertIndex = 0; // 30% 機率圖片插入到開頭
@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showContent(hash, false);
     } else {
       overlay.classList.remove('active');
+      backButton.style.display = 'none'; // 隱藏返回按鈕
     }
   });
 
