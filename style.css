@@ -31,7 +31,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -257,7 +257,7 @@ header {
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* 讓內容與 header 對齊 */
