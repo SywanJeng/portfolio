@@ -2,18 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let assetsData = {}; 
   const overlay = document.getElementById('overlay-content');
   const contents = document.querySelectorAll('.content');
-  // 修改：使用新 header-back 取代原本的 header-left
   const headerBack = document.querySelector('.header-back'); 
-  const slider = document.querySelector('.slider'); // 🎡 作品輪播
+  const slider = document.querySelector('.slider'); // 作品輪播
 
-  // 🚀 創建返回按鈕
-  const backButton = document.createElement('span');
-  backButton.classList.add('back-button');
-  backButton.innerHTML = '⭠'; 
-  backButton.style.display = 'none'; 
-  headerBack.prepend(backButton);
+  // 直接取得 HTML 中的 back-button（已放在 header-back 裡）
+  const backButton = document.querySelector('.back-button');
+  backButton.style.display = 'none'; // 確保預設隱藏
 
-  // 🚀 點擊返回按鈕時關閉 overlay
+  // 🚀 點擊返回箭頭時關閉 overlay
   backButton.addEventListener('click', () => {
     overlay.classList.remove('active');
     document.body.classList.remove("overlay-active");
@@ -21,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     history.pushState(null, null, window.location.origin); // 修正網址
   });
 
-  // 🚀 載入 assets.json
+  // 🚀 載入 assets.json（其他部分保持不變）
   fetch('assets.json')
     .then(response => {
       if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -39,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("⚠ 無法載入作品資料，請稍後再試！");
     });
 
-  // 🎡 **生成作品輪播**
+  // 🎡 **生成作品輪播**（保持原有功能）
   function generateSlides(data) {
     let slideCounter = 0;
     slider.innerHTML = ""; // 清空舊的內容
@@ -106,10 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🚀 展開內容
+  // 🚀 展開內容（保持原有功能）
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
-    document.body.classList.add("overlay-active"); // ✅ 禁止 body 滾動
+    document.body.classList.add("overlay-active"); // 禁止 body 滾動
     contents.forEach(content => {
       content.classList.remove('active');
       content.innerHTML = ""; // 清空內容，避免舊資料殘留
@@ -125,11 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contentElement) {
       contentElement.classList.add('active');
 
-      // 建立 `.overlay-inner` 容器，讓內容對齊 header 內的文字
+      // 建立 .overlay-inner 讓內容對齊 header
       const overlayInner = document.createElement('div');
       overlayInner.classList.add('overlay-inner');
 
-      // 手動設定標題
+      // 設定大標題
       const titleMap = {
         "layout": "Layouts",
         "exhibition": "Exhibitions",
@@ -138,35 +134,30 @@ document.addEventListener('DOMContentLoaded', () => {
         "about": "About Me"
       };
 
-      // 插入大標題
-      const header = document.createElement('h1');
-      header.classList.add('content-title');
-      header.textContent = titleMap[targetId] || "Untitled";
-      overlayInner.appendChild(header);
+      const headerTitle = document.createElement('h1');
+      headerTitle.classList.add('content-title');
+      headerTitle.textContent = titleMap[targetId] || "Untitled";
+      overlayInner.appendChild(headerTitle);
 
-      // 讀取該分類的所有資料
+      // 讀取該分類所有資料
       assetsData[targetId].forEach(item => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('content-item', 'fade-in');
 
-        // 🚀 **隨機決定圖片的寬度 (300 - 600px)**
         const randomWidth = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
-
-        // 🚀 **隨機決定圖片插入的位置**
         const words = item.summary.split(" ");
         const imgTag = `<img src="images/${item.images?.[0] || 'default.jpg'}" 
                         alt="${item.title}" loading="lazy" class="inline-img" 
                         style="width:${randomWidth}px; height:auto;">`;
 
         let insertIndex;
-        const positionType = Math.random(); // 0~1 之間的隨機數
-
+        const positionType = Math.random();
         if (positionType < 0.3) {
-          insertIndex = 0; // 30% 機率圖片插入到開頭
+          insertIndex = 0;
         } else if (positionType > 0.7) {
-          insertIndex = words.length; // 30% 機率圖片插入到結尾
+          insertIndex = words.length;
         } else {
-          insertIndex = Math.floor(Math.random() * words.length); // 40% 機率隨機插入
+          insertIndex = Math.floor(Math.random() * words.length);
         }
 
         words.splice(insertIndex, 0, imgTag);
@@ -181,17 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       contentElement.appendChild(overlayInner);
-      syncOverlayMargin(); // 🚀 確保內容 margin 與 header 一致
+      syncOverlayMargin();
     }
 
-    // ✅ 只有當 hash 真的變更時才更新網址，避免影響重新整理
     if (updateUrl && window.location.hash !== `#${targetId}`) {
       history.pushState(null, null, `#${targetId}`);
     }
+
+    // 當 overlay 展開時，顯示返回箭頭
+    backButton.style.display = 'inline-block';
   }
 
-  // 🚀 **監聽選單點擊，展開對應內容**
-  // 修改：使用新的 .header-nav 選取器
+  // 監聽導覽連結（改用新的 .header-nav 選取器）
   document.querySelectorAll('.header-nav a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
@@ -200,17 +192,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 🚀 **當用戶點擊「上一頁/下一頁」時，自動更新 overlay**
+  // 當使用瀏覽器上一頁/下一頁時更新 overlay
   window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash) {
       showContent(hash, false);
     } else {
       overlay.classList.remove('active');
+      document.body.classList.remove("overlay-active");
+      backButton.style.display = 'none';
     }
   });
 
-  // 🚀 **頁面載入時，若有 hash，則自動展開對應內容**
+  // 頁面載入時若有 hash 自動展開對應內容
   function checkInitialHash() {
     const initialHash = window.location.hash.replace('#', '');
     if (initialHash) {
@@ -218,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🚀 監聽滾動事件，確保 overlay 在滾動時覆蓋 header
+  // 監聽滾動事件，讓 overlay 在滾動時覆蓋 header
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
       overlay.classList.add("scroll-active");
@@ -227,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 🚀 確保 overlay-inner margin 與 header 一致
+  // 確保 overlay-inner margin 與 header 一致
   function syncOverlayMargin() {
     const header = document.querySelector("header");
     const overlayInner = document.querySelector("#overlay-content .overlay-inner");
