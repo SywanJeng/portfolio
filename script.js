@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let assetsData = {}; 
   const overlay = document.getElementById('overlay-content');
   const contents = document.querySelectorAll('.content');
-  const headerLeft = document.querySelector('.header-left'); 
+  // 修改：使用新 header-back 取代原本的 header-left
+  const headerBack = document.querySelector('.header-back'); 
   const slider = document.querySelector('.slider'); // 🎡 作品輪播
 
   // 🚀 創建返回按鈕
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   backButton.classList.add('back-button');
   backButton.innerHTML = '⭠'; 
   backButton.style.display = 'none'; 
-  headerLeft.prepend(backButton);
+  headerBack.prepend(backButton);
 
   // 🚀 點擊返回按鈕時關閉 overlay
   backButton.addEventListener('click', () => {
@@ -190,7 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 🚀 **監聽選單點擊，展開對應內容**
-  document.querySelectorAll('.header-center a').forEach(link => {
+  // 修改：使用新的 .header-nav 選取器
+  document.querySelectorAll('.header-nav a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
       const targetId = this.getAttribute('data-target');
