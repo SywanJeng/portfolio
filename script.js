@@ -2,27 +2,27 @@ document.addEventListener('DOMContentLoaded', () => {
   let assetsData = {}; 
   const overlay = document.getElementById('overlay-content');
   const contents = document.querySelectorAll('.content');
-  const headerBack = document.querySelector('.header-back'); 
   const slider = document.querySelector('.slider'); // 作品輪播
-
-  // 直接取得 HTML 中的 back-button（已放在 header-back 裡）
-  const backButton = document.querySelector('.back-button');
   
-  // 首頁狀態：整個欄位 + 箭頭都隱藏
-  headerBack.style.display = 'none';
-  backButton.style.display = 'none';
+  // 取得 header 左側兩個元素
+  const headerHome = document.querySelector('.header-home');
+  const headerBack = document.querySelector('.header-back');
 
-  // 🚀 點擊返回箭頭時關閉 overlay
-  backButton.addEventListener('click', () => {
+  // 初始首頁狀態：顯示 headerHome，隱藏 headerBack
+  headerHome.style.display = 'inline-block';
+  headerBack.style.display = 'none';
+
+  // 點擊返回箭頭（headerBack）時，隱藏 overlay 並回到首頁狀態
+  headerBack.addEventListener('click', () => {
     overlay.classList.remove('active');
     document.body.classList.remove("overlay-active");
-    // 回到首頁狀態：隱藏整個欄位 + 箭頭
+    // 回到首頁：顯示 headerHome，隱藏 headerBack
+    headerHome.style.display = 'inline-block';
     headerBack.style.display = 'none';
-    backButton.style.display = 'none';
-    history.pushState(null, null, window.location.origin); // 修正網址
+    history.pushState(null, null, window.location.origin);
   });
 
-  // 🚀 載入 assets.json
+  // 載入 assets.json 並生成輪播內容
   fetch('assets.json')
     .then(response => {
       if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("⚠ 無法載入作品資料，請稍後再試！");
     });
 
-  // 🎡 **生成作品輪播**
+  // 生成作品輪播（保持原有功能）
   function generateSlides(data) {
     let slideCounter = 0;
     slider.innerHTML = ""; // 清空舊的內容
@@ -107,13 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🚀 展開內容
+  // 展開 overlay 內容，並切換 header 左側內容
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
     document.body.classList.add("overlay-active"); // 禁止 body 滾動
     contents.forEach(content => {
       content.classList.remove('active');
-      content.innerHTML = ""; // 清空內容，避免舊資料殘留
+      content.innerHTML = ""; // 清空舊資料
     });
 
     if (!assetsData[targetId]) {
@@ -125,12 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (contentElement) {
       contentElement.classList.add('active');
-
-      // 建立 .overlay-inner 讓內容對齊 header
       const overlayInner = document.createElement('div');
       overlayInner.classList.add('overlay-inner');
 
-      // 設定大標題
+      // 大標題設定
       const titleMap = {
         "layout": "Layouts",
         "exhibition": "Exhibitions",
@@ -184,12 +182,12 @@ document.addEventListener('DOMContentLoaded', () => {
       history.pushState(null, null, `#${targetId}`);
     }
 
-    // 當 overlay 展開時，顯示整個欄位 + 箭頭
-    headerBack.style.display = 'flex';
-    backButton.style.display = 'inline-block';
+    // 展開 overlay 時，切換 header 左側：隱藏首頁文字，顯示返回箭頭
+    headerHome.style.display = 'none';
+    headerBack.style.display = 'inline-block';
   }
 
-  // 監聽導覽連結
+  // 監聽導覽連結點擊事件
   document.querySelectorAll('.header-nav a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
@@ -198,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 當使用瀏覽器上一頁/下一頁時更新 overlay
+  // 當瀏覽器上一頁/下一頁時更新 overlay
   window.addEventListener('popstate', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash) {
@@ -206,13 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       overlay.classList.remove('active');
       document.body.classList.remove("overlay-active");
-      // 回到首頁狀態：隱藏整個欄位 + 箭頭
+      // 回到首頁狀態：顯示首頁文字，隱藏返回箭頭
+      headerHome.style.display = 'inline-block';
       headerBack.style.display = 'none';
-      backButton.style.display = 'none';
     }
   });
 
-  // 頁面載入時若有 hash 自動展開對應內容
+  // 頁面載入時若有 hash，自動展開對應內容
   function checkInitialHash() {
     const initialHash = window.location.hash.replace('#', '');
     if (initialHash) {
@@ -220,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 監聽滾動事件，讓 overlay 在滾動時覆蓋 header
+  // 監聽滾動事件，讓 overlay 隨滾動改變覆蓋 header 的情況（可選）
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
       overlay.classList.add("scroll-active");
@@ -229,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 確保 overlay-inner margin 與 header 一致
+  // 確保 overlay-inner margin 與 header 對齊（保持原有功能）
   function syncOverlayMargin() {
     const header = document.querySelector("header");
     const overlayInner = document.querySelector("#overlay-content .overlay-inner");
