@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🚀 創建返回按鈕
   const backButton = document.createElement('span');
   backButton.classList.add('back-button');
-  backButton.innerHTML = '←'; // 左箭頭
+  backButton.innerHTML = '⭠'; // 左箭頭
   backButton.style.display = 'none'; // 預設隱藏
   headerLeft.prepend(backButton); // 插入到 header-left 的最前面
 
