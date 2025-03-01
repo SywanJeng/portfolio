@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   headerHome.style.display = 'inline-block';
   headerBack.style.display = 'none';
 
-  // 點擊返回箭頭（headerBack）時，隱藏 overlay 並回到首頁狀態
+  // 點擊返回箭頭時，隱藏 overlay 並回到首頁狀態
   headerBack.addEventListener('click', () => {
     overlay.classList.remove('active');
     document.body.classList.remove("overlay-active");
@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     headerHome.style.display = 'inline-block';
     headerBack.style.display = 'none';
     history.pushState(null, null, window.location.origin);
+    // 清除所有導覽連結的 active 狀態
+    document.querySelectorAll('.header-nav a').forEach(navLink => navLink.classList.remove('active'));
   });
 
   // 載入 assets.json 並生成輪播內容
@@ -187,10 +189,17 @@ document.addEventListener('DOMContentLoaded', () => {
     headerBack.style.display = 'inline-block';
   }
 
-  // 監聽導覽連結點擊事件
+  // 監聽導覽連結點擊事件，同時控制 active class
   document.querySelectorAll('.header-nav a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
+      // 先移除其他連結的 active class
+      document.querySelectorAll('.header-nav a').forEach(navLink => {
+        navLink.classList.remove('active');
+      });
+      // 為當前點擊的連結加上 active class
+      this.classList.add('active');
+
       const targetId = this.getAttribute('data-target');
       showContent(targetId);
     });
@@ -207,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // 回到首頁狀態：顯示首頁文字，隱藏返回箭頭
       headerHome.style.display = 'inline-block';
       headerBack.style.display = 'none';
+      // 清除導覽連結的 active class
+      document.querySelectorAll('.header-nav a').forEach(navLink => navLink.classList.remove('active'));
     }
   });
 
