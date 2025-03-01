@@ -11,20 +11,29 @@
 </head>
 <body>
 
-  <!-- Header 區域 -->
-  <header>
-    <div class="header-left">Visual, Graphic Designer</div>
-    <nav class="header-center">
-      <a href="#layout" data-target="layout">Layout</a>
-      <a href="#commercial" data-target="commercial">Commercial</a>
-      <a href="#photography" data-target="photography">Photography</a>
-      <a href="#exhibition" data-target="exhibition">Exhibition</a>
-      <a href="#about" data-target="about">AboutMe</a>
-    </nav>    
-    <div class="header-right">
-      <a href="#message">Message Me</a>
-    </div>
-  </header>  
+<!-- Header 區域 -->
+<header>
+  <!-- 第一欄：返回箭頭（預設隱藏，僅在 overlay 開啟時顯示） -->
+  <div class="header-col header-back">
+    <span class="back-button" style="display: none;">⭠</span>
+  </div>
+  <!-- 第二欄：標題文字 -->
+  <div class="header-col header-title">
+    Visual, Graphic Designer
+  </div>
+  <!-- 第三欄：導覽選單 -->
+  <div class="header-col header-nav">
+    <a href="#layout" data-target="layout">Layout</a>
+    <a href="#commercial" data-target="commercial">Commercial</a>
+    <a href="#photography" data-target="photography">Photography</a>
+    <a href="#exhibition" data-target="exhibition">Exhibition</a>
+    <a href="#about" data-target="about">AboutMe</a>
+  </div>
+  <!-- 第四欄：訊息連結 -->
+  <div class="header-col header-right">
+    <a href="#message">Message Me</a>
+  </div>
+</header>
 
   <!-- 作品展示區 (內容由 JavaScript 自動生成) -->
   <div class="slider-container">
