@@ -27,6 +27,9 @@ body {
 
 /* 固定 Header 在頂端，並自適應寬度 */
 header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   position: fixed;        /* 固定在視窗 */
   top: 0;
   left: 0;
@@ -36,7 +39,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;        /* 左右內距 */
   box-sizing: border-box;
 }
 
