@@ -7,17 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 直接取得 HTML 中的 back-button（已放在 header-back 裡）
   const backButton = document.querySelector('.back-button');
-  backButton.style.display = 'none'; // 確保預設隱藏
+  
+  // 首頁狀態：整個欄位 + 箭頭都隱藏
+  headerBack.style.display = 'none';
+  backButton.style.display = 'none';
 
   // 🚀 點擊返回箭頭時關閉 overlay
   backButton.addEventListener('click', () => {
     overlay.classList.remove('active');
     document.body.classList.remove("overlay-active");
+    // 回到首頁狀態：隱藏整個欄位 + 箭頭
+    headerBack.style.display = 'none';
     backButton.style.display = 'none';
     history.pushState(null, null, window.location.origin); // 修正網址
   });
 
-  // 🚀 載入 assets.json（其他部分保持不變）
+  // 🚀 載入 assets.json
   fetch('assets.json')
     .then(response => {
       if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -35,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("⚠ 無法載入作品資料，請稍後再試！");
     });
 
-  // 🎡 **生成作品輪播**（保持原有功能）
+  // 🎡 **生成作品輪播**
   function generateSlides(data) {
     let slideCounter = 0;
     slider.innerHTML = ""; // 清空舊的內容
@@ -102,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 🚀 展開內容（保持原有功能）
+  // 🚀 展開內容
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
     document.body.classList.add("overlay-active"); // 禁止 body 滾動
@@ -179,11 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
       history.pushState(null, null, `#${targetId}`);
     }
 
-    // 當 overlay 展開時，顯示返回箭頭
+    // 當 overlay 展開時，顯示整個欄位 + 箭頭
+    headerBack.style.display = 'flex';
     backButton.style.display = 'inline-block';
   }
 
-  // 監聽導覽連結（改用新的 .header-nav 選取器）
+  // 監聽導覽連結
   document.querySelectorAll('.header-nav a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
@@ -200,6 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       overlay.classList.remove('active');
       document.body.classList.remove("overlay-active");
+      // 回到首頁狀態：隱藏整個欄位 + 箭頭
+      headerBack.style.display = 'none';
       backButton.style.display = 'none';
     }
   });
