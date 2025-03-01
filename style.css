@@ -159,14 +159,14 @@ header {
   align-items: flex-start; /* 讓所有 slide 頂部對齊 */
 }
 
-/* 預設每個 slide 寬度為螢幕的 1/4 */
+/* 每個 slide 設定固定比例與 overflow 隱藏 */
 .slide {
-  transition: width 0.3s ease;
   width: calc(100% / 4);
-  aspect-ratio: 16 / 9;  /* 例如 16:9，瀏覽器支援度要注意 */
-  scroll-snap-align: center;
-  margin-right: 0;
+  aspect-ratio: 16 / 9; /* 固定比例 */
+  overflow: hidden;
+  transition: width 0.3s ease;
   flex-shrink: 0;
+  scroll-snap-align: center;
 }
 
 /* 滑鼠 hover 時，擴大當前 slide 寬度（例如 1.5 倍） */
