@@ -71,11 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.images && item.images.length > 0) {
           const imagesContainer = document.createElement('div');
           imagesContainer.classList.add('images-container');
+
+          // 新增一個 <a> 將圖片包起來，並設定 href 為 "#xxx/aaa"
+          const link = document.createElement('a');
+          link.href = `#${item.category.toLowerCase()}/${item.slug}`;
+          
           const img = document.createElement('img');
           img.src = 'images/' + item.images[0];
           img.alt = item.title;
           img.setAttribute('loading', 'lazy');
+
           imagesContainer.appendChild(img);
+          imagesContainer.appendChild(link);
           slide.appendChild(imagesContainer);
         }
 
