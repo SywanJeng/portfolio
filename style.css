@@ -289,7 +289,7 @@ body.overlay-active {
   width: 120px;  /* ✅ 確保圖片不會過大 */
   height: auto;
   aspect-ratio: 16 / 9;  /* ✅ 確保維持 16:9 */
-  vertical-align: middle;  /* ✅ 讓圖片與文字保持對齊 */
+  vertical-align: baseline; /* ✅ 讓圖片底部與文字底部對齊 */
   margin: 0 8px;  /* ✅ 增加左右間距，防止太靠近 */
   border-radius: 4px;  /* ✅ 讓圖片更美觀 */
   object-fit: cover; /* ✅ 確保圖片裁切 */
