@@ -198,11 +198,11 @@ header {
   font-weight: 700;
 }
 
-/* 讓圖片隨著 slide 寬度自動填滿 */
+/* 讓圖片填滿 slide，並裁切超出部分 */
 .slide img {
-  max-height: 100%;
-  object-fit: cover; /* 或 contain，看你想要的裁切效果 */
-  width: auto;       /* 若你想保留圖片的寬高比 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
