@@ -311,9 +311,9 @@ body.overlay-active {
 
 /* 文字區塊 */
 .content-text {
-  display: block; /* 確保文字不受 flex 影響 */
-  overflow: hidden; /* 確保內容流動正常 */
-  text-align: left;
+  display: inline-block;  /* ✅ 讓它可以與浮動圖片同一行 */
+  width: calc(100% - 320px); /* ✅ 讓文字占滿剩餘空間 (假設圖片寬度 300px + 間距 20px) */
+  vertical-align: top;  /* ✅ 確保文字從頂部對齊 */
 }
 
 /* 清除浮動，確保不影響下一個內容 */
