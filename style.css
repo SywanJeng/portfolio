@@ -212,7 +212,7 @@ header {
 }
 
 .logo p {
-  font-size: 72px; /* 預設字體大小，JS 會根據容器寬度做調整 */
+  font-size: 70px; /* 預設字體大小，JS 會根據容器寬度做調整 */
 }
 
 
