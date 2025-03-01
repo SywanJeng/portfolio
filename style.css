@@ -53,6 +53,14 @@ header {
 .header-left {
   justify-content: flex-start;
 }
+
+.header-home {
+  font-size: 1rem;
+  font-weight: bold; /* 變成粗體 */
+  color: black;      /* 文字黑色 */
+  cursor: pointer;
+}
+
 .header-home,
 .header-back {
   font-size: 1rem;
