@@ -21,18 +21,22 @@ body {
 /* --------------------
    3. Header 區域
 -------------------- */
+:root {
+  --header-height: 8vh;
+}
+
 /* 固定 Header 在頂端，並自適應寬度 */
 header {
   position: fixed;        /* 固定在視窗 */
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;           /* 確保在最上層 */
+  height: var(--header-height);
+  z-index: 900;           /* 確保在最上層 */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;        /* 左右內距 */
-  height: 8vh; /* 使用螢幕高度的 10% */
   box-sizing: border-box;
 }
 
@@ -221,7 +225,7 @@ header {
   width: 100%;
   max-width: 100vw; /* 確保展開時橫向佔滿全螢幕 */
   padding-top: 30px; /* 只設定上方間距，左右間距由內部內容控制 */
-  height: calc(100vh - var(--header-height));
+  height: calc(100vh - var(--header-height)); /* 佔滿剩餘高度 */
   background: #F0F0F0;
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
