@@ -134,7 +134,11 @@ header {
    4. 作品展示區（水平滑動）
 -------------------- */
 .slider-container {
-  margin-top: 30px;
+  position: absolute; /* 或者可以用 margin-top 取代，視你的布局而定 */
+  top: var(--header-height); /* 從 header 底部開始 */
+  left: 0;
+  right: 0;
+  height: calc(100vh - var(--header-height));
   overflow-x: auto;
   overflow-y: hidden; /* 隱藏垂直溢出 */
   scroll-snap-type: x mandatory;
@@ -196,8 +200,9 @@ header {
 
 /* 讓圖片隨著 slide 寬度自動填滿 */
 .slide img {
-  width: 100%;
-  height: auto;
+  max-height: 100%;
+  object-fit: cover; /* 或 contain，看你想要的裁切效果 */
+  width: auto;       /* 若你想保留圖片的寬高比 */
   display: block;
 }
 
