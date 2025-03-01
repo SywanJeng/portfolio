@@ -14,71 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error loading assets:', error));
 
-  function generateSlides(data) {
-    const slider = document.querySelector('.slider');
-    let slideCounter = 0;
-
-    Object.keys(data).forEach(category => {
-      data[category].forEach(item => {
-        const slide = document.createElement('div');
-        slide.classList.add('slide');
-
-        const workInfo = document.createElement('div');
-        workInfo.classList.add('work-info');
-
-        const catP = document.createElement('p');
-        catP.classList.add('work-category');
-        catP.textContent = item.category;
-
-        const titleP = document.createElement('p');
-        titleP.classList.add('work-title');
-        titleP.textContent = item.title;
-
-        workInfo.appendChild(catP);
-        workInfo.appendChild(titleP);
-        slide.appendChild(workInfo);
-
-        if (item.images && item.images.length > 0) {
-          const imagesContainer = document.createElement('div');
-          imagesContainer.classList.add('images-container');
-          const img = document.createElement('img');
-          img.src = 'images/' + item.images[0];
-          img.alt = item.title;
-          img.setAttribute('loading', 'lazy');
-          imagesContainer.appendChild(img);
-          slide.appendChild(imagesContainer);
-        }
-
-        slide.addEventListener('mouseenter', () => {
-          document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
-          slide.classList.add('enlarged');
-          slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        });
-
-        slide.addEventListener('mouseleave', () => {
-          setTimeout(() => {
-            if (!slider.matches(':hover')) {
-              document.querySelectorAll('.slide').forEach(s => s.classList.remove('enlarged'));
-              const defaultSlide = slider.querySelectorAll('.slide')[3];
-              if (defaultSlide) {
-                defaultSlide.classList.add('enlarged');
-              }
-            }
-          }, 100);
-        });
-
-        slider.appendChild(slide);
-        slideCounter++;
-      });
-    });
-
-    const defaultSlide = slider.querySelectorAll('.slide')[3];
-    if (defaultSlide) {
-      defaultSlide.classList.add('enlarged');
-      defaultSlide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    }
-  }
-
   function showContent(targetId, updateUrl = true) {
     overlay.classList.add('active');
     document.body.classList.add("overlay-active"); // ✅ 禁止 body 滾動
@@ -121,49 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('content-item', 'fade-in');
 
-        // 隨機決定圖片在左或右
-        const imagePosition = Math.random() > 0.5 ? "left" : "right";
+        // 🚀 **將圖片隨機插入 `summary` 文字內**
+        const words = item.summary.split(" ");
+        const imgTag = `<img src="images/${item.images?.[0] || 'default.jpg'}" 
+                        alt="${item.title}" loading="lazy" class="inline-img">`;
+
+        // 隨機決定在哪個位置插入圖片
+        const insertIndex = Math.floor(Math.random() * words.length);
+        words.splice(insertIndex, 0, imgTag);
+        const formattedSummary = words.join(" ");
 
         itemContainer.innerHTML = `
-    <div class="content-body ${imagePosition}">
-      <div class="content-image">
-        <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
-      </div>
-      <div class="content-text">
-        <h2 class="item-summary">${item.summary}</h2>
-        <p class="item-title">${item.title}</p>
-      </div>
-    </div>
-  `;
+          <h2 class="item-summary">${formattedSummary}</h2>
+          <p class="item-title">${item.title}</p>
+        `;
 
         overlayInner.appendChild(itemContainer);
       });
 
       contentElement.appendChild(overlayInner);
       syncOverlayMargin(); // 🚀 確保內容 margin 與 header 一致
-      applyRandomTextLayout(); // 🚀 確保 summary 文字隨機排列
     }
 
     // ✅ 只有當 hash 真的變更時才更新網址，避免影響重新整理
     if (updateUrl && window.location.hash !== `#${targetId}`) {
       history.pushState(null, null, `#${targetId}`);
     }
-  }
-
-  // 🚀 讓 `summary` 文字排列更有趣的雜誌風格
-  function applyRandomTextLayout() {
-    document.querySelectorAll(".item-summary").forEach((summary) => {
-      const words = summary.textContent.split(" ");
-      let formattedText = "";
-
-      words.forEach((word, index) => {
-        // 隨機決定是否在該單字前加換行
-        const randomSpacing = Math.random() > 0.6 ? "<br>" : "";
-        formattedText += `${randomSpacing} ${word}`;
-      });
-
-      summary.innerHTML = formattedText.trim();
-    });
   }
 
   // 🚀 **監聽選單點擊，展開對應內容**
