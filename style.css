@@ -20,60 +20,78 @@ body {
 /* --------------------
    3. Header 區域
 -------------------- */
+/* 固定 Header 在頂端，並自適應寬度 */
 header {
+  position: fixed;        /* 固定在視窗 */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;           /* 確保在最上層 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  background-color: #fff; /* 可自行選擇背景色 */
+  padding: 0 20px;        /* 左右內距 */
+  height: 60px;           /* 固定高度 */
   box-sizing: border-box;
 }
 
+/* 統一四欄的基本排版 */
 .header-col {
-  flex: 1;
+  flex: 1;                /* 四欄等寬 */
   display: flex;
   align-items: center;
+  justify-content: center; /* 預設置中 */
 }
 
-/* 左邊返回箭頭欄，靠左對齊 */
+/* 第 1 欄：返回箭頭靠左 */
 .header-back {
   justify-content: flex-start;
 }
 
-/* 標題欄，置中 */
+/* 第 2 欄：標題文字，不要用太大字 */
 .header-title {
+  font-size: 1rem;      /* 與 nav、Message Me 一致 */
+  color: gray;          /* 與 nav、Message Me 一致 */
+  font-weight: 500;     /* 可自行調整粗細 */
   justify-content: center;
-  font-size: calc(16px + 1vw); /* 自適應字體大小 */
 }
 
-/* 導覽欄，置中 */
+/* 第 3 欄：導覽選單，置中 */
 .header-nav {
   justify-content: center;
 }
 .header-nav nav {
   display: flex;
-  gap: 20px;
+  gap: 20px;            /* 連結間距 */
 }
 .header-nav nav a {
   text-decoration: none;
   color: gray;
+  font-size: 1rem;      /* 與標題一致 */
   transition: color 0.3s;
 }
 .header-nav nav a:hover {
   color: black;
 }
 
-/* 右邊訊息欄，靠右對齊 */
+/* 第 4 欄：訊息連結，靠右 */
 .header-right {
   justify-content: flex-end;
+}
+.header-right a {
+  text-decoration: none;
+  color: gray;
+  font-size: 1rem;      /* 與標題一致 */
+  transition: color 0.3s;
+}
+.header-right a:hover {
+  color: black;
 }
 
 /* 返回箭頭樣式 */
 .back-button {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1rem;    /* 與其他欄位文字一致 */
   cursor: pointer;
   opacity: 0.5;
   color: gray;
