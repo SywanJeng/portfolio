@@ -274,62 +274,25 @@ body.overlay-active {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 文繞圖 */
-.content-body {
-  display: block; /* 讓內部內容按正常區塊流動 */
-  overflow: hidden; /* 防止浮動內容溢出 */
-}
-/* 圖片在左側時 */
-.content-body.left .content-image {
-  float: left; /* ✅ 讓文字環繞在圖片的右邊 */
-  margin-right: 20px; /* ✅ 讓文字與圖片保持間距 */
-}
-
-/* 圖片在右側時 */
-.content-body.right .content-image {
-  float: right; /* ✅ 讓文字環繞在圖片的左邊 */
-  margin-left: 20px; /* ✅ 讓文字與圖片保持間距 */
-}
-
-/* 讓圖片可以讓文字環繞 */
-.content-image {
-  width: 300px;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px; /* 避免與文字太貼 */
-}
-
-/* 🚀 設定圖片裁切行為 */
-.content-image img {
-  width: 100%;
-  height: 100%; /* 🚀 確保填滿外框 */
-  object-fit: cover; /* 🚀 圖片填滿，維持 16:9 */
-  display: block;
-  border-radius: 8px;
-}
-
-/* 文字區塊 */
-.content-text {
-  display: inline-block;  /* ✅ 讓它可以與浮動圖片同一行 */
-  width: calc(100% - 320px); /* ✅ 讓文字占滿剩餘空間 (假設圖片寬度 300px + 間距 20px) */
-  vertical-align: top;  /* ✅ 確保文字從頂部對齊 */
-}
-
-/* 清除浮動，確保不影響下一個內容 */
-.content-body::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-/* 🚀 讓 summary 文字更有層次感 */
+/* 🚀 讓 `summary` 內的圖片能夠與文字混排 */
 .item-summary {
   font-size: 32px;
   font-weight: bold;
   color: #000;
   margin-bottom: 5px;
   text-align: left;
+  line-height: 1.5; /* ✅ 讓文字更易讀 */
+}
+
+/* 🚀 內聯圖片 */
+.item-summary img {
+  width: 120px;  /* ✅ 確保圖片不會過大 */
+  height: auto;
+  aspect-ratio: 16 / 9;  /* ✅ 確保維持 16:9 */
+  vertical-align: middle;  /* ✅ 讓圖片與文字保持對齊 */
+  margin: 0 8px;  /* ✅ 增加左右間距，防止太靠近 */
+  border-radius: 4px;  /* ✅ 讓圖片更美觀 */
+  object-fit: cover; /* ✅ 確保圖片裁切 */
 }
 
 /* 🚀 讓標題文字隨機排列，模仿雜誌風格 */
