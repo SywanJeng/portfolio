@@ -61,7 +61,6 @@ header {
   cursor: pointer;
 }
 
-.header-home,
 .header-back {
   font-size: 1rem;
   color: gray;
