@@ -125,14 +125,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const imagePosition = Math.random() > 0.5 ? "left" : "right";
 
         itemContainer.innerHTML = `
-          <div class="content-body ${imagePosition}">
-            <img class="content-image" src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
-            <div class="content-text">
-              <h2 class="item-summary">${item.summary}</h2>
-              <p class="item-title">${item.title}</p>
-            </div>
-          </div>
-        `;
+    <div class="content-body ${imagePosition}">
+      <div class="content-image">
+        <img src="images/${item.images?.[0] || 'default.jpg'}" alt="${item.title}" loading="lazy">
+      </div>
+      <div class="content-text">
+        <h2 class="item-summary">${item.summary}</h2>
+        <p class="item-title">${item.title}</p>
+      </div>
+    </div>
+  `;
 
         overlayInner.appendChild(itemContainer);
       });
