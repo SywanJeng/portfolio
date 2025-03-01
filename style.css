@@ -274,33 +274,30 @@ body.overlay-active {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 🚀 讓圖片隨機出現在左側或右側 */
+/* 文繞圖 */
 .content-body {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  display: block; /* 讓內部內容按正常區塊流動 */
+  overflow: hidden; /* 防止浮動內容溢出 */
 }
-
-/* 圖片在左側 */
+/* 圖片在左側時 */
 .content-body.left .content-image {
-  order: -1; /* ✅ 讓圖片跑到最前面 */
+  float: left; /* ✅ 讓文字環繞在圖片的右邊 */
+  margin-right: 20px; /* ✅ 讓文字與圖片保持間距 */
 }
 
-/* 圖片在右側 */
+/* 圖片在右側時 */
 .content-body.right .content-image {
-  order: 1; /* ✅ 讓圖片跑到最後 */
+  float: right; /* ✅ 讓文字環繞在圖片的左邊 */
+  margin-left: 20px; /* ✅ 讓文字與圖片保持間距 */
 }
 
-/* 🚀 設定圖片區塊，確保 16:9 比例 */
+/* 讓圖片可以讓文字環繞 */
 .content-image {
-  width: 100%;
-  max-width: 300px; /* 限制圖片最大寬度 */
-  aspect-ratio: 16 / 9; /* 🚀 強制父層也是 16:9 */
-  overflow: hidden; /* 🚀 防止圖片超出 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 300px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px; /* 避免與文字太貼 */
 }
 
 /* 🚀 設定圖片裁切行為 */
@@ -314,8 +311,16 @@ body.overlay-active {
 
 /* 文字區塊 */
 .content-text {
-  flex: 1;
-  min-width: 200px;
+  display: block; /* 確保文字不受 flex 影響 */
+  overflow: hidden; /* 確保內容流動正常 */
+  text-align: left;
+}
+
+/* 清除浮動，確保不影響下一個內容 */
+.content-body::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 /* 🚀 讓 summary 文字更有層次感 */
@@ -338,18 +343,6 @@ body.overlay-active {
   font-size: 16px;
   color: #666;
   text-align: left;
-}
-
-/* ✅ 讓文字繞過圖片 */
-@media (max-width: 768px) {
-  .content-body {
-    flex-direction: column;
-  }
-
-  .content-body .content-image {
-    order: 0;
-    max-width: 100%;
-  }
 }
 
 /* 當滾動超過 100px，讓 `overlay` 覆蓋整個螢幕 */
