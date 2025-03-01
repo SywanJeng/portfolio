@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // 🚀 確保 overlay-inner margin 與 header 一致
   function syncOverlayMargin() {
     const header = document.querySelector("header");
     const overlayInner = document.querySelector("#overlay-content .overlay-inner");
@@ -215,4 +216,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener("resize", syncOverlayMargin);
   window.addEventListener("DOMContentLoaded", syncOverlayMargin);
+
+  function adjustResponsiveText() {
+    const container = document.querySelector('.logo');
+    if (!container) return;
+    const textElement = container.querySelector('p');
+    if (!textElement) return;
+
+    let fontSize = 250;
+    textElement.style.fontSize = fontSize + 'px';
+
+    while (textElement.scrollWidth > container.clientWidth && fontSize > 10) {
+      fontSize -= 1;
+      textElement.style.fontSize = fontSize + 'px';
+    }
+
+    while (textElement.scrollWidth < container.clientWidth && fontSize < 250) {
+      fontSize += 1;
+      textElement.style.fontSize = fontSize + 'px';
+      if (textElement.scrollWidth > container.clientWidth) {
+        fontSize -= 1;
+        textElement.style.fontSize = fontSize + 'px';
+        break;
+      }
+    }
+  }
+
+  adjustResponsiveText();
+  window.addEventListener('resize', adjustResponsiveText);
 });
