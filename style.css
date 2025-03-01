@@ -25,90 +25,72 @@ body {
   --header-height: 8vh;
 }
 
-/* 固定 Header 在頂端，並自適應寬度 */
+/* 固定 Header 並限制最大寬度 */
 header {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: fixed;        /* 固定在視窗 */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: var(--header-height);
-  z-index: 900;           /* 確保在最上層 */
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: var(--header-height);
   box-sizing: border-box;
 }
 
-/* 統一四欄的基本排版 */
+/* 各欄位設定 */
 .header-col {
-  flex: 1;                /* 四欄等寬 */
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center; /* 預設置中 */
 }
 
-/* 第 1 欄：返回箭頭靠左 */
-.header-back {
+/* 左側欄位：首頁狀態顯示 header-home，overlay 狀態顯示 header-back */
+.header-left {
   justify-content: flex-start;
 }
-
-/* 第 2 欄：標題文字，不要用太大字 */
-.header-title {
-  font-size: 1rem;      /* 與 nav、Message Me 一致 */
-  color: gray;          /* 與 nav、Message Me 一致 */
-  font-weight: 500;     /* 可自行調整粗細 */
-  justify-content: center;
+.header-home,
+.header-back {
+  font-size: 1rem;
+  color: gray;
+  cursor: pointer;
 }
 
-/* 第 3 欄：導覽選單，置中 */
+/* 中間：導覽選單 */
 .header-nav {
   justify-content: center;
 }
 .header-nav nav {
   display: flex;
-  gap: 20px;            /* 連結間距 */
+  gap: 20px;
 }
 .header-nav nav a {
   text-decoration: none;
   color: gray;
-  font-size: 1rem;      /* 與標題一致 */
+  font-size: 1rem;
   transition: color 0.3s;
 }
 .header-nav nav a:hover {
   color: black;
 }
 
-/* 第 4 欄：訊息連結，靠右 */
+/* 右側：訊息連結 */
 .header-right {
   justify-content: flex-end;
 }
 .header-right a {
   text-decoration: none;
   color: gray;
-  font-size: 1rem;      /* 與標題一致 */
+  font-size: 1rem;
   transition: color 0.3s;
 }
 .header-right a:hover {
   color: black;
 }
-
-/* 返回箭頭樣式 */
-.back-button {
-  font-size: 1rem;    /* 與其他欄位文字一致 */
-  cursor: pointer;
-  opacity: 0.5;
-  color: gray;
-  transition: all 0.3s ease-in-out;
-}
-.back-button:hover {
-  font-weight: bolder;
-  color: black;
-  opacity: 1;
-}
-
 
 /* --------------------
    4. 作品展示區（水平滑動）
