@@ -121,13 +121,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemContainer = document.createElement('div');
         itemContainer.classList.add('content-item', 'fade-in');
 
-        // 🚀 **將圖片隨機插入 `summary` 文字內**
+        // 🚀 **隨機決定圖片的寬度 (300 - 600px)**
+        const randomWidth = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
+
+        // 🚀 **隨機決定圖片插入的位置**
         const words = item.summary.split(" ");
         const imgTag = `<img src="images/${item.images?.[0] || 'default.jpg'}" 
-                        alt="${item.title}" loading="lazy" class="inline-img">`;
+                        alt="${item.title}" loading="lazy" class="inline-img" 
+                        style="width:${randomWidth}px; height:auto;">`;
 
-        // 隨機決定在哪個位置插入圖片
-        const insertIndex = Math.floor(Math.random() * words.length);
+        let insertIndex;
+        const positionType = Math.random(); // 0~1 之間的隨機數
+
+        if (positionType < 0.3) {
+          insertIndex = 0; // 30% 機率圖片插入到開頭
+        } else if (positionType > 0.7) {
+          insertIndex = words.length; // 30% 機率圖片插入到結尾
+        } else {
+          insertIndex = Math.floor(Math.random() * words.length); // 40% 機率隨機插入
+        }
+
         words.splice(insertIndex, 0, imgTag);
         const formattedSummary = words.join(" ");
 
