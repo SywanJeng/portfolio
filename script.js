@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 回到首頁：顯示 headerHome，隱藏 headerBack
     headerHome.style.display = 'inline-block';
     headerBack.style.display = 'none';
-    history.pushState(null, null, window.location.origin);
+    // 使用 pathname 保留子目錄
+    history.pushState(null, null, window.location.pathname);
     // 清除所有導覽連結的 active 狀態
     document.querySelectorAll('.header-nav a').forEach(navLink => navLink.classList.remove('active'));
   });
@@ -181,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (updateUrl && window.location.hash !== `#${targetId}`) {
-      history.pushState(null, null, `#${targetId}`);
+      history.pushState(null, null, window.location.pathname + `#${targetId}`);
     }
 
     // 展開 overlay 時，切換 header 左側：隱藏首頁文字，顯示返回箭頭
@@ -218,6 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
       headerBack.style.display = 'none';
       // 清除導覽連結的 active class
       document.querySelectorAll('.header-nav a').forEach(navLink => navLink.classList.remove('active'));
+      // 更新 URL 回到子目錄
+      history.pushState(null, null, window.location.pathname);
     }
   });
 
