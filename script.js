@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // **同步 overlay 與 header 的左右邊距**
   function syncOverlayMargin() {
     const header = document.querySelector("header");
-    const overlayInner = overlay.querySelector(".overlay-content");
+    const overlayInner = overlay.querySelector(".overlay-inner");
     if (header && overlayInner) {
       const headerMargin = (window.innerWidth - header.clientWidth) / 2;
       overlayInner.style.marginLeft = `${headerMargin}px`;
