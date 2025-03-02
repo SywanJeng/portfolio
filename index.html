@@ -51,13 +51,17 @@
 
   <!-- 展開內容區域 -->
   <div id="overlay-content" class="hidden">
-    <div class="content" id="layout"></div>
-    <div class="content" id="commercial"></div>
-    <div class="content" id="photography"></div>
-    <div class="content" id="exhibition"></div>
-    <div class="content" id="about"></div>
-      <!-- 作品 detail (內容由 JavaScript 自動生成) -->
-    <div id="item-detail"></div>
+    <!-- 左側：可滾動列表區 -->
+    <div class="vertical-list-container">
+      <ul class="vertical-list">
+        <!-- 這裡之後會用 JS 動態插入 <li> -->
+      </ul>
+    </div>
+  
+    <!-- 右側：預覽圖片區（9:16）-->
+    <div class="vertical-image-container">
+      <img id="vertical-preview" src="" alt="Preview" />
+    </div>
   </div>
 
   <!-- 連結外部 JavaScript 檔案 -->
