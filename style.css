@@ -246,14 +246,14 @@ header {
 -------------------- */
 #overlay-content {
   position: fixed;
+  top: var(--header-height); /* 從 header 底下開始 */
   left: 0;
   right: 0;
   bottom: 0;
   background: #F0F0F0;
   display: flex;
   overflow: hidden; /* 自己不滾動 */
-  z-index: 999;
-  /* 如果預設要隱藏，可用 transform 或 display: none; 這裡僅示範 */
+  z-index: 900; /* 低於 header (header 建議調整至 1000) */
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
 }
@@ -268,10 +268,10 @@ body.overlay-active {
 
 /* 左側：可滾動列表 */
 .vertical-list-container {
-  width: 50%;
+  width: 75%;  /* 左側佔 75% 寬度 */
   height: 100%;
   overflow-y: auto;
-  padding: 40px; 
+  padding: 40px;
   box-sizing: border-box;
 }
 
@@ -283,16 +283,15 @@ body.overlay-active {
 
 /* 大字標題 */
 .vertical-item {
-  font-size: 4rem;       /* 依需求調整 */
-  font-weight: 400;      /* 預設字重 */
-  color: #888;           /* 預設灰色 */
-  margin-bottom: 2rem;   /* 間距 */
+  font-size: 4rem;
+  font-weight: 400;
+  color: #888;
+  margin-bottom: 2rem;
   position: relative;
   cursor: pointer;
   transition: color 0.3s, font-weight 0.3s;
 }
 
-/* Hover 或 .active 狀態 → 變黑、加粗、底線展開 */
 .vertical-item:hover,
 .vertical-item.active {
   color: #000;
@@ -315,9 +314,9 @@ body.overlay-active {
   transform: scaleX(1);
 }
 
-/* 右側：單張預覽圖 (9:16) */
+/* 右側：預覽圖片區，固定寬度約為螢幕的 1/4 */
 .vertical-image-container {
-  width: 50%;
+  width: 25%;
   height: 100%;
   position: relative;
   display: flex;
@@ -327,13 +326,15 @@ body.overlay-active {
   box-sizing: border-box;
 }
 
+/* 右側預覽圖片保持 9:16 的比例 */
 #vertical-preview {
-  width: auto;
-  height: 70%;         /* 可依需求調整 */
-  aspect-ratio: 9/16;  /* 9:16 */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
   object-fit: cover;
   display: block;
 }
+
 
 /* 動畫效果 */
 @keyframes fadeIn {
