@@ -149,7 +149,9 @@ header {
   -ms-overflow-style: none;    
 }
 .slider-container::-webkit-scrollbar {
-  display: none;
+  width: 0px; /* 設為 0，讓滾動條消失 */
+  height: 0px;
+  background: transparent; /* 確保背景透明 */
 }
 
 .slider {
@@ -281,6 +283,16 @@ body.overlay-active {
   overflow-y: auto;
   padding: 40px;
   box-sizing: border-box;
+  /* 隱藏滾動條（跨瀏覽器支援） */
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE & Edge */
+}
+
+/* 隱藏滾動條（Chrome, Safari） */
+.vertical-list-container::-webkit-scrollbar {
+  width: 0px; /* 設為 0，讓滾動條消失 */
+  height: 0px;
+  background: transparent; /* 確保背景透明 */
 }
 
 .vertical-list {
