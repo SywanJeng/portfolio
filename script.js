@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // **修正滑鼠拖動 `.slider`**
   function enableSliderDrag() {
+    if (overlay.classList.contains('active')) return; // 如果 overlay 是開啟的，不啟用拖動
     let isDown = false;
     let startX;
     let scrollLeft;
