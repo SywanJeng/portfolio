@@ -207,6 +207,11 @@ header {
   display: block;
 }
 
+.slider.active {
+  cursor: grabbing;
+  user-select: none;
+}
+
 /* --------------------
    5. Logo 區域：固定在視窗底部
 -------------------- */
