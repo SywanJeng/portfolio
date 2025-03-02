@@ -140,6 +140,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  
+  // 展開 overlay-content
+  function showContent(category) {
+    const listContainer = overlay.querySelector('.vertical-list-container');
+    const previewImg = overlay.querySelector('#vertical-preview');
+  
+    // 清空現有內容
+    listContainer.innerHTML = "";
+  
+    const titleMap = {
+      "layout": "Layouts",
+      "exhibition": "Exhibitions",
+      "commercial": "Commercial Projects",
+      "photography": "Photography Collection",
+      "about": "About Me"
+    };
+  
+    const categoryTitle = document.createElement('h1');
+    categoryTitle.classList.add('list-category-title');
+    categoryTitle.textContent = titleMap[category] || "Untitled";
+    listContainer.appendChild(categoryTitle);
+  
+    const ul = document.createElement('ul');
+    ul.classList.add('vertical-list');
+  
+    const items = assetsData[category];
+    if (!items) {
+      console.warn(`找不到分類: ${category}`);
+      return;
+    }
+  
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.classList.add('vertical-item');
+      li.textContent = item.title;
+      li.dataset.images = JSON.stringify(item.images);
+  
+      li.addEventListener('mouseenter', () => {
+        const images = JSON.parse(li.dataset.images);
+        previewImg.src = 'images/' + (images && images.length > 0 ? images[0] : 'default.jpg');
+      });
+  
+      li.addEventListener('click', () => {
+        if (item.slug) {
+          showItemDetail(category, item.slug);
+        }
+      });
+  
+      ul.appendChild(li);
+    });
+  
+    listContainer.appendChild(ul);
+  
+    // **這裡確保 overlay-content 顯示**
+    overlay.classList.add('active');
+    document.body.classList.add('overlay-active');
+  
+    if (items.length > 0 && items[0].images && items[0].images.length > 0) {
+      previewImg.src = 'images/' + items[0].images[0];
+    } else {
+      previewImg.src = 'images/default.jpg';
+    }
+  
+    history.pushState(null, null, window.location.pathname + `#${category}`);
+    headerHome.style.display = 'none';
+    headerBack.style.display = 'inline-block';
+  }  
+
   // **同步 overlay 與 header 的左右邊距**
   function syncOverlayMargin() {
     const header = document.querySelector("header");
