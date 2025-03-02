@@ -138,58 +138,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 更新後的 showContent：依據新 overlay 結構（左側大字列表 + 右側預覽圖片）產生內容
   function showContent(category) {
-    const ul = overlay.querySelector('.vertical-list');
+    // 取得 overlay 中的左側列表容器與右側預覽圖片
+    const listContainer = overlay.querySelector('.vertical-list-container');
     const previewImg = overlay.querySelector('#vertical-preview');
-
-    // 清空現有列表內容
-    ul.innerHTML = "";
-
+  
+    // 清空左側容器內容（包括舊有標題與列表）
+    listContainer.innerHTML = "";
+  
+    // 依照 category 產生標題，這邊可依需求擴充
+    const titleMap = {
+      "layout": "Layouts",
+      "exhibition": "Exhibitions",
+      "commercial": "Commercial Projects",
+      "photography": "Photography Collection",
+      "about": "About Me"
+    };
+    const categoryTitle = document.createElement('h1');
+    categoryTitle.classList.add('list-category-title');
+    categoryTitle.textContent = titleMap[category] || "Untitled";
+  
+    // 將標題加入左側容器
+    listContainer.appendChild(categoryTitle);
+  
+    // 建立新的 <ul> 來存放作品列表
+    const ul = document.createElement('ul');
+    ul.classList.add('vertical-list');
+  
     // 取得對應分類的資料
     const items = assetsData[category];
     if (!items) {
       console.warn(`找不到分類: ${category}`);
       return;
     }
-
-    // 逐筆生成列表項目
+  
+    // 為每個作品產生一個列表項目
     items.forEach(item => {
       const li = document.createElement('li');
       li.classList.add('vertical-item');
       li.textContent = item.title;
       li.dataset.images = JSON.stringify(item.images);
+  
+      // 滑鼠移入時更新右側預覽圖片（取第一張）
       li.addEventListener('mouseenter', () => {
         const images = JSON.parse(li.dataset.images);
         previewImg.src = 'images/' + (images && images.length > 0 ? images[0] : 'default.jpg');
       });
+  
+      // 點擊列表項目時，若該作品有 slug 則進入詳細內容
       li.addEventListener('click', () => {
-        // 點擊列表項目時可進入作品詳情，這裡呼叫 showItemDetail
         if (item.slug) {
           showItemDetail(category, item.slug);
         }
       });
+  
       ul.appendChild(li);
     });
-
+  
+    // 將作品列表 <ul> 加入左側容器
+    listContainer.appendChild(ul);
+  
     // 顯示 overlay 並禁止 body 捲動
     overlay.classList.add('active');
     document.body.classList.add('overlay-active');
-
-    // 預設右側預覽圖片
+  
+    // 預設右側預覽圖片為第一個作品的第一張圖
     if (items.length > 0 && items[0].images && items[0].images.length > 0) {
       previewImg.src = 'images/' + items[0].images[0];
     } else {
       previewImg.src = 'images/default.jpg';
     }
-
+  
     // 更新 URL hash
     if (window.location.hash !== `#${category}`) {
       history.pushState(null, null, window.location.pathname + `#${category}`);
     }
-
-    // 更新 header 狀態
+  
+    // 更新 header 狀態：隱藏首頁文字，顯示返回箭頭
     headerHome.style.display = 'none';
     headerBack.style.display = 'inline-block';
   }
+  
 
   // 更新後的 showItemDetail：簡易示範點擊後顯示詳情（你可根據需求進一步優化）
   function showItemDetail(category, slug) {
