@@ -135,7 +135,7 @@ header {
 -------------------- */
 .slider-container {
   position: absolute;
-  top: var(--header-height); /* 從 header 底部開始 */
+  top: var(--header-height); 
   left: 0;
   right: 0;
   height: calc(100vh - var(--header-height));
@@ -143,7 +143,8 @@ header {
   overflow-y: hidden; /* 隱藏垂直溢出 */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  z-index: 2; /* 讓它比 .logo-section 更高 */
+  z-index: 2;
+  white-space: nowrap; /* 防止 slide 換行 */
   /* 隱藏 scrollbar */
   scrollbar-width: none;       
   -ms-overflow-style: none;    
@@ -259,11 +260,12 @@ header {
   bottom: 0;
   background: #F0F0F0;
   display: flex;
-  overflow: hidden; /* 自己不滾動 */
+  overflow: hidden;
   z-index: 900; /* 低於 header (header 建議調整至 1000) */
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
-  max-width: 1200px;
+  width: 100%; /* 修正 */
+  max-width: 100%; /* 修正，確保不受 1200px 限制 */
 }
 
 #overlay-content.active {
