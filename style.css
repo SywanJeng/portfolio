@@ -266,6 +266,14 @@ body.overlay-active {
   overflow: hidden; /* 禁止 body 滾動 */
 }
 
+/* 左側：作品分類標題 */
+.list-category-title {
+  font-size: 3rem;       /* 可依需求調整字體大小 */
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.5rem; /* 與列表項目間距 */
+}
+
 /* 左側：可滾動列表 */
 .vertical-list-container {
   width: 75%;  /* 左側佔 75% 寬度 */
@@ -284,7 +292,7 @@ body.overlay-active {
 /* 大字標題 */
 .vertical-item {
   font-size: 4rem;
-  font-weight: 400;
+  font-weight: 100;
   color: #888;
   margin-bottom: 2rem;
   position: relative;
@@ -297,6 +305,7 @@ body.overlay-active {
   color: #000;
   font-weight: 700;
 }
+/* hover 時的底線效果 
 .vertical-item::after {
   content: "";
   position: absolute;
@@ -312,29 +321,29 @@ body.overlay-active {
 .vertical-item:hover::after,
 .vertical-item.active::after {
   transform: scaleX(1);
-}
+} */
 
 /* 右側：預覽圖片區，固定寬度約為螢幕的 1/4 */
 .vertical-image-container {
-  width: 25%;
+  width: 25%;             /* 固定寬度約螢幕 1/4 */
   height: 100%;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* 對齊頂部 */
   justify-content: center;
   padding: 0 20px;
   box-sizing: border-box;
 }
 
+
 /* 右側預覽圖片保持 9:16 的比例 */
 #vertical-preview {
   width: 100%;
   height: auto;
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 9 / 16;   /* 保持 9:16 */
   object-fit: cover;
   display: block;
 }
-
 
 /* 動畫效果 */
 @keyframes fadeIn {
