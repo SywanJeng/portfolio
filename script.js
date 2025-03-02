@@ -111,39 +111,32 @@ document.addEventListener('DOMContentLoaded', () => {
       defaultSlide.classList.add('enlarged');
       defaultSlide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
-
-    // 讓 slider 可以用滑鼠拖動
-const slider = document.querySelector('.slider');
-let isDown = false;
-let startX;
-let scrollLeft;
-
-slider.addEventListener('mousedown', (e) => {
-  isDown = true;
-  slider.classList.add('active'); // 可選，給拖動狀態加 class
-  startX = e.pageX - slider.offsetLeft;
-  scrollLeft = slider.scrollLeft;
-});
-
-slider.addEventListener('mouseleave', () => {
-  isDown = false;
-  slider.classList.remove('active');
-});
-
-slider.addEventListener('mouseup', () => {
-  isDown = false;
-  slider.classList.remove('active');
-});
-
-slider.addEventListener('mousemove', (e) => {
-  if (!isDown) return; // 只有在按住滑鼠時才觸發
-  e.preventDefault();
-  const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX) * 2; // 調整滑動速度
-  slider.scrollLeft = scrollLeft - walk;
-});
-
   }
+
+  slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    slider.classList.add('active'); // 可選，給拖動狀態加 class
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  });
+  
+  slider.addEventListener('mouseleave', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+  
+  slider.addEventListener('mouseup', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+  
+  slider.addEventListener('mousemove', (e) => {
+    if (!isDown) return; // 只有在按住滑鼠時才觸發
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2; // 調整滑動速度
+    slider.scrollLeft = scrollLeft - walk;
+  });
 
   // Hash 解析函式：將 hash 拆成 category 與 slug（如果有）
   function parseHash() {
