@@ -1,32 +1,56 @@
 {
   "layout": [
     {
-      "title": "2024 zz參考手冊",
-      "category": "Layout",
+      "title": {
+        "zh": "2024 zz參考手冊",
+        "en": "2024 ZZ Design Reference"
+      },
+      "category": {
+        "zh": "版面設計",
+        "en": "Layout Design"
+      },
       "slug": "2024zzdesign",
       "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
       "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     },
     {
-      "title": "2024 xx參考手冊",
-      "category": "Layout",
+      "title": {
+        "zh": "2024 xx參考手冊",
+        "en": "2024 XX Design Reference"
+      },
+      "category": {
+        "zh": "版面設計",
+        "en": "Layout Design"
+      },
       "slug": "2024xxdesign",
       "summary": "一本探索現代設計的參考手冊。",
       "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     },
     {
-      "title": "2024 yy參考手冊",
-      "category": "Layout",
+      "title": {
+        "zh": "2024 yy參考手冊",
+        "en": "2024 YY Design Reference"
+      },
+      "category": {
+        "zh": "版面設計",
+        "en": "Layout Design"
+      },
       "slug": "2024yydesign",
       "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
       "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     },
     {
-      "title": "2024 aa參考手冊",
-      "category": "Layout",
+      "title": {
+        "zh": "2024 aa參考手冊",
+        "en": "2024 AA Design Reference"
+      },
+      "category": {
+        "zh": "版面設計",
+        "en": "Layout Design"
+      },
       "slug": "2024aadesign",
       "summary": "一本探索現代設計的參考手冊。",
       "description": "本手冊收錄了當代設計的趨勢與最佳實踐，幫助設計師更好地理解排版規則。",
@@ -35,16 +59,28 @@
   ],
   "exhibition": [
     {
-      "title": "2024 展覽參考手冊",
-      "category": "Exhibition",
+      "title": {
+        "zh": "2024 展覽參考手冊",
+        "en": "2024 Exhibition Reference Guide"
+      },
+      "category": {
+        "zh": "展覽設計",
+        "en": "Exhibition Design"
+      },
       "slug": "",
       "summary": "這本手冊記錄了各種展覽設計的精彩案例。",
       "description": "透過詳細的視覺分析，這本手冊介紹了展覽空間的設計要素，從燈光、動線到材質運用。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     },
     {
-      "title": "作品集設計講義設計",
-      "category": "Layout",
+      "title": {
+        "zh": "作品集設計講義設計",
+        "en": "Portfolio Design Lecture Materials"
+      },
+      "category": {
+        "zh": "展覽設計",
+        "en": "Exhibition Design"
+      },
       "slug": "",
       "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
       "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
@@ -53,16 +89,28 @@
   ],
   "commercial": [
     {
-      "title": "2024 商業參考手冊",
-      "category": "Commercial",
+      "title": {
+        "zh": "2024 商業參考手冊",
+        "en": "2024 Commercial Design Guide"
+      },
+      "category": {
+        "zh": "商業視覺設計",
+        "en": "Commercial Visual Design"
+      },
       "slug": "",
       "summary": "一本關於商業設計的靈感參考。",
       "description": "這本手冊探索了商業設計如何影響品牌形象，包括廣告視覺、包裝設計與行銷策略。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     },
     {
-      "title": "作品集設計講義設計",
-      "category": "Layout",
+      "title": {
+        "zh": "作品集設計講義設計",
+        "en": "Portfolio Design Lecture Materials"
+      },
+      "category": {
+        "zh": "商業視覺設計",
+        "en": "Commercial Visual Design"
+      },
       "slug": "",
       "summary": "這本手冊展示了最新的版面設計概念。這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概這本手冊展示了最新的版面設計概",
       "description": "這本2024 XX參考手冊探討了如何透過色彩與網格系統來提升視覺層次，並包含多種實際案例。",
@@ -71,16 +119,28 @@
   ],
   "photography": [
     {
-      "title": "2024 攝影作品集",
-      "category": "Photography",
+      "title": {
+        "zh": "2024 攝影作品集",
+        "en": "2024 Photography Portfolio"
+      },
+      "category": {
+        "zh": "攝影",
+        "en": "Photography"
+      },
       "slug": "",
       "summary": "一系列高品質的攝影作品。",
       "description": "這本作品集涵蓋了風景、人像、商業攝影等不同主題，展現攝影的藝術與技術。",
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     },
     {
-      "title": "2024 人像攝影專輯",
-      "category": "Photography",
+      "title": {
+        "zh": "2024 人像攝影專輯",
+        "en": "2024 Portrait Photography Collection"
+      },
+      "category": {
+        "zh": "攝影",
+        "en": "Photography"
+      },
       "slug": "",
       "summary": "專注於人像攝影的精選作品。",
       "description": "這本攝影專輯展現了不同光影、構圖與情感表達，適合攝影師與設計師參考。",
