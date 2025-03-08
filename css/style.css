@@ -258,12 +258,14 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #F0F0F0;
+  background: rgba(240, 240, 240, 0.7); /* 降低背景不透明度 */
+  backdrop-filter: blur(15px); /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(15px); /* Safari 支援 */
   display: flex;
   overflow: hidden;
   z-index: 900; /* 低於 header (header 建議調整至 1000) */
   transform: translateY(100%);
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, backdrop-filter 0.5s ease;
   width: 100%; /* 修正 */
   max-width: 100%; /* 修正，確保不受 1200px 限制 */
 }
@@ -288,11 +290,13 @@ body.overlay-active {
 
 /* 左側：可滾動列表 */
 .vertical-list-container {
-  width: 50%;  /* 左側佔 1/2 寬度 */
+  width: 66.67%;  /* 左側佔 2/3 寬度 */
   height: 100%;
   overflow-y: auto;
   padding: 60px; /* 增加內部間距 */
   box-sizing: border-box;
+  /* 增加一點點背景色提高文字可讀性 */
+  background-color: rgba(240, 240, 240, 0.5);
   /* 隱藏滾動條（跨瀏覽器支援） */
   scrollbar-width: none;  /* Firefox */
   -ms-overflow-style: none;  /* IE & Edge */
@@ -330,7 +334,7 @@ body.overlay-active {
 
 /* 右側：預覽圖片區，固定寬度為螢幕的 1/3 */
 .vertical-image-container {
-  width: 50%;  /* 左側佔 1/2 寬度 */
+  width: 33.33%;         /* 固定寬度為螢幕 1/3 */
   height: 100%;          /* 佔滿視窗高度 */
   position: relative;
   display: flex;
@@ -338,7 +342,7 @@ body.overlay-active {
   justify-content: center;
   padding: 0;
   box-sizing: border-box;
-  background-color: #F0F0F0;
+  background-color: transparent; /* 改為透明背景 */
 }
 
 /* 右側預覽圖片填滿容器高度 */
