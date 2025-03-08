@@ -302,6 +302,10 @@ body.overlay-active {
   -ms-overflow-style: none;  /* IE & Edge */
 }
 
+.vertical-list {
+  margin-top: 2rem; /* 增加和標題的間距 */
+}
+
 /* 隱藏滾動條（Chrome, Safari） */
 .vertical-list-container::-webkit-scrollbar {
   width: 0px; /* 設為 0，讓滾動條消失 */
@@ -315,21 +319,52 @@ body.overlay-active {
   padding: 0;
 }
 
-/* 大字標題 */
+/* 作品項目容器 */
 .vertical-item {
+  padding: 2rem 0;
+  position: relative;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0; /* 底部分隔線 */
+  transition: padding 0.3s;
+}
+
+.vertical-item:last-child {
+  border-bottom: none; /* 最後一項不顯示底部分隔線 */
+}
+
+.vertical-item:hover {
+  padding-left: 1rem; /* 懸停時向右偏移 */
+}
+
+/* 作品標題 */
+.item-title {
   font-size: 4rem;
   font-weight: 100;
   color: #888;
-  margin-bottom: 2rem;
-  position: relative;
-  cursor: pointer;
+  margin-bottom: 0.75rem;
   transition: color 0.3s, font-weight 0.3s;
 }
 
-.vertical-item:hover,
-.vertical-item.active {
+/* 作品摘要 */
+.item-summary {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #aaa;
+  max-width: 80%;
+  transition: color 0.3s;
+  line-height: 1.4;
+}
+
+/* 懸停效果 */
+.vertical-item:hover .item-title,
+.vertical-item.active .item-title {
   color: #000;
   font-weight: 700;
+}
+
+.vertical-item:hover .item-summary,
+.vertical-item.active .item-summary {
+  color: #666;
 }
 
 /* 右側：預覽圖片區，固定寬度為螢幕的 1/3 */
