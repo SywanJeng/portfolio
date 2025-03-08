@@ -278,18 +278,20 @@ body.overlay-active {
 
 /* 左側：作品分類標題 */
 .list-category-title {
-  font-size: 3rem;       /* 可依需求調整字體大小 */
+  font-size: 5rem;       /* 放大字體尺寸增加視覺焦點 */
   font-weight: 700;
   color: #000;
-  margin-bottom: 1.5rem; /* 與列表項目間距 */
+  margin-bottom: 2.5rem; /* 增加與列表項目間距 */
+  letter-spacing: -0.02em; /* 稍微收緊字母間距 */
+  line-height: 1.1; /* 控制行高 */
 }
 
 /* 左側：可滾動列表 */
 .vertical-list-container {
-  width: 75%;  /* 左側佔 75% 寬度 */
+  width: 66.67%;  /* 左側佔 2/3 寬度 */
   height: 100%;
   overflow-y: auto;
-  padding: 40px;
+  padding: 60px; /* 增加內部間距 */
   box-sizing: border-box;
   /* 隱藏滾動條（跨瀏覽器支援） */
   scrollbar-width: none;  /* Firefox */
@@ -326,25 +328,24 @@ body.overlay-active {
   font-weight: 700;
 }
 
-/* 右側：預覽圖片區，固定寬度約為螢幕的 1/4 */
+/* 右側：預覽圖片區，固定寬度為螢幕的 1/3 */
 .vertical-image-container {
-  width: 25%;             /* 固定寬度約螢幕 1/4 */
-  height: 100%;
+  width: 33.33%;         /* 固定寬度為螢幕 1/3 */
+  height: 100%;          /* 佔滿視窗高度 */
   position: relative;
   display: flex;
-  align-items: flex-start; /* 對齊頂部 */
+  align-items: center;   /* 垂直居中 */
   justify-content: center;
-  padding: 0 20px;
+  padding: 0;
   box-sizing: border-box;
+  background-color: #F0F0F0;
 }
 
-
-/* 右側預覽圖片保持 9:16 的比例 */
+/* 右側預覽圖片填滿容器高度 */
 #vertical-preview {
   width: 100%;
-  height: auto;
-  aspect-ratio: 9 / 16;   /* 保持 9:16 */
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;  /* 覆蓋整個容器，可能會裁切圖片 */
   display: block;
 }
 
