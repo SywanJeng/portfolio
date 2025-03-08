@@ -147,71 +147,86 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 展示分類內容
-  function showContent(category) {
-    const listContainer = overlay.querySelector('.vertical-list-container');
-    const previewImg = overlay.querySelector('#vertical-preview');
-  
-    // 清空現有內容
-    listContainer.innerHTML = "";
-  
-    const titleMap = {
-      "layout": "Layouts",
-      "exhibition": "Exhibitions",
-      "commercial": "Commercial Projects",
-      "photography": "Photography Collection",
-      "about": "About Me"
-    };
-  
-    const categoryTitle = document.createElement('h1');
-    categoryTitle.classList.add('list-category-title');
-    categoryTitle.textContent = titleMap[category] || "Untitled";
-    listContainer.appendChild(categoryTitle);
-  
-    const ul = document.createElement('ul');
-    ul.classList.add('vertical-list');
-  
-    const items = assetsData[category];
-    if (!items) {
-      console.warn(`找不到分類: ${category}`);
-      return;
-    }
-  
-    items.forEach(item => {
-      const li = document.createElement('li');
-      li.classList.add('vertical-item');
-      li.textContent = item.title;
-      li.dataset.images = JSON.stringify(item.images);
-  
-      li.addEventListener('mouseenter', () => {
-        const images = JSON.parse(li.dataset.images);
-        previewImg.src = 'images/' + (images && images.length > 0 ? images[0] : 'default.jpg');
-      });
-  
-      li.addEventListener('click', () => {
-        if (item.slug) {
-          showItemDetail(category, item.slug);
-        }
-      });
-  
-      ul.appendChild(li);
-    });
-  
-    listContainer.appendChild(ul);
-  
-    // 確保 overlay-content 顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
-  
-    if (items.length > 0 && items[0].images && items[0].images.length > 0) {
-      previewImg.src = 'images/' + items[0].images[0];
-    } else {
-      previewImg.src = 'images/default.jpg';
-    }
-  
-    history.pushState(null, null, window.location.pathname + `#${category}`);
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
+function showContent(category) {
+  const listContainer = overlay.querySelector('.vertical-list-container');
+  const previewImg = overlay.querySelector('#vertical-preview');
+
+  // 清空現有內容
+  listContainer.innerHTML = "";
+
+  const titleMap = {
+    "layout": "Layouts",
+    "exhibition": "Exhibitions",
+    "commercial": "Commercial Projects",
+    "photography": "Photography Collection",
+    "about": "About Me"
+  };
+
+  const categoryTitle = document.createElement('h1');
+  categoryTitle.classList.add('list-category-title');
+  categoryTitle.textContent = titleMap[category] || "Untitled";
+  listContainer.appendChild(categoryTitle);
+
+  const ul = document.createElement('ul');
+  ul.classList.add('vertical-list');
+
+  const items = assetsData[category];
+  if (!items) {
+    console.warn(`找不到分類: ${category}`);
+    return;
   }
+
+  items.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.classList.add('vertical-item');
+    li.style.animationDelay = `${index * 0.1}s`;
+    li.style.animation = `slideInRight 0.5s ease forwards`;
+    li.dataset.images = JSON.stringify(item.images);
+    
+    // 建立標題元素
+    const titleElement = document.createElement('div');
+    titleElement.classList.add('item-title');
+    titleElement.textContent = item.title;
+    
+    // 建立摘要元素
+    const summaryElement = document.createElement('div');
+    summaryElement.classList.add('item-summary');
+    summaryElement.textContent = item.summary || '';
+
+    // 將標題和摘要加入列表項
+    li.appendChild(titleElement);
+    li.appendChild(summaryElement);
+
+    li.addEventListener('mouseenter', () => {
+      const images = JSON.parse(li.dataset.images);
+      previewImg.src = 'images/' + (images && images.length > 0 ? images[0] : 'default.jpg');
+    });
+
+    li.addEventListener('click', () => {
+      if (item.slug) {
+        showItemDetail(category, item.slug);
+      }
+    });
+
+    ul.appendChild(li);
+  });
+
+  listContainer.appendChild(ul);
+
+  // 確保 overlay-content 顯示
+  overlay.classList.add('active');
+  document.body.classList.add('overlay-active');
+
+  if (items.length > 0 && items[0].images && items[0].images.length > 0) {
+    previewImg.src = 'images/' + items[0].images[0];
+  } else {
+    previewImg.src = 'images/default.jpg';
+  }
+
+  history.pushState(null, null, window.location.pathname + `#${category}`);
+  headerHome.style.display = 'none';
+  headerBack.style.display = 'inline-block';
+}
   
   // 實現作品詳情頁功能
   function showItemDetail(category, slug) {
