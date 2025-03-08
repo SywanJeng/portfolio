@@ -2,12 +2,15 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYWANJ. Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- 載入您需要的字型 -->
+  <!-- 載入字型 -->
   <link href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Lexend+Deca:wght@100..900&family=M+PLUS+2:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- 加入網站圖標 -->
+  <link rel="icon" href="images/ui/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -53,9 +56,7 @@
   <div id="overlay-content" class="hidden">
     <!-- 左側：可滾動列表區 -->
     <div class="vertical-list-container">
-      <ul class="vertical-list">
-        <!-- 這裡之後會用 JS 動態插入 <li> -->
-      </ul>
+      <!-- 內容由 JavaScript 動態生成 -->
     </div>
   
     <!-- 右側：預覽圖片區（9:16）-->
@@ -64,7 +65,7 @@
     </div>
   </div>
 
-  <!-- 連結外部 JavaScript 檔案 -->
-  <script src="script.js"></script>
+  <!-- 載入 JavaScript 檔案 -->
+  <script src="js/script.js"></script>
 </body>
 </html>
