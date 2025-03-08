@@ -53,11 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const catP = document.createElement('p');
         catP.classList.add('work-category');
-        catP.textContent = item.category;
+        // 使用結構化的 category 物件，優先使用中文
+        catP.textContent = item.category.zh || item.category.en || item.category;
 
         const titleP = document.createElement('p');
         titleP.classList.add('work-title');
-        titleP.textContent = item.title;
+        // 使用結構化的 title 物件，優先使用中文
+        titleP.textContent = item.title.zh || item.title.en || item.title;
 
         workInfo.appendChild(catP);
         workInfo.appendChild(titleP);
@@ -68,11 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
           imagesContainer.classList.add('images-container');
 
           const link = document.createElement('a');
-          link.href = item.slug ? `#${item.category.toLowerCase()}/${item.slug}` : `#${item.category.toLowerCase()}`;
+          // 使用 category 物件的英文值作為 URL 參數
+          const categorySlug = (item.category.en || item.category).toLowerCase().replace(/\s+/g, '');
+          link.href = item.slug ? `#${categorySlug}/${item.slug}` : `#${categorySlug}`;
 
           const img = document.createElement('img');
           img.src = 'images/' + item.images[0];
-          img.alt = item.title;
+          img.alt = item.title.zh || item.title.en || item.title;
           img.setAttribute('loading', 'lazy');
 
           link.appendChild(img);
@@ -131,20 +135,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 處理 Hash 變更
-  function handleHashChange() {
-    const { category, slug } = parseHash();
-    if (!category) return;
-    
-    if (category === 'about') {
-      showAboutPage();
-    } else if (category === 'message') {
-      showMessageForm();
-    } else if (!slug) {
-      showContent(category);
-    } else {
-      showItemDetail(category, slug);
-    }
+function handleHashChange() {
+  const { category, slug } = parseHash();
+  if (!category) return;
+  
+  // 映射舊分類名稱到新分類名稱 (photography -> visual)
+  let mappedCategory = category;
+  if (category === 'photography') {
+    mappedCategory = 'visual';
+    console.log('分類已從 photography 重新對應到 visual');
   }
+  
+  if (mappedCategory === 'about') {
+    showAboutPage();
+  } else if (mappedCategory === 'message') {
+    showMessageForm();
+  } else if (!slug) {
+    showContent(mappedCategory);
+  } else {
+    showItemDetail(mappedCategory, slug);
+  }
+}
 
   // 展示分類內容
 function showContent(category) {
@@ -155,16 +166,16 @@ function showContent(category) {
   listContainer.innerHTML = "";
 
   const titleMap = {
-    "layout": "Layouts",
-    "exhibition": "Exhibitions",
-    "commercial": "Commercial Projects",
-    "photography": "Photography Collection",
-    "about": "About Me"
+    "layout": "版面設計",
+    "exhibition": "展覽設計",
+    "commercial": "商業視覺設計",
+    "visual": "商品視覺設計",
+    "about": "關於我"
   };
 
   const categoryTitle = document.createElement('h1');
   categoryTitle.classList.add('list-category-title');
-  categoryTitle.textContent = titleMap[category] || "Untitled";
+  categoryTitle.textContent = titleMap[category] || "未命名";
   listContainer.appendChild(categoryTitle);
 
   const ul = document.createElement('ul');
@@ -186,7 +197,8 @@ function showContent(category) {
     // 建立標題元素
     const titleElement = document.createElement('div');
     titleElement.classList.add('item-title');
-    titleElement.textContent = item.title;
+    // 使用結構化的 title 物件，優先使用中文
+    titleElement.textContent = item.title.zh || item.title.en || item.title;
     
     // 建立摘要元素
     const summaryElement = document.createElement('div');
@@ -229,111 +241,121 @@ function showContent(category) {
 }
   
   // 實現作品詳情頁功能
-  function showItemDetail(category, slug) {
-    const overlay = document.getElementById('overlay-content');
-    
-    // 確保overlay顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
-    
-    // 尋找指定slug的作品項目
-    const items = assetsData[category];
-    if (!items) {
-      console.warn(`找不到分類: ${category}`);
-      return;
-    }
-    
-    const item = items.find(i => i.slug === slug);
-    if (!item) {
-      console.warn(`找不到作品: ${slug}`);
-      return;
-    }
-    
-    // 清空現有內容
-    const listContainer = overlay.querySelector('.vertical-list-container');
-    listContainer.innerHTML = "";
-    
-    // 創建返回按鈕
-    const backButton = document.createElement('div');
-    backButton.classList.add('back-to-category');
-    backButton.textContent = `返回 ${category.charAt(0).toUpperCase() + category.slice(1)}`;
-    backButton.addEventListener('click', () => {
-      showContent(category);
-    });
-    
-    // 創建作品詳情內容
-    const detailContent = document.createElement('div');
-    detailContent.classList.add('item-detail');
-    
-    // 標題
-    const title = document.createElement('h1');
-    title.classList.add('detail-title');
-    title.textContent = item.title;
-    
-    // 描述
-    const description = document.createElement('div');
-    description.classList.add('detail-description');
-    description.textContent = item.description;
-    
-    // 圖片畫廊
-    const gallery = document.createElement('div');
-    gallery.classList.add('detail-gallery');
-    
-    if (item.images && item.images.length > 0) {
-      item.images.forEach((imagePath, index) => {
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('gallery-item');
-        
-        const img = document.createElement('img');
-        img.src = 'images/' + imagePath;
-        img.alt = `${item.title} - 圖片 ${index + 1}`;
-        img.setAttribute('loading', 'lazy');
-        
-        imgContainer.appendChild(img);
-        gallery.appendChild(imgContainer);
-        
-        // 點擊圖片時，在右側預覽區顯示大圖
-        imgContainer.addEventListener('click', () => {
-          const previewImg = document.getElementById('vertical-preview');
-          previewImg.src = 'images/' + imagePath;
-        });
-      });
-    }
-    
-    // 組裝詳情內容
-    detailContent.appendChild(title);
-    detailContent.appendChild(description);
-    detailContent.appendChild(gallery);
-    
-    listContainer.appendChild(backButton);
-    listContainer.appendChild(detailContent);
-    
-    // 設置右側預覽圖
-    const previewImg = document.getElementById('vertical-preview');
-    if (item.images && item.images.length > 0) {
-      previewImg.src = 'images/' + item.images[0];
-    } else {
-      previewImg.src = 'images/default.jpg';
-    }
-    
-    // 更新URL
-    history.pushState(null, null, window.location.pathname + `#${category}/${slug}`);
-    
-    // 更新頁面顯示狀態
-    document.querySelectorAll('.header-nav a').forEach(navLink => {
-      if (navLink.getAttribute('data-target') === category) {
-        navLink.classList.add('active');
-      } else {
-        navLink.classList.remove('active');
-      }
-    });
-    
-    // 更新頭部顯示
-    const headerHome = document.querySelector('.header-home');
-    const headerBack = document.querySelector('.header-back');
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
+function showItemDetail(category, slug) {
+  const overlay = document.getElementById('overlay-content');
+  
+  // 確保overlay顯示
+  overlay.classList.add('active');
+  document.body.classList.add('overlay-active');
+  
+  // 尋找指定slug的作品項目
+  const items = assetsData[category];
+  if (!items) {
+    console.warn(`找不到分類: ${category}`);
+    return;
   }
+  
+  const item = items.find(i => i.slug === slug);
+  if (!item) {
+    console.warn(`找不到作品: ${slug}`);
+    return;
+  }
+  
+  // 清空現有內容
+  const listContainer = overlay.querySelector('.vertical-list-container');
+  listContainer.innerHTML = "";
+  
+  // 創建返回按鈕
+  const backButton = document.createElement('div');
+  backButton.classList.add('back-to-category');
+  // 使用中文分類名稱
+  const categoryTitle = {
+    "layout": "版面設計",
+    "exhibition": "展覽設計",
+    "commercial": "商業視覺設計",
+    "visual": "商品視覺設計"
+  };
+  backButton.textContent = `返回${categoryTitle[category] || category}`;
+  backButton.addEventListener('click', () => {
+    showContent(category);
+  });
+  
+  // 創建作品詳情內容
+  const detailContent = document.createElement('div');
+  detailContent.classList.add('item-detail');
+  
+  // 標題
+  const title = document.createElement('h1');
+  title.classList.add('detail-title');
+  // 使用結構化的 title 物件，優先使用中文
+  title.textContent = item.title.zh || item.title.en || item.title;
+  
+  // 描述
+  const description = document.createElement('div');
+  description.classList.add('detail-description');
+  description.textContent = item.description;
+  
+  // 圖片畫廊
+  const gallery = document.createElement('div');
+  gallery.classList.add('detail-gallery');
+  
+  if (item.images && item.images.length > 0) {
+    item.images.forEach((imagePath, index) => {
+      const imgContainer = document.createElement('div');
+      imgContainer.classList.add('gallery-item');
+      
+      const img = document.createElement('img');
+      img.src = 'images/' + imagePath;
+      // 使用結構化的 title 物件，優先使用中文
+      const titleText = item.title.zh || item.title.en || item.title;
+      img.alt = `${titleText} - 圖片 ${index + 1}`;
+      img.setAttribute('loading', 'lazy');
+      
+      imgContainer.appendChild(img);
+      gallery.appendChild(imgContainer);
+      
+      // 點擊圖片時，在右側預覽區顯示大圖
+      imgContainer.addEventListener('click', () => {
+        const previewImg = document.getElementById('vertical-preview');
+        previewImg.src = 'images/' + imagePath;
+      });
+    });
+  }
+  
+  // 組裝詳情內容
+  detailContent.appendChild(title);
+  detailContent.appendChild(description);
+  detailContent.appendChild(gallery);
+  
+  listContainer.appendChild(backButton);
+  listContainer.appendChild(detailContent);
+  
+  // 設置右側預覽圖
+  const previewImg = document.getElementById('vertical-preview');
+  if (item.images && item.images.length > 0) {
+    previewImg.src = 'images/' + item.images[0];
+  } else {
+    previewImg.src = 'images/default.jpg';
+  }
+  
+  // 更新URL
+  history.pushState(null, null, window.location.pathname + `#${category}/${slug}`);
+  
+  // 更新頁面顯示狀態
+  document.querySelectorAll('.header-nav a').forEach(navLink => {
+    if (navLink.getAttribute('data-target') === category) {
+      navLink.classList.add('active');
+    } else {
+      navLink.classList.remove('active');
+    }
+  });
+  
+  // 更新頭部顯示
+  const headerHome = document.querySelector('.header-home');
+  const headerBack = document.querySelector('.header-back');
+  headerHome.style.display = 'none';
+  headerBack.style.display = 'inline-block';
+}
   
   // 顯示「關於我」頁面
   function showAboutPage() {
