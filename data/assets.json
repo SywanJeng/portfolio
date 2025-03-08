@@ -117,15 +117,15 @@
       "images": ["portfolio_layout01.png", "portfolio_layout02.png", "layout1_3.jpg"]
     }
   ],
-  "photography": [
+  "visual": [
     {
       "title": {
         "zh": "2024 攝影作品集",
         "en": "2024 Photography Portfolio"
       },
       "category": {
-        "zh": "攝影",
-        "en": "Photography"
+        "zh": "商品視覺設計",
+        "en": "Product Marketing Visuals"
       },
       "slug": "",
       "summary": "一系列高品質的攝影作品。",
@@ -138,8 +138,8 @@
         "en": "2024 Portrait Photography Collection"
       },
       "category": {
-        "zh": "攝影",
-        "en": "Photography"
+        "zh": "商品視覺設計",
+        "en": "Product Marketing Visuals"
       },
       "slug": "",
       "summary": "專注於人像攝影的精選作品。",
