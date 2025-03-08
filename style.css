@@ -325,23 +325,6 @@ body.overlay-active {
   color: #000;
   font-weight: 700;
 }
-/* hover 時的底線效果 
-.vertical-item::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 100%;
-  height: 2px;
-  background-color: #000;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease-out;
-}
-.vertical-item:hover::after,
-.vertical-item.active::after {
-  transform: scaleX(1);
-} */
 
 /* 右側：預覽圖片區，固定寬度約為螢幕的 1/4 */
 .vertical-image-container {
@@ -432,4 +415,381 @@ body.overlay-active {
 .logo {
   white-space: normal;
 }
+}
+
+/* --------------------
+   8. 作品詳情頁樣式
+-------------------- */
+.back-to-category {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 20px;
+}
+
+.back-to-category:before {
+  content: "←";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.back-to-category:hover {
+  color: #000;
+}
+
+.item-detail {
+  padding-right: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.detail-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 2.5rem;
+  max-width: 80%;
+}
+
+.detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.gallery-item {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 16 / 9;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* --------------------
+   9. 關於我頁面樣式
+-------------------- */
+.about-content {
+  max-width: 90%;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.about-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #000;
+}
+
+.about-intro {
+  margin-bottom: 3rem;
+}
+
+.intro-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.about-intro p:not(.intro-text) {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.about-skills,
+.about-contact {
+  margin-bottom: 3rem;
+}
+
+.about-skills h2,
+.about-contact h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-item {
+  margin-bottom: 1rem;
+}
+
+.skill-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.skill-bar {
+  height: 6px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill-level {
+  height: 100%;
+  background-color: #000;
+  border-radius: 3px;
+  transition: width 1s ease-in-out;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.contact-item {
+  margin-bottom: 1rem;
+}
+
+.contact-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #555;
+}
+
+.contact-value {
+  font-size: 1.1rem;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-value:hover {
+  color: #555;
+  text-decoration: underline;
+}
+
+/* --------------------
+   10. 訊息表單樣式
+-------------------- */
+.message-content {
+  max-width: 90%;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.message-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.message-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
+  max-width: 80%;
+}
+
+.message-form {
+  width: 100%;
+  max-width: 800px;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+  outline: none;
+}
+
+.form-actions {
+  margin-top: 2rem;
+}
+
+.btn-submit {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+/* 成功訊息樣式 */
+.success-message {
+  text-align: center;
+  padding: 3rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: #4CAF50;
+  margin-bottom: 1.5rem;
+}
+
+.success-message h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.success-message p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.btn-back {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-back:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* --------------------
+   11. 響應式調整（整合版）
+-------------------- */
+@media (max-width: 768px) {
+  /* 詳情頁響應式 */
+  .detail-gallery {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-description {
+    max-width: 100%;
+  }
+  
+  /* 在手機版中調整左右區域為上下結構 */
+  #overlay-content {
+    flex-direction: column;
+  }
+  
+  .vertical-list-container, 
+  .vertical-image-container {
+    width: 100%;
+  }
+  
+  .vertical-list-container {
+    height: 70%;
+  }
+  
+  .vertical-image-container {
+    height: 30%;
+    padding: 10px;
+  }
+  
+  #vertical-preview {
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    max-height: 100%;
+  }
+  
+  /* 關於我頁面響應式 */
+  .skills-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-content {
+    max-width: 100%;
+  }
+  
+  /* 訊息表單響應式 */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .message-intro {
+    max-width: 100%;
+  }
 }
