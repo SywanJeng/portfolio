@@ -278,45 +278,26 @@ body.overlay-active {
   overflow: hidden; /* 禁止 body 滾動 */
 }
 
-/* 左側：作品分類標題 */
+/* 左側：作品分類標題區域 */
 .list-category-title {
-  font-size: 5rem;       /* 放大字體尺寸增加視覺焦點 */
+  margin-bottom: 50px; /* 從2.5rem增加到50px */
+}
+
+.category-title-zh {
+  font-size: 5rem;
   font-weight: 700;
   color: #000;
-  margin-bottom: 2.5rem; /* 增加與列表項目間距 */
-  letter-spacing: -0.02em; /* 稍微收緊字母間距 */
-  line-height: 1.1; /* 控制行高 */
+  line-height: 1.1;
+  display: block;
 }
 
-/* 左側：可滾動列表 */
-.vertical-list-container {
-  width: 66.67%;  /* 左側佔 2/3 寬度 */
-  height: 100%;
-  overflow-y: auto;
-  padding: 60px; /* 增加內部間距 */
-  box-sizing: border-box;
-  /* 增加一點點背景色提高文字可讀性 */
-  background-color: rgba(240, 240, 240, 0.5);
-  /* 隱藏滾動條（跨瀏覽器支援） */
-  scrollbar-width: none;  /* Firefox */
-  -ms-overflow-style: none;  /* IE & Edge */
-}
-
-.vertical-list {
-  margin-top: 2rem; /* 增加和標題的間距 */
-}
-
-/* 隱藏滾動條（Chrome, Safari） */
-.vertical-list-container::-webkit-scrollbar {
-  width: 0px; /* 設為 0，讓滾動條消失 */
-  height: 0px;
-  background: transparent; /* 確保背景透明 */
-}
-
-.vertical-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.category-title-en {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #555;
+  line-height: 1.2;
+  display: block;
+  margin-top: 0.5rem;
 }
 
 /* 作品項目容器 */
@@ -324,42 +305,73 @@ body.overlay-active {
   padding: 2rem 0;
   position: relative;
   cursor: pointer;
-  border-bottom: 1px solid #e0e0e0; /* 底部分隔線 */
-  transition: padding 0.3s;
-}
-
-.vertical-item:last-child {
-  border-bottom: none; /* 最後一項不顯示底部分隔線 */
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.4s ease-out;
+  overflow: hidden;
 }
 
 .vertical-item:hover {
-  padding-left: 1rem; /* 懸停時向右偏移 */
+  padding-left: 2rem;
+  background-color: rgba(240, 240, 240, 0.5);
 }
 
-/* 作品標題 */
-.item-title {
-  font-size: 4rem;
-  font-weight: 100;
+/* 作品標題區塊 */
+.item-title-zh {
+  font-size: 3.5rem;
+  font-weight: 300;
   color: #888;
-  margin-bottom: 0.75rem;
-  transition: color 0.3s, font-weight 0.3s;
+  margin-bottom: 0.3rem;
+  transition: color 0.3s, font-weight 0.3s, transform 0.4s ease;
 }
 
-/* 作品摘要 */
+.item-title-en {
+  font-size: 1.8rem;
+  font-weight: 200;
+  color: #999;
+  margin-bottom: 1rem;
+  transition: color 0.3s, transform 0.4s ease;
+}
+
+/* 作品摘要區塊 */
+.item-content {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, height 0.4s ease;
+}
+
 .item-summary {
   font-size: 1.2rem;
   font-weight: 300;
   color: #aaa;
-  max-width: 80%;
-  transition: color 0.3s;
+  max-width: 90%;
   line-height: 1.4;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 0.5rem;
+  transition: color 0.3s;
 }
 
-/* 懸停效果 */
-.vertical-item:hover .item-title,
-.vertical-item.active .item-title {
+/* Hover 效果 */
+.vertical-item:hover .item-title-zh,
+.vertical-item.active .item-title-zh {
   color: #000;
   font-weight: 700;
+}
+
+.vertical-item:hover .item-title-en,
+.vertical-item.active .item-title-en {
+  color: #555;
+  font-weight: 500;
+}
+
+.vertical-item:hover .item-content,
+.vertical-item.active .item-content {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  margin-top: 0.5rem;
 }
 
 .vertical-item:hover .item-summary,
@@ -367,25 +379,31 @@ body.overlay-active {
   color: #666;
 }
 
-/* 右側：預覽圖片區，固定寬度為螢幕的 1/3 */
-.vertical-image-container {
-  width: 33.33%;         /* 固定寬度為螢幕 1/3 */
-  height: 100%;          /* 佔滿視窗高度 */
-  position: relative;
-  display: flex;
-  align-items: center;   /* 垂直居中 */
-  justify-content: center;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: transparent; /* 改為透明背景 */
+/* 抽取文件的滑動動畫 */
+@keyframes slideOut {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-/* 右側預覽圖片填滿容器高度 */
+.vertical-item:hover .item-title-zh,
+.vertical-item:hover .item-title-en,
+.vertical-item:hover .item-content {
+  animation: slideOut 0.4s ease forwards;
+}
+
+/* 右側預覽圖片 */
 #vertical-preview {
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* 覆蓋整個容器，可能會裁切圖片 */
+  object-fit: cover;
   display: block;
+  transition: opacity 0.4s ease;
 }
 
 /* 動畫效果 */
