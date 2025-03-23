@@ -702,40 +702,53 @@ body.overlay-active {
   padding: 0;
 }
 
-.skill-item {
+/* 更新技能展示樣式 */
+.skills-title {
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
+  color: #333;
+  display: flex;
+  align-items: center;
 }
 
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+.skills-title .zh-title {
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.skills-list {
+  margin-bottom: 2rem;
+}
+
+.skills-group {
+  margin-bottom: 2rem;
+}
+
+.skill-item {
+  margin-bottom: 1rem;
 }
 
 .skill-name {
   font-size: 1rem;
   font-weight: 500;
   color: #333;
-}
-
-.skill-percentage {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #777;
+  margin-bottom: 0.5rem;
 }
 
 .skill-bar {
-  height: 6px;
-  background-color: #e0e0e0;
-  border-radius: 3px;
+  height: 8px;
+  background-color: #ddd;
+  border-radius: 4px;
   overflow: hidden;
 }
 
 .skill-level {
   height: 100%;
-  background-color: #000;
-  border-radius: 3px;
-  width: 0; /* 初始寬度為0，JS會動態調整 */
+  background-color: #333;
+  border-radius: 4px;
+  width: 0;
   transition: width 1s ease-in-out;
 }
 
