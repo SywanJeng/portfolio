@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
       alert("⚠ 無法載入作品資料，請稍後再試！");
     });
 
+  // 全局頁面類型追蹤
+  let currentPageType = 'home';
+
   // 生成作品輪播項目
   function generateSlides(data) {
     slider.innerHTML = ""; // 清空 slider 內容
@@ -146,43 +149,131 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('分類已從 photography 重新對應到 visual');
     }
     
-    if (mappedCategory === 'about') {
-      showAboutPage();
-    } else if (mappedCategory === 'message') {
-      showMessageForm();
-    } else if (!slug) {
-      showContent(mappedCategory);
-    } else {
-      showItemDetail(mappedCategory, slug);
-    }
+    // 封裝頁面轉換邏輯
+    navigateToPage(mappedCategory, slug);
   }
 
-  // 展示分類內容 - 優化版本
-  function showContent(category) {
-    // 先重置 overlay 結構，確保跨頁面轉換的 DOM 一致性
-    resetOverlayState();
+  // 新增：統一頁面導航函數 - 所有頁面導航統一通過此函數處理
+  function navigateToPage(category, slug = null) {
+    console.log(`頁面導航: ${currentPageType} → ${category}${slug ? '/' + slug : ''}`);
     
+    // 先重置基本頁面狀態
+    resetBasicPageState();
+    
+    // 根據目標頁面類型執行相應的頁面轉換操作
+    if (category === 'about') {
+      prepareForAboutPage();
+      showAboutPage();
+    } else if (category === 'message') {
+      prepareForStandardPage();
+      showMessageForm();
+    } else if (slug) {
+      prepareForStandardPage();
+      showItemDetail(category, slug);
+    } else {
+      prepareForStandardPage();
+      showContent(category);
+    }
+    
+    // 更新當前頁面類型
+    currentPageType = category;
+    
+    // 更新頁面顯示狀態
+    updatePageState(category);
+  }
+  
+  // 新增：基本頁面狀態重置
+  function resetBasicPageState() {
+    // 確保 overlay-content 顯示
+    overlay.classList.add('active');
+    document.body.classList.add('overlay-active');
+    
+    // 更新頭部顯示
+    headerHome.style.display = 'none';
+    headerBack.style.display = 'inline-block';
+  }
+  
+  // 新增：為標準內容頁面準備 DOM 結構
+  function prepareForStandardPage() {
+    // 重設 overlay 布局為標準雙列式結構
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'row';
+    
+    // 獲取並重置容器樣式
     const listContainer = overlay.querySelector('.vertical-list-container');
-    const previewImg = overlay.querySelector('#vertical-preview');
     const imageContainer = overlay.querySelector('.vertical-image-container');
     
-    // 強制確保右側預覽容器的一致性
+    if (listContainer) {
+      listContainer.style.width = '66.667%';
+      listContainer.style.height = '100%';
+      listContainer.style.overflowY = 'auto';
+    }
+    
     if (imageContainer) {
       imageContainer.style.display = 'block';
       imageContainer.style.width = '33.333%';
       imageContainer.style.height = '100%';
-      // 強制瀏覽器重新計算樣式
-      void imageContainer.offsetWidth;
     }
     
-    // 確保預覽圖片可見
+    // 重置預覽圖樣式
+    const previewImg = overlay.querySelector('#vertical-preview');
     if (previewImg) {
       previewImg.style.display = 'block';
       previewImg.style.opacity = '1';
     }
-
+    
     // 清空現有內容
-    listContainer.innerHTML = "";
+    if (listContainer) {
+      listContainer.innerHTML = "";
+    }
+  }
+  
+  // 新增：為 About 頁面準備 DOM 結構
+  function prepareForAboutPage() {
+    // 確保 overlay 基本結構
+    overlay.style.display = 'flex';
+    
+    // 獲取容器
+    const listContainer = overlay.querySelector('.vertical-list-container');
+    const imageContainer = overlay.querySelector('.vertical-image-container');
+    
+    // 設置 About 頁面專用布局
+    if (listContainer) {
+      listContainer.style.width = '100%';  // 使左側容器佔據全部寬度
+      listContainer.style.height = '100%';
+      listContainer.style.overflowY = 'auto';
+      listContainer.innerHTML = ""; // 清空現有內容
+    }
+    
+    // 隱藏右側預覽區
+    if (imageContainer) {
+      imageContainer.style.display = 'none';
+      imageContainer.style.width = '0';
+    }
+    
+    // 隱藏預覽圖片
+    const previewImg = overlay.querySelector('#vertical-preview');
+    if (previewImg) {
+      previewImg.style.display = 'none';
+    }
+  }
+  
+  // 更新頁面狀態
+  function updatePageState(category) {
+    // 更新菜單激活狀態
+    document.querySelectorAll('.header-nav a').forEach(navLink => {
+      if (navLink.getAttribute('data-target') === category) {
+        navLink.classList.add('active');
+      } else {
+        navLink.classList.remove('active');
+      }
+    });
+  }
+
+  // 展示分類內容
+  function showContent(category) {
+    const listContainer = overlay.querySelector('.vertical-list-container');
+    const previewImg = overlay.querySelector('#vertical-preview');
 
     const titleMap = {
       "layout": {
@@ -285,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // 優化點擊事件處理，統一處理所有項目，無論是否有 slug
       li.addEventListener('click', () => {
         if (item.slug) {
-          showItemDetail(category, item.slug);
+          navigateToPage(category, item.slug);
         } else {
           // 為無 slug 的項目提供視覺反饋
           document.querySelectorAll('.vertical-item').forEach(el => {
@@ -310,10 +401,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     listContainer.appendChild(ul);
 
-    // 確保 overlay-content 顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
-
     // 設置初始預覽圖片
     if (items.length > 0 && items[0].images && items[0].images.length > 0) {
       previewImg.src = 'images/' + items[0].images[0];
@@ -322,54 +409,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     history.pushState(null, null, window.location.pathname + `#${category}`);
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
-    
-    // 強制在下一幀重新計算布局
-    requestAnimationFrame(() => {
-      window.dispatchEvent(new Event('resize'));
-    });
-  }
-  
-  // 新增：重置 overlay 狀態的輔助函數
-  function resetOverlayState() {
-    // 重置 overlay 布局結構
-    overlay.style.display = 'flex';
-    overlay.style.flexDirection = 'row';
-    
-    // 獲取並重置容器樣式
-    const listContainer = overlay.querySelector('.vertical-list-container');
-    const imageContainer = overlay.querySelector('.vertical-image-container');
-    
-    if (listContainer) {
-      listContainer.style.width = '66.667%';
-      listContainer.style.height = '100%';
-      listContainer.style.overflowY = 'auto';
-    }
-    
-    if (imageContainer) {
-      imageContainer.style.display = 'block';
-      imageContainer.style.width = '33.333%';
-      imageContainer.style.height = '100%';
-    }
-    
-    // 重置預覽圖樣式
-    const previewImg = overlay.querySelector('#vertical-preview');
-    if (previewImg) {
-      previewImg.style.display = 'block';
-      previewImg.style.opacity = '1';
-    }
   }
   
   // 實現作品詳情頁功能
   function showItemDetail(category, slug) {
-    // 先重置 overlay 結構，確保一致的布局
-    resetOverlayState();
-    
-    // 確保overlay顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
-    
     // 尋找指定slug的作品項目
     const items = assetsData[category];
     if (!items) {
@@ -383,9 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // 清空現有內容
     const listContainer = overlay.querySelector('.vertical-list-container');
-    listContainer.innerHTML = "";
     
     // 創建返回按鈕
     const backButton = document.createElement('div');
@@ -399,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     backButton.textContent = `返回${categoryTitle[category] || category}`;
     backButton.addEventListener('click', () => {
-      showContent(category);
+      navigateToPage(category);
     });
     
     // 創建作品詳情內容
@@ -462,34 +503,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 更新URL
     history.pushState(null, null, window.location.pathname + `#${category}/${slug}`);
-    
-    // 更新頁面顯示狀態
-    document.querySelectorAll('.header-nav a').forEach(navLink => {
-      if (navLink.getAttribute('data-target') === category) {
-        navLink.classList.add('active');
-      } else {
-        navLink.classList.remove('active');
-      }
-    });
-    
-    // 更新頭部顯示
-    const headerHome = document.querySelector('.header-home');
-    const headerBack = document.querySelector('.header-back');
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
   }
   
   // 顯示「關於我」頁面
   function showAboutPage() {
-    const overlay = document.getElementById('overlay-content');
-    
-    // 確保overlay顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
-    
-    // 清空現有內容
     const listContainer = overlay.querySelector('.vertical-list-container');
-    listContainer.innerHTML = "";
     
     // 創建「關於我」內容 - 使用兩欄布局
     const aboutContent = document.createElement('div');
@@ -565,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <p>我喜歡與人們產生連結，不管是形而上形而下。於我而言平面設計只是傳遞訊息的一種方式，嘗試著用不同的方法與人們互動、挑戰既有的框架。</p>
     `;
     
-    // 添加技能區塊 - 修正這裡，正確調用 updateSkillsSection() 函數
+    // 添加技能區塊
     const profileSkills = updateSkillsSection();
     
     // 將右側欄的所有元素添加到欄位中
@@ -581,38 +599,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 將關於我頁面添加到容器中
     listContainer.appendChild(aboutContent);
     
-    // 修改：設置右側預覽圖 - 記錄狀態而非直接隱藏
-    const previewImg = document.getElementById('vertical-preview');
-    const imageContainer = overlay.querySelector('.vertical-image-container');
-    
-    // 暫存預覽圖容器的原始狀態，而非直接修改 display 屬性
-    if (imageContainer) {
-      imageContainer.dataset.originalDisplay = imageContainer.style.display;
-      imageContainer.style.display = 'none';
-    }
-    
-    if (previewImg) {
-      previewImg.dataset.originalDisplay = previewImg.style.display;
-      previewImg.style.display = 'none';
-    }
-    
-    // 更新URL
-    history.pushState(null, null, window.location.pathname + `#about`);
-    
-    // 更新頁面顯示狀態
-    document.querySelectorAll('.header-nav a').forEach(navLink => {
-      if (navLink.getAttribute('data-target') === 'about') {
-        navLink.classList.add('active');
-      } else {
-        navLink.classList.remove('active');
+    // 強制應用 About 頁面的布局樣式
+    requestAnimationFrame(() => {
+      const aboutContentElement = document.querySelector('.about-content');
+      if (aboutContentElement) {
+        aboutContentElement.style.display = 'flex';
+        aboutContentElement.style.width = '100%';
       }
     });
     
-    // 更新頭部顯示
-    const headerHome = document.querySelector('.header-home');
-    const headerBack = document.querySelector('.header-back');
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
+    // 更新URL
+    history.pushState(null, null, window.location.pathname + `#about`);
     
     // 立即顯示技能進度條動畫
     setTimeout(() => {
@@ -738,16 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 顯示訊息表單
   function showMessageForm() {
-    // 首先重置 overlay 狀態，確保 DOM 結構一致
-    resetOverlayState();
-    
-    // 確保overlay顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
-    
-    // 清空現有內容
     const listContainer = overlay.querySelector('.vertical-list-container');
-    listContainer.innerHTML = "";
     
     // 創建訊息表單內容
     const messageContent = document.createElement('div');
@@ -824,12 +812,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 更新URL
     history.pushState(null, null, window.location.pathname + `#message`);
-    
-    // 更新頭部顯示
-    const headerHome = document.querySelector('.header-home');
-    const headerBack = document.querySelector('.header-back');
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
   }
   
   // 顯示表單提交成功訊息
@@ -874,22 +856,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.header-nav a').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
-      document.querySelectorAll('.header-nav a').forEach(navLink => navLink.classList.remove('active'));
-      this.classList.add('active');
-      
       const target = this.getAttribute('data-target');
-      if (target === 'about') {
-        showAboutPage();
-      } else {
-        showContent(target);
-      }
+      navigateToPage(target);
     });
   });
   
   // 監聽「訊息」連結點擊
   document.querySelector('.header-right a').addEventListener('click', function(event) {
     event.preventDefault();
-    showMessageForm();
+    navigateToPage('message');
   });
 
   // 處理瀏覽器返回/前進
