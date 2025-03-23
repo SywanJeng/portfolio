@@ -566,7 +566,7 @@ body.overlay-active {
 }
 /* 左側經歷欄位 - 設置為與其他頁面一致的寬度比例 */
 .about-experience-column {
-  width: 33.333%; /* 左側佔 1/3 寬度 */
+  width: 66.667%; /* 左側佔 2/3 寬度 */
   flex: 0 0 auto; /* 防止 flex 自動調整 */
   padding-right: 2rem;
   border-right: 1px solid #e0e0e0;
@@ -651,7 +651,7 @@ body.overlay-active {
 
 /* 右側個人資訊欄位 - 設置為與其他頁面一致的寬度比例 */
 .about-profile-column {
-  width: 66.667%; /* 右側佔 2/3 寬度 */
+  width: 33.333%; /* 右側佔 1/3 寬度 */
   flex: 0 0 auto; /* 防止 flex 自動調整 */
   padding-left: 2rem;
   display: flex;
