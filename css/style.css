@@ -553,67 +553,173 @@ body.overlay-active {
 }
 
 /* --------------------
-   9. 關於我頁面樣式
+   9. 關於我頁面樣式 (更新版)
 -------------------- */
 .about-content {
-  max-width: 90%;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
   animation: fadeIn 0.5s ease-out;
+  overflow-y: auto;
 }
 
-.about-title {
-  font-size: 3rem;
+/* 左側經歷欄位 */
+.about-experience-column {
+  flex: 1;
+  padding-right: 2rem;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  max-height: calc(100vh - var(--header-height) - 4rem);
+}
+
+.experience-title {
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
   color: #000;
 }
 
-.about-intro {
-  margin-bottom: 3rem;
-}
-
-.intro-text {
+.experience-title .zh-title {
+  margin-left: 0.5rem;
   font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
-  color: #333;
+  opacity: 0.7;
 }
 
-.about-intro p:not(.intro-text) {
+.experience-item {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.experience-item-title h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #000;
+}
+
+.experience-item-title h4 {
   font-size: 1.1rem;
-  line-height: 1.6;
+  font-weight: 400;
   color: #555;
 }
 
-.about-skills,
-.about-contact {
-  margin-bottom: 3rem;
+.experience-period {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #777;
+  white-space: nowrap;
 }
 
-.about-skills h2,
-.about-contact h2 {
+.experience-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.experience-description ul {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+}
+
+.experience-description li {
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.experience-description li:before {
+  content: "▹";
+  position: absolute;
+  left: -1.2rem;
+  color: #777;
+}
+
+/* 右側個人資訊欄位 */
+.about-profile-column {
+  flex: 1;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - var(--header-height) - 4rem);
+}
+
+.profile-photo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-photo img {
+  width: 80%;
+  max-width: 300px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.profile-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.profile-intro {
+  margin-bottom: 2rem;
+}
+
+.profile-intro p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.profile-skills h3 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
   color: #333;
 }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+.profile-skills ul {
+  list-style: none;
+  padding: 0;
 }
 
 .skill-item {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
 .skill-name {
-  display: block;
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
   color: #333;
+}
+
+.skill-percentage {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #777;
 }
 
 .skill-bar {
@@ -627,37 +733,51 @@ body.overlay-active {
   height: 100%;
   background-color: #000;
   border-radius: 3px;
+  width: 0; /* 初始寬度為0，JS會動態調整 */
   transition: width 1s ease-in-out;
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+/* 響應式調整 */
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column;
+  }
+  
+  .about-experience-column {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding-right: 0;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    max-height: none;
+  }
+  
+  .about-profile-column {
+    padding-left: 0;
+    max-height: none;
+  }
+  
+  .profile-photo img {
+    width: 50%;
+  }
 }
 
-.contact-item {
-  margin-bottom: 1rem;
-}
-
-.contact-label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.3rem;
-  color: #555;
-}
-
-.contact-value {
-  font-size: 1.1rem;
-  color: #000;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contact-value:hover {
-  color: #555;
-  text-decoration: underline;
+@media (max-width: 576px) {
+  .about-content {
+    padding: 1rem;
+  }
+  
+  .experience-header {
+    flex-direction: column;
+  }
+  
+  .experience-period {
+    margin-top: 0.5rem;
+  }
+  
+  .profile-photo img {
+    width: 80%;
+  }
 }
 
 /* --------------------
