@@ -497,86 +497,8 @@ function showContent(category) {
       <p>我喜歡與人們產生連結，不管是形而上形而下。於我而言平面設計只是傳遞訊息的一種方式，嘗試著用不同的方法與人們互動、挑戰既有的框架。</p>
     `;
     
-    // 更新後的技能展示區域代碼
-function updateSkillsSection() {
-  // 創建技能區域標題
-  const skillsTitle = document.createElement('h3');
-  skillsTitle.classList.add('skills-title');
-  skillsTitle.innerHTML = 'Skills <span class="zh-title">技能</span>';
-  
-  const skillsList = document.createElement('div');
-  skillsList.classList.add('skills-list');
-  
-  // 軟體技能列表
-  const softwareSkills = [
-    { name: "Adobe Illustrator", level: 90 },
-    { name: "Adobe Photoshop", level: 90 },
-    { name: "Adobe InDesign", level: 50 },
-    { name: "Figma", level: 50 },
-    { name: "Procreate", level: 80 },
-    { name: "Adobe After Effects", level: 70 },
-    { name: "Adobe Premium", level: 50 },
-    { name: "Capcut", level: 70 }
-  ];
-  
-  // 專業領域技能列表
-  const professionalSkills = [
-    { name: "Graphic Design", level: 90 },
-    { name: "Copywriting", level: 90 },
-    { name: "Photography", level: 70 }
-  ];
-  
-  // 創建軟體技能區域
-  const softwareSkillsContainer = createSkillsContainer(softwareSkills);
-  
-  // 創建專業領域技能區域
-  const professionalSkillsContainer = createSkillsContainer(professionalSkills);
-  
-  // 將所有元素添加到技能列表容器
-  skillsList.appendChild(softwareSkillsContainer);
-  skillsList.appendChild(professionalSkillsContainer);
-  
-  // 返回完整的技能區域元素
-  const skillsSection = document.createElement('div');
-  skillsSection.classList.add('profile-skills');
-  skillsSection.appendChild(skillsTitle);
-  skillsSection.appendChild(skillsList);
-  
-  return skillsSection;
-}
-
-// 創建技能容器的輔助函數
-function createSkillsContainer(skills) {
-  const container = document.createElement('div');
-  container.classList.add('skills-group');
-  
-  skills.forEach(skill => {
-    const skillItem = document.createElement('div');
-    skillItem.classList.add('skill-item');
-    
-    // 技能名稱元素
-    const skillName = document.createElement('div');
-    skillName.classList.add('skill-name');
-    skillName.textContent = skill.name;
-    
-    // 技能進度條
-    const skillBar = document.createElement('div');
-    skillBar.classList.add('skill-bar');
-    
-    // 技能等級指示器
-    const skillLevel = document.createElement('div');
-    skillLevel.classList.add('skill-level');
-    skillLevel.style.width = `${skill.level}%`;
-    
-    // 組裝技能項目
-    skillBar.appendChild(skillLevel);
-    skillItem.appendChild(skillName);
-    skillItem.appendChild(skillBar);
-    container.appendChild(skillItem);
-  });
-  
-  return container;
-}
+    // 添加技能區塊 - 修正這裡，正確調用 updateSkillsSection() 函數
+    const profileSkills = updateSkillsSection();
     
     // 將右側欄的所有元素添加到欄位中
     profileColumn.appendChild(profilePhoto);
@@ -652,6 +574,87 @@ function createSkillsContainer(skills) {
     item.appendChild(itemDescription);
     
     return item;
+  }
+
+  // 更新後的技能展示區域函數
+  function updateSkillsSection() {
+    // 創建技能區域標題
+    const skillsTitle = document.createElement('h3');
+    skillsTitle.classList.add('skills-title');
+    skillsTitle.innerHTML = 'Skills <span class="zh-title">技能</span>';
+    
+    const skillsList = document.createElement('div');
+    skillsList.classList.add('skills-list');
+    
+    // 軟體技能列表
+    const softwareSkills = [
+      { name: "Adobe Illustrator", level: 90 },
+      { name: "Adobe Photoshop", level: 90 },
+      { name: "Adobe InDesign", level: 50 },
+      { name: "Figma", level: 50 },
+      { name: "Procreate", level: 80 },
+      { name: "Adobe After Effects", level: 70 },
+      { name: "Adobe Premium", level: 50 },
+      { name: "Capcut", level: 70 }
+    ];
+    
+    // 專業領域技能列表
+    const professionalSkills = [
+      { name: "Graphic Design", level: 90 },
+      { name: "Copywriting", level: 90 },
+      { name: "Photography", level: 70 }
+    ];
+    
+    // 創建軟體技能區域
+    const softwareSkillsContainer = createSkillsContainer(softwareSkills);
+    
+    // 創建專業領域技能區域
+    const professionalSkillsContainer = createSkillsContainer(professionalSkills);
+    
+    // 將所有元素添加到技能列表容器
+    skillsList.appendChild(softwareSkillsContainer);
+    skillsList.appendChild(professionalSkillsContainer);
+    
+    // 返回完整的技能區域元素
+    const skillsSection = document.createElement('div');
+    skillsSection.classList.add('profile-skills');
+    skillsSection.appendChild(skillsTitle);
+    skillsSection.appendChild(skillsList);
+    
+    return skillsSection;
+  }
+
+  // 創建技能容器的輔助函數
+  function createSkillsContainer(skills) {
+    const container = document.createElement('div');
+    container.classList.add('skills-group');
+    
+    skills.forEach(skill => {
+      const skillItem = document.createElement('div');
+      skillItem.classList.add('skill-item');
+      
+      // 技能名稱元素
+      const skillName = document.createElement('div');
+      skillName.classList.add('skill-name');
+      skillName.textContent = skill.name;
+      
+      // 技能進度條
+      const skillBar = document.createElement('div');
+      skillBar.classList.add('skill-bar');
+      
+      // 技能等級指示器
+      const skillLevel = document.createElement('div');
+      skillLevel.classList.add('skill-level');
+      skillLevel.style.width = `${skill.level}%`;
+      
+      // 組裝技能項目
+      skillBar.appendChild(skillLevel);
+      skillItem.appendChild(skillName);
+      skillItem.appendChild(skillBar);
+      container.appendChild(skillItem);
+    });
+    
+    return container;
   }
 
   // 顯示訊息表單
