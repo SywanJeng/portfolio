@@ -157,146 +157,214 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-// 展示分類內容 - 修改版本
-function showContent(category) {
-  const listContainer = overlay.querySelector('.vertical-list-container');
-  const previewImg = overlay.querySelector('#vertical-preview');
-
-  // 確保預覽圖片元素可見（修復 AboutMe 頁面切換問題）
-  previewImg.style.display = 'block';
-  previewImg.style.opacity = 1;
-
-  // 清空現有內容
-  listContainer.innerHTML = "";
-
-  const titleMap = {
-    "layout": {
-      zh: "版面設計",
-      en: "Layout Design"
-    },
-    "exhibition": {
-      zh: "展覽設計",
-      en: "Exhibition Design"
-    },
-    "commercial": {
-      zh: "商業視覺設計",
-      en: "Commercial Visual Design"
-    },
-    "visual": {
-      zh: "商品視覺設計",
-      en: "Product Marketing Visuals"
-    },
-    "about": {
-      zh: "關於我",
-      en: "About Me"
+  // 展示分類內容 - 優化版本
+  function showContent(category) {
+    // 先重置 overlay 結構，確保跨頁面轉換的 DOM 一致性
+    resetOverlayState();
+    
+    const listContainer = overlay.querySelector('.vertical-list-container');
+    const previewImg = overlay.querySelector('#vertical-preview');
+    const imageContainer = overlay.querySelector('.vertical-image-container');
+    
+    // 強制確保右側預覽容器的一致性
+    if (imageContainer) {
+      imageContainer.style.display = 'block';
+      imageContainer.style.width = '33.333%';
+      imageContainer.style.height = '100%';
+      // 強制瀏覽器重新計算樣式
+      void imageContainer.offsetWidth;
     }
-  };
-
-  // 創建分類標題容器
-  const categoryTitleContainer = document.createElement('div');
-  categoryTitleContainer.classList.add('list-category-title');
-  
-  // 創建中文標題
-  const categoryTitleZh = document.createElement('span');
-  categoryTitleZh.classList.add('category-title-zh');
-  categoryTitleZh.textContent = titleMap[category]?.zh || "未命名";
-  
-  // 創建英文標題
-  const categoryTitleEn = document.createElement('span');
-  categoryTitleEn.classList.add('category-title-en');
-  categoryTitleEn.textContent = titleMap[category]?.en || "Untitled";
-  
-  // 組合標題
-  categoryTitleContainer.appendChild(categoryTitleZh);
-  categoryTitleContainer.appendChild(categoryTitleEn);
-  listContainer.appendChild(categoryTitleContainer);
-
-  const ul = document.createElement('ul');
-  ul.classList.add('vertical-list');
-
-  const items = assetsData[category];
-  if (!items) {
-    console.warn(`找不到分類: ${category}`);
-    return;
-  }
-
-  items.forEach((item, index) => {
-    const li = document.createElement('li');
-    li.classList.add('vertical-item');
-    li.style.animationDelay = `${index * 0.1}s`;
-    li.style.animation = `slideInRight 0.5s ease forwards`;
-    li.dataset.images = JSON.stringify(item.images);
     
-    // 建立中文標題元素
-    const titleZhElement = document.createElement('div');
-    titleZhElement.classList.add('item-title-zh');
-    titleZhElement.textContent = item.title.zh || "";
-    
-    // 建立英文標題元素
-    const titleEnElement = document.createElement('div');
-    titleEnElement.classList.add('item-title-en');
-    titleEnElement.textContent = item.title.en || "";
-    
-    // 內容容器（用於hover效果）
-    const contentContainer = document.createElement('div');
-    contentContainer.classList.add('item-content');
-    
-    // 建立摘要元素
-    const summaryElement = document.createElement('div');
-    summaryElement.classList.add('item-summary');
-    summaryElement.textContent = item.summary || '';
-    
-    // 組合內容元素
-    contentContainer.appendChild(summaryElement);
+    // 確保預覽圖片可見
+    if (previewImg) {
+      previewImg.style.display = 'block';
+      previewImg.style.opacity = '1';
+    }
 
-    // 將所有元素加入列表項
-    li.appendChild(titleZhElement);
-    li.appendChild(titleEnElement);
-    li.appendChild(contentContainer);
+    // 清空現有內容
+    listContainer.innerHTML = "";
 
-    // 添加滑鼠懸停事件，更新右側預覽圖片
-    li.addEventListener('mouseenter', () => {
-      const images = JSON.parse(li.dataset.images);
-      if (images && images.length > 0) {
-        // 為預覽圖片添加淡入效果
-        previewImg.style.opacity = 0;
-        setTimeout(() => {
-          previewImg.src = 'images/' + images[0];
-          previewImg.style.opacity = 1;
-        }, 200);
+    const titleMap = {
+      "layout": {
+        zh: "版面設計",
+        en: "Layout Design"
+      },
+      "exhibition": {
+        zh: "展覽設計",
+        en: "Exhibition Design"
+      },
+      "commercial": {
+        zh: "商業視覺設計",
+        en: "Commercial Visual Design"
+      },
+      "visual": {
+        zh: "商品視覺設計",
+        en: "Product Marketing Visuals"
+      },
+      "about": {
+        zh: "關於我",
+        en: "About Me"
       }
+    };
+
+    // 創建分類標題容器
+    const categoryTitleContainer = document.createElement('div');
+    categoryTitleContainer.classList.add('list-category-title');
+    
+    // 創建中文標題
+    const categoryTitleZh = document.createElement('span');
+    categoryTitleZh.classList.add('category-title-zh');
+    categoryTitleZh.textContent = titleMap[category]?.zh || "未命名";
+    
+    // 創建英文標題
+    const categoryTitleEn = document.createElement('span');
+    categoryTitleEn.classList.add('category-title-en');
+    categoryTitleEn.textContent = titleMap[category]?.en || "Untitled";
+    
+    // 組合標題
+    categoryTitleContainer.appendChild(categoryTitleZh);
+    categoryTitleContainer.appendChild(categoryTitleEn);
+    listContainer.appendChild(categoryTitleContainer);
+
+    const ul = document.createElement('ul');
+    ul.classList.add('vertical-list');
+
+    const items = assetsData[category];
+    if (!items) {
+      console.warn(`找不到分類: ${category}`);
+      return;
+    }
+
+    items.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.classList.add('vertical-item');
+      li.style.animationDelay = `${index * 0.1}s`;
+      li.style.animation = `slideInRight 0.5s ease forwards`;
+      li.dataset.images = JSON.stringify(item.images);
+      
+      // 建立中文標題元素
+      const titleZhElement = document.createElement('div');
+      titleZhElement.classList.add('item-title-zh');
+      titleZhElement.textContent = item.title.zh || "";
+      
+      // 建立英文標題元素
+      const titleEnElement = document.createElement('div');
+      titleEnElement.classList.add('item-title-en');
+      titleEnElement.textContent = item.title.en || "";
+      
+      // 內容容器（用於hover效果）
+      const contentContainer = document.createElement('div');
+      contentContainer.classList.add('item-content');
+      
+      // 建立摘要元素
+      const summaryElement = document.createElement('div');
+      summaryElement.classList.add('item-summary');
+      summaryElement.textContent = item.summary || '';
+      
+      // 組合內容元素
+      contentContainer.appendChild(summaryElement);
+
+      // 將所有元素加入列表項
+      li.appendChild(titleZhElement);
+      li.appendChild(titleEnElement);
+      li.appendChild(contentContainer);
+
+      // 添加滑鼠懸停事件，更新右側預覽圖片
+      li.addEventListener('mouseenter', () => {
+        const images = JSON.parse(li.dataset.images);
+        if (images && images.length > 0) {
+          // 為預覽圖片添加淡入效果
+          previewImg.style.opacity = 0;
+          setTimeout(() => {
+            previewImg.src = 'images/' + images[0];
+            previewImg.style.opacity = 1;
+          }, 200);
+        }
+      });
+
+      // 優化點擊事件處理，統一處理所有項目，無論是否有 slug
+      li.addEventListener('click', () => {
+        if (item.slug) {
+          showItemDetail(category, item.slug);
+        } else {
+          // 為無 slug 的項目提供視覺反饋
+          document.querySelectorAll('.vertical-item').forEach(el => {
+            el.classList.remove('active');
+          });
+          li.classList.add('active');
+          
+          // 確保預覽圖顯示
+          const images = JSON.parse(li.dataset.images);
+          if (images && images.length > 0) {
+            previewImg.style.opacity = 0;
+            setTimeout(() => {
+              previewImg.src = 'images/' + images[0];
+              previewImg.style.opacity = 1;
+            }, 200);
+          }
+        }
+      });
+
+      ul.appendChild(li);
     });
 
-    li.addEventListener('click', () => {
-      if (item.slug) {
-        showItemDetail(category, item.slug);
-      }
+    listContainer.appendChild(ul);
+
+    // 確保 overlay-content 顯示
+    overlay.classList.add('active');
+    document.body.classList.add('overlay-active');
+
+    // 設置初始預覽圖片
+    if (items.length > 0 && items[0].images && items[0].images.length > 0) {
+      previewImg.src = 'images/' + items[0].images[0];
+    } else {
+      previewImg.src = 'images/default.jpg';
+    }
+
+    history.pushState(null, null, window.location.pathname + `#${category}`);
+    headerHome.style.display = 'none';
+    headerBack.style.display = 'inline-block';
+    
+    // 強制在下一幀重新計算布局
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event('resize'));
     });
-
-    ul.appendChild(li);
-  });
-
-  listContainer.appendChild(ul);
-
-  // 確保 overlay-content 顯示
-  overlay.classList.add('active');
-  document.body.classList.add('overlay-active');
-
-  // 設置初始預覽圖片
-  if (items.length > 0 && items[0].images && items[0].images.length > 0) {
-    previewImg.src = 'images/' + items[0].images[0];
-  } else {
-    previewImg.src = 'images/default.jpg';
   }
-
-  history.pushState(null, null, window.location.pathname + `#${category}`);
-  headerHome.style.display = 'none';
-  headerBack.style.display = 'inline-block';
-}
+  
+  // 新增：重置 overlay 狀態的輔助函數
+  function resetOverlayState() {
+    // 重置 overlay 布局結構
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'row';
+    
+    // 獲取並重置容器樣式
+    const listContainer = overlay.querySelector('.vertical-list-container');
+    const imageContainer = overlay.querySelector('.vertical-image-container');
+    
+    if (listContainer) {
+      listContainer.style.width = '66.667%';
+      listContainer.style.height = '100%';
+      listContainer.style.overflowY = 'auto';
+    }
+    
+    if (imageContainer) {
+      imageContainer.style.display = 'block';
+      imageContainer.style.width = '33.333%';
+      imageContainer.style.height = '100%';
+    }
+    
+    // 重置預覽圖樣式
+    const previewImg = overlay.querySelector('#vertical-preview');
+    if (previewImg) {
+      previewImg.style.display = 'block';
+      previewImg.style.opacity = '1';
+    }
+  }
   
   // 實現作品詳情頁功能
   function showItemDetail(category, slug) {
-    const overlay = document.getElementById('overlay-content');
+    // 先重置 overlay 結構，確保一致的布局
+    resetOverlayState();
     
     // 確保overlay顯示
     overlay.classList.add('active');
@@ -513,9 +581,20 @@ function showContent(category) {
     // 將關於我頁面添加到容器中
     listContainer.appendChild(aboutContent);
     
-    // 設置右側預覽圖
+    // 修改：設置右側預覽圖 - 記錄狀態而非直接隱藏
     const previewImg = document.getElementById('vertical-preview');
-    previewImg.style.display = 'none'; // 因使用新布局，隱藏右側預覽圖
+    const imageContainer = overlay.querySelector('.vertical-image-container');
+    
+    // 暫存預覽圖容器的原始狀態，而非直接修改 display 屬性
+    if (imageContainer) {
+      imageContainer.dataset.originalDisplay = imageContainer.style.display;
+      imageContainer.style.display = 'none';
+    }
+    
+    if (previewImg) {
+      previewImg.dataset.originalDisplay = previewImg.style.display;
+      previewImg.style.display = 'none';
+    }
     
     // 更新URL
     history.pushState(null, null, window.location.pathname + `#about`);
@@ -659,7 +738,8 @@ function showContent(category) {
 
   // 顯示訊息表單
   function showMessageForm() {
-    const overlay = document.getElementById('overlay-content');
+    // 首先重置 overlay 狀態，確保 DOM 結構一致
+    resetOverlayState();
     
     // 確保overlay顯示
     overlay.classList.add('active');
