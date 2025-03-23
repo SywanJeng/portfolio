@@ -157,138 +157,142 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 展示分類內容
-  function showContent(category) {
-    const listContainer = overlay.querySelector('.vertical-list-container');
-    const previewImg = overlay.querySelector('#vertical-preview');
+// 展示分類內容 - 修改版本
+function showContent(category) {
+  const listContainer = overlay.querySelector('.vertical-list-container');
+  const previewImg = overlay.querySelector('#vertical-preview');
 
-    // 清空現有內容
-    listContainer.innerHTML = "";
+  // 確保預覽圖片元素可見（修復 AboutMe 頁面切換問題）
+  previewImg.style.display = 'block';
+  previewImg.style.opacity = 1;
 
-    const titleMap = {
-      "layout": {
-        zh: "版面設計",
-        en: "Layout Design"
-      },
-      "exhibition": {
-        zh: "展覽設計",
-        en: "Exhibition Design"
-      },
-      "commercial": {
-        zh: "商業視覺設計",
-        en: "Commercial Visual Design"
-      },
-      "visual": {
-        zh: "商品視覺設計",
-        en: "Product Marketing Visuals"
-      },
-      "about": {
-        zh: "關於我",
-        en: "About Me"
-      }
-    };
+  // 清空現有內容
+  listContainer.innerHTML = "";
 
-    // 創建分類標題容器
-    const categoryTitleContainer = document.createElement('div');
-    categoryTitleContainer.classList.add('list-category-title');
-    
-    // 創建中文標題
-    const categoryTitleZh = document.createElement('span');
-    categoryTitleZh.classList.add('category-title-zh');
-    categoryTitleZh.textContent = titleMap[category]?.zh || "未命名";
-    
-    // 創建英文標題
-    const categoryTitleEn = document.createElement('span');
-    categoryTitleEn.classList.add('category-title-en');
-    categoryTitleEn.textContent = titleMap[category]?.en || "Untitled";
-    
-    // 組合標題
-    categoryTitleContainer.appendChild(categoryTitleZh);
-    categoryTitleContainer.appendChild(categoryTitleEn);
-    listContainer.appendChild(categoryTitleContainer);
-
-    const ul = document.createElement('ul');
-    ul.classList.add('vertical-list');
-
-    const items = assetsData[category];
-    if (!items) {
-      console.warn(`找不到分類: ${category}`);
-      return;
+  const titleMap = {
+    "layout": {
+      zh: "版面設計",
+      en: "Layout Design"
+    },
+    "exhibition": {
+      zh: "展覽設計",
+      en: "Exhibition Design"
+    },
+    "commercial": {
+      zh: "商業視覺設計",
+      en: "Commercial Visual Design"
+    },
+    "visual": {
+      zh: "商品視覺設計",
+      en: "Product Marketing Visuals"
+    },
+    "about": {
+      zh: "關於我",
+      en: "About Me"
     }
+  };
 
-    items.forEach((item, index) => {
-      const li = document.createElement('li');
-      li.classList.add('vertical-item');
-      li.style.animationDelay = `${index * 0.1}s`;
-      li.style.animation = `slideInRight 0.5s ease forwards`;
-      li.dataset.images = JSON.stringify(item.images);
-      
-      // 建立中文標題元素
-      const titleZhElement = document.createElement('div');
-      titleZhElement.classList.add('item-title-zh');
-      titleZhElement.textContent = item.title.zh || "";
-      
-      // 建立英文標題元素
-      const titleEnElement = document.createElement('div');
-      titleEnElement.classList.add('item-title-en');
-      titleEnElement.textContent = item.title.en || "";
-      
-      // 內容容器（用於hover效果）
-      const contentContainer = document.createElement('div');
-      contentContainer.classList.add('item-content');
-      
-      // 建立摘要元素
-      const summaryElement = document.createElement('div');
-      summaryElement.classList.add('item-summary');
-      summaryElement.textContent = item.summary || '';
-      
-      // 組合內容元素
-      contentContainer.appendChild(summaryElement);
+  // 創建分類標題容器
+  const categoryTitleContainer = document.createElement('div');
+  categoryTitleContainer.classList.add('list-category-title');
+  
+  // 創建中文標題
+  const categoryTitleZh = document.createElement('span');
+  categoryTitleZh.classList.add('category-title-zh');
+  categoryTitleZh.textContent = titleMap[category]?.zh || "未命名";
+  
+  // 創建英文標題
+  const categoryTitleEn = document.createElement('span');
+  categoryTitleEn.classList.add('category-title-en');
+  categoryTitleEn.textContent = titleMap[category]?.en || "Untitled";
+  
+  // 組合標題
+  categoryTitleContainer.appendChild(categoryTitleZh);
+  categoryTitleContainer.appendChild(categoryTitleEn);
+  listContainer.appendChild(categoryTitleContainer);
 
-      // 將所有元素加入列表項
-      li.appendChild(titleZhElement);
-      li.appendChild(titleEnElement);
-      li.appendChild(contentContainer);
+  const ul = document.createElement('ul');
+  ul.classList.add('vertical-list');
 
-      // 添加滑鼠懸停事件，更新右側預覽圖片
-      li.addEventListener('mouseenter', () => {
-        const images = JSON.parse(li.dataset.images);
-        if (images && images.length > 0) {
-          // 為預覽圖片添加淡入效果
-          previewImg.style.opacity = 0;
-          setTimeout(() => {
-            previewImg.src = 'images/' + images[0];
-            previewImg.style.opacity = 1;
-          }, 200);
-        }
-      });
+  const items = assetsData[category];
+  if (!items) {
+    console.warn(`找不到分類: ${category}`);
+    return;
+  }
 
-      li.addEventListener('click', () => {
-        if (item.slug) {
-          showItemDetail(category, item.slug);
-        }
-      });
+  items.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.classList.add('vertical-item');
+    li.style.animationDelay = `${index * 0.1}s`;
+    li.style.animation = `slideInRight 0.5s ease forwards`;
+    li.dataset.images = JSON.stringify(item.images);
+    
+    // 建立中文標題元素
+    const titleZhElement = document.createElement('div');
+    titleZhElement.classList.add('item-title-zh');
+    titleZhElement.textContent = item.title.zh || "";
+    
+    // 建立英文標題元素
+    const titleEnElement = document.createElement('div');
+    titleEnElement.classList.add('item-title-en');
+    titleEnElement.textContent = item.title.en || "";
+    
+    // 內容容器（用於hover效果）
+    const contentContainer = document.createElement('div');
+    contentContainer.classList.add('item-content');
+    
+    // 建立摘要元素
+    const summaryElement = document.createElement('div');
+    summaryElement.classList.add('item-summary');
+    summaryElement.textContent = item.summary || '';
+    
+    // 組合內容元素
+    contentContainer.appendChild(summaryElement);
 
-      ul.appendChild(li);
+    // 將所有元素加入列表項
+    li.appendChild(titleZhElement);
+    li.appendChild(titleEnElement);
+    li.appendChild(contentContainer);
+
+    // 添加滑鼠懸停事件，更新右側預覽圖片
+    li.addEventListener('mouseenter', () => {
+      const images = JSON.parse(li.dataset.images);
+      if (images && images.length > 0) {
+        // 為預覽圖片添加淡入效果
+        previewImg.style.opacity = 0;
+        setTimeout(() => {
+          previewImg.src = 'images/' + images[0];
+          previewImg.style.opacity = 1;
+        }, 200);
+      }
     });
 
-    listContainer.appendChild(ul);
+    li.addEventListener('click', () => {
+      if (item.slug) {
+        showItemDetail(category, item.slug);
+      }
+    });
 
-    // 確保 overlay-content 顯示
-    overlay.classList.add('active');
-    document.body.classList.add('overlay-active');
+    ul.appendChild(li);
+  });
 
-    // 設置初始預覽圖片
-    if (items.length > 0 && items[0].images && items[0].images.length > 0) {
-      previewImg.src = 'images/' + items[0].images[0];
-    } else {
-      previewImg.src = 'images/default.jpg';
-    }
+  listContainer.appendChild(ul);
 
-    history.pushState(null, null, window.location.pathname + `#${category}`);
-    headerHome.style.display = 'none';
-    headerBack.style.display = 'inline-block';
+  // 確保 overlay-content 顯示
+  overlay.classList.add('active');
+  document.body.classList.add('overlay-active');
+
+  // 設置初始預覽圖片
+  if (items.length > 0 && items[0].images && items[0].images.length > 0) {
+    previewImg.src = 'images/' + items[0].images[0];
+  } else {
+    previewImg.src = 'images/default.jpg';
   }
+
+  history.pushState(null, null, window.location.pathname + `#${category}`);
+  headerHome.style.display = 'none';
+  headerBack.style.display = 'inline-block';
+}
   
   // 實現作品詳情頁功能
   function showItemDetail(category, slug) {
