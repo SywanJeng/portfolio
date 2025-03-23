@@ -739,6 +739,30 @@ body.overlay-active {
   transition: width 1s ease-in-out;
 }
 
+/* 隱藏 About Me 頁面滾動條 */
+.about-experience-column,
+.about-profile-column {
+  /* Firefox 滾動條隱藏 */
+  scrollbar-width: none;
+  /* IE/Edge 滾動條隱藏 */
+  -ms-overflow-style: none;
+}
+
+/* Webkit 瀏覽器滾動條隱藏 (Chrome, Safari, Opera) */
+.about-experience-column::-webkit-scrollbar,
+.about-profile-column::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+  display: none;
+}
+
+/* 確保滾動功能仍然可用 */
+.about-experience-column,
+.about-profile-column {
+  overflow-y: auto;
+}
+
 /* 響應式調整 */
 @media (max-width: 992px) {
   .about-content {
